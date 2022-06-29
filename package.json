@@ -1,19 +1,28 @@
 {
   "name": "type-signature-com",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Type signature game",
+  "author": "andys8",
+  "license": "ISC",
+  "homepage": "https://github.com/andys8/type-signature-com#readme",
+  "source": "src/index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "spago install",
+    "start": "concurrently -k npm:start:*",
+    "start:spago": "spago build --watch --clear-screen",
+    "start:parcel": "parcel serve -p 3000 --open",
+    "build": "spago bundle-module -y && mv index.js output/Main/index.js && parcel build",
+    "test": "spago test"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/andys8/type-signature-com.git"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/andys8/type-signature-com/issues"
-  },
-  "homepage": "https://github.com/andys8/type-signature-com#readme"
+  "devDependencies": {
+    "concurrently": "^7.2.2",
+    "esbuild": "^0.14.47",
+    "parcel": "^2.6.2",
+    "purescript": "^0.15.3",
+    "spago": "^0.20.9"
+  }
 }
