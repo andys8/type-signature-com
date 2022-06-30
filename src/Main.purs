@@ -6,8 +6,11 @@ import Data.Maybe (Maybe(..))
 import Effect (Effect)
 import Effect.Aff.Compat (EffectFn1, runEffectFn1)
 import Effect.Exception (throw)
-import React.Basic (JSX)
+import Foreign.Daisyui (button, footer, footerTitle, hero, heroContent, navbar, navbarCenter, navbarEnd, navbarStart)
+import Foreign.Object as O
+import React.Basic (JSX, element)
 import React.Basic.DOM as R
+import React.Basic.Events (handler_)
 import React.Basic.Hooks (Component, component)
 import Web.DOM.Element (Element)
 import Web.DOM.NonElementParentNode (getElementById)
@@ -29,6 +32,96 @@ main = do
       runEffectFn1 render (app {})
 
 mkApp :: Component {}
-mkApp = do
-  component "App" \_ -> React.do
-    pure $ R.text "Hi there"
+mkApp = component "App" \_ -> React.do
+  pure $ R.div
+    { _data: O.fromHomogeneous { theme: "dracula" }
+    , className: "flex flex-col h-screen justify-between"
+    , children:
+        [ nav
+        , startPage
+        , appFooter
+        ]
+    }
+
+nav :: JSX
+nav = element navbar
+  { className: "shadow-lg bg-neutral text-neutral-content"
+  , children:
+      [ element navbarStart
+          { className: "px-2 mx-2"
+          , children:
+              [ R.span
+                  { className: "text-lg font-bold"
+                  , children: [ R.text "type-signature.com" ]
+                  }
+              ]
+          }
+      , element navbarCenter { className: "px-2 mx-2", children: [] }
+      , element navbarEnd { className: "px-2 mx-2", children: [] }
+      ]
+  }
+
+startPage :: JSX
+startPage = element hero
+  { className: "h-80 bg-base-400"
+  , children:
+      [ element heroContent
+          { className: "text-center"
+          , children:
+              [ R.div
+                  { className: "max-w-md"
+                  , children:
+                      [ R.h1
+                          { className: "text-5xl font-bold"
+                          , children: [ R.text "type-signature" ]
+                          }
+                      , R.p
+                          { className: "py-6"
+                          , children:
+                              [ R.text "Who Wants to Be a Millionaire - but with types" ]
+                          }
+                      , element button
+                          { color: "default"
+                          , onClick: handler_ $ pure unit
+                          , children: [ R.text "Start" ]
+                          }
+                      ]
+                  }
+              ]
+          }
+      ]
+  }
+
+appFooter :: JSX
+appFooter = element footer
+  { center: false
+  , className: "p-10 bg-neutral text-neutral-content"
+  , children:
+      [ R.div_
+          [ element footerTitle { children: [ R.text "About" ] }
+          , R.a
+              { className: "link link-hover"
+              , href: "https://github.com/andys8/type-signature-com"
+              , children: [ R.text "Github" ]
+              }
+          , R.a
+              { className: "link link-hover"
+              , href: "https://twitter.com/_andys8"
+              , children: [ R.text "Twitter" ]
+              }
+          ]
+      , R.div_
+          [ element footerTitle { children: [ R.text "Learn Haskell" ] }
+          , R.a
+              { className: "link link-hover"
+              , href: "https://wiki.haskell.org/Type_signature"
+              , children: [ R.text "Haskell Wiki" ]
+              }
+          , R.a
+              { className: "link link-hover"
+              , href: "https://hoogle.haskell.org"
+              , children: [ R.text "Hoogle" ]
+              }
+          ]
+      ]
+  }

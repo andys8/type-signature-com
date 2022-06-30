@@ -6,6 +6,7 @@
   , "console"
   , "effect"
   , "exceptions"
+  , "foreign-object"
   , "maybe"
   , "prelude"
   , "react-basic"
