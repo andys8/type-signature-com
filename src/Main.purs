@@ -45,7 +45,7 @@ mkApp = component "App" \_ -> React.do
 
 nav :: JSX
 nav = element navbar
-  { className: "shadow-lg bg-neutral text-neutral-content"
+  { className: "shadow-md bg-neutral text-neutral-content"
   , children:
       [ element navbarStart
           { className: "px-2 mx-2"
@@ -56,8 +56,6 @@ nav = element navbar
                   }
               ]
           }
-      , element navbarCenter { className: "px-2 mx-2", children: [] }
-      , element navbarEnd { className: "px-2 mx-2", children: [] }
       ]
   }
 
