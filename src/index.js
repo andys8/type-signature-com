@@ -1,4 +1,5 @@
 import { main } from "../output/Main/index";
+import file from "url:../data/prelude.txt";
 
 if (module.hot) {
   module.hot.accept(function () {
@@ -6,5 +7,7 @@ if (module.hot) {
     main();
   });
 }
+
+console.log(file);
 
 main();
