@@ -1,5 +1,2 @@
-import haskellPreludeUrl from "url:../../data/haskell/prelude.txt";
-import haskellBaseUrl from "url:../../data/haskell/base.txt";
-
-export const haskellPreludeUrl = haskellPreludeUrl
-export const haskellBaseUrl = haskellBaseUrl
+export { default as haskellPreludeUrl } from "../../data/haskell/prelude.txt";
+export { default as haskellBaseUrl } from "../../data/haskell/base.txt";

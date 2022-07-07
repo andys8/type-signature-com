@@ -3,9 +3,12 @@
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]
 , dependencies =
   [ "aff"
+  , "affjax"
   , "affjax-web"
+  , "bifunctors"
   , "console"
   , "effect"
+  , "either"
   , "exceptions"
   , "foreign-object"
   , "maybe"
@@ -13,6 +16,7 @@
   , "react-basic"
   , "react-basic-dom"
   , "react-basic-hooks"
+  , "strings"
   , "web-dom"
   , "web-html"
   ]

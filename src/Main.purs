@@ -2,7 +2,7 @@ module Main where
 
 import Prelude
 
-import Data.Functions (loadFunctions)
+import Data.Functions (haskellBaseUrl, loadFunctions)
 import Data.Maybe (Maybe(..))
 import Effect (Effect)
 import Effect.Class.Console (log)
@@ -36,6 +36,7 @@ mkApp :: Component {}
 mkApp = component "App" \_ -> React.do
   functions <- useAff unit loadFunctions
   useEffect functions $ do
+    log $ show haskellBaseUrl
     log $ show functions
     pure mempty
   pure $ R.div
