@@ -1,0 +1,274 @@
+($!) :: () => a -> b -> a -> b
+($) :: () => a -> b -> a -> b
+($>) :: Functor f => f a -> b -> f b
+(&&) :: Bool -> Bool -> Bool
+(&) :: () => a -> a -> b -> b
+(*) :: Num a => a -> a -> a
+(**) :: Floating a => a -> a -> a
+(*>) :: Applicative f => f a -> f b -> f b
+(+) :: Num a => a -> a -> a
+(-) :: Num a => a -> a -> a
+(.) :: () => b -> c -> a -> b -> a -> c
+(/) :: Fractional a => a -> a -> a
+(/=) :: Eq a => a -> a -> Bool
+(:|) :: a -> [a] -> NonEmpty a
+(<$) :: Functor f => a -> f b -> f a
+(<$>) :: Functor f => a -> b -> f a -> f b
+(<) :: Ord a => a -> a -> Bool
+(<*) :: Applicative f => f a -> f b -> f a
+(<*>) :: Applicative f => f a -> b -> f a -> f b
+(<=) :: Ord a => a -> a -> Bool
+(<=<) :: Monad m => b -> m c -> a -> m b -> a -> m c
+(<>) :: Semigroup a => a -> a -> a
+(<|>) :: Alternative f => f a -> f a -> f a
+(=<<) :: Monad m => a -> m b -> m a -> m b
+(==) :: Eq a => a -> a -> Bool
+(>) :: Ord a => a -> a -> Bool
+(>=) :: Ord a => a -> a -> Bool
+(>=>) :: Monad m => a -> m b -> b -> m c -> a -> m c
+(>>) :: Monad m => m a -> m b -> m b
+(>>=) :: Monad m => m a -> a -> m b -> m b
+(^) :: (Num a, Integral b) => a -> b -> a
+(^^) :: (Fractional a, Integral b) => a -> b -> a
+(||) :: Bool -> Bool -> Bool
+EQ :: Ordering
+GT :: Ordering
+Just :: a -> Maybe a
+LT :: Ordering
+Left :: a -> Either a b
+Nothing :: Maybe a
+Right :: b -> Either a b
+abs :: Num a => a -> a
+acos :: Floating a => a -> a
+acosh :: Floating a => a -> a
+all :: Foldable t => a -> Bool -> t a -> Bool
+and :: Foldable t => t Bool -> Bool
+any :: Foldable t => a -> Bool -> t a -> Bool
+appendFile :: FilePath -> String -> IO ()
+asin :: Floating a => a -> a
+asinh :: Floating a => a -> a
+asum :: (Foldable t, Alternative f) => t f a -> f a
+atan :: Floating a => a -> a
+atan2 :: RealFloat a => a -> a -> a
+atanh :: Floating a => a -> a
+bool :: () => a -> a -> Bool -> a
+break :: () => a -> Bool -> [a] -> ([a], [a])
+catMaybes :: () => [Maybe a] -> [a]
+ceiling :: (RealFrac a, Integral b) => a -> b
+compare :: Ord a => a -> a -> Ordering
+comparing :: Ord a => b -> a -> b -> b -> Ordering
+concat :: Foldable t => t [a] -> [a]
+concatMap :: Foldable t => a -> [b] -> t a -> [b]
+const :: () => a -> b -> a
+cos :: Floating a => a -> a
+cosh :: Floating a => a -> a
+curry :: () => (a, b) -> c -> a -> b -> c
+decodeFloat :: RealFloat a => a -> (Integer, Int)
+div :: Integral a => a -> a -> a
+divMod :: Integral a => a -> a -> (a, a)
+drop :: () => Int -> [a] -> [a]
+dropWhile :: () => a -> Bool -> [a] -> [a]
+either :: () => a -> c -> b -> c -> Either a b -> c
+elem :: (Foldable t, Eq a) => a -> t a -> Bool
+empty :: Alternative f => f a
+encodeFloat :: RealFloat a => Integer -> Int -> a
+enumFrom :: Enum a => a -> [a]
+enumFromThen :: Enum a => a -> a -> [a]
+enumFromThenTo :: Enum a => a -> a -> a -> [a]
+enumFromTo :: Enum a => a -> a -> [a]
+error :: HasCallStack => [Char] -> a
+errorWithoutStackTrace :: () => [Char] -> a
+even :: Integral a => a -> Bool
+exp :: Floating a => a -> a
+exponent :: RealFloat a => a -> Int
+filter :: () => a -> Bool -> [a] -> [a]
+find :: Foldable t => a -> Bool -> t a -> Maybe a
+flip :: () => a -> b -> c -> b -> a -> c
+floatDigits :: RealFloat a => a -> Int
+floatRadix :: RealFloat a => a -> Integer
+floatRange :: RealFloat a => a -> (Int, Int)
+floor :: (RealFrac a, Integral b) => a -> b
+fmap :: Functor f => a -> b -> f a -> f b
+fold :: (Foldable t, Monoid m) => t m -> m
+foldM :: (Foldable t, Monad m) => b -> a -> m b -> b -> t a -> m b
+foldM_ :: (Foldable t, Monad m) => b -> a -> m b -> b -> t a -> m ()
+foldMap :: (Foldable t, Monoid m) => a -> m -> t a -> m
+foldl :: Foldable t => b -> a -> b -> b -> t a -> b
+foldl' :: Foldable t => b -> a -> b -> b -> t a -> b
+foldr :: Foldable t => a -> b -> b -> b -> t a -> b
+foldr' :: Foldable t => a -> b -> b -> b -> t a -> b
+forM :: (Traversable t, Monad m) => t a -> a -> m b -> m t b
+forM_ :: (Foldable t, Monad m) => t a -> a -> m b -> m ()
+forever :: Applicative f => f a -> f b
+fromEnum :: Enum a => a -> Int
+fromInteger :: Num a => Integer -> a
+fromIntegral :: (Integral a, Num b) => a -> b
+fromLeft :: () => a -> Either a b -> a
+fromMaybe :: () => a -> Maybe a -> a
+fromRational :: Fractional a => Rational -> a
+fromRight :: () => b -> Either a b -> b
+fromString :: IsString a => String -> a
+fst :: () => (a, b) -> a
+gcd :: Integral a => a -> a -> a
+getChar :: IO Char
+getContents :: IO String
+getLine :: IO String
+groupBy :: () => a -> a -> Bool -> [a] -> [[a]]
+guard :: Alternative f => Bool -> f ()
+head :: [a] -> Maybe a
+id :: () => a -> a
+init :: [a] -> Maybe [a]
+inits :: () => [a] -> [[a]]
+intercalate :: () => [a] -> [[a]] -> [a]
+intersperse :: () => a -> [a] -> [a]
+isDenormalized :: RealFloat a => a -> Bool
+isIEEE :: RealFloat a => a -> Bool
+isInfinite :: RealFloat a => a -> Bool
+isJust :: () => Maybe a -> Bool
+isLeft :: () => Either a b -> Bool
+isNaN :: RealFloat a => a -> Bool
+isNegativeZero :: RealFloat a => a -> Bool
+isNothing :: () => Maybe a -> Bool
+isRight :: () => Either a b -> Bool
+iterate :: () => a -> a -> a -> [a]
+join :: Monad m => m m a -> m a
+last :: [a] -> Maybe a
+lcm :: Integral a => a -> a -> a
+lefts :: () => [Either a b] -> [a]
+length :: Foldable t => t a -> Int
+liftA :: Applicative f => a -> b -> f a -> f b
+liftA2 :: Applicative f => a -> b -> c -> f a -> f b -> f c
+liftA3 :: Applicative f => a -> b -> c -> d -> f a -> f b -> f c -> f d
+liftA4 :: Applicative f => (a -> b -> c -> d -> e) -> f a -> f b -> f c -> f d -> f e
+liftA5 :: Applicative f => (a -> b -> c -> d -> e -> g) -> f a -> f b -> f c -> f d -> f e -> f g
+liftIO :: MonadIO m => IO a -> m a
+liftM :: Monad m => a1 -> r -> m a1 -> m r
+liftM2 :: Monad m => a1 -> a2 -> r -> m a1 -> m a2 -> m r
+liftM3 :: Monad m => a1 -> a2 -> a3 -> r -> m a1 -> m a2 -> m a3 -> m r
+liftM4 :: Monad m => a1 -> a2 -> a3 -> a4 -> r -> m a1 -> m a2 -> m a3 -> m a4 -> m r
+liftM5 :: Monad m => a1 -> a2 -> a3 -> a4 -> a5 -> r -> m a1 -> m a2 -> m a3 -> m a4 -> m a5 -> m r
+listToMaybe :: () => [a] -> Maybe a
+log :: Floating a => a -> a
+logBase :: Floating a => a -> a -> a
+lookup :: Eq a => a -> [(a, b)] -> Maybe b
+many :: Alternative f => f a -> f [a]
+mapM :: (Traversable t, Monad m) => a -> m b -> t a -> m t b
+mapM_ :: (Foldable t, Monad m) => a -> m b -> t a -> m ()
+mapMaybe :: () => a -> Maybe b -> [a] -> [b]
+mappend :: Monoid a => a -> a -> a
+max :: Ord a => a -> a -> a
+maxBound :: Bounded a => a
+maybe :: () => b -> a -> b -> Maybe a -> b
+maybeToList :: () => Maybe a -> [a]
+mconcat :: Monoid a => [a] -> a
+mempty :: Monoid a => a
+min :: Ord a => a -> a -> a
+minBound :: Bounded a => a
+mod :: Integral a => a -> a -> a
+mplus :: MonadPlus m => m a -> m a -> m a
+msum :: (Foldable t, MonadPlus m) => t m a -> m a
+mzero :: MonadPlus m => m a
+negate :: Num a => a -> a
+not :: Bool -> Bool
+notElem :: (Foldable t, Eq a) => a -> t a -> Bool
+null :: Foldable t => t a -> Bool
+odd :: Integral a => a -> Bool
+on :: () => b -> b -> c -> a -> b -> a -> a -> c
+or :: Foldable t => t Bool -> Bool
+otherwise :: Bool
+partition :: () => a -> Bool -> [a] -> ([a], [a])
+partitionEithers :: () => [Either a b] -> ([a], [b])
+pi :: Floating a => a
+print :: Show a => a -> IO ()
+product :: (Foldable t, Num a) => t a -> a
+properFraction :: (RealFrac a, Integral b) => a -> (b, a)
+pure :: Applicative f => a -> f a
+putChar :: Char -> IO ()
+putStr :: String -> IO ()
+putStrLn :: String -> IO ()
+quot :: Integral a => a -> a -> a
+quotRem :: Integral a => a -> a -> (a, a)
+read :: Read a => String -> Maybe a
+readFile :: FilePath -> IO String
+readList :: Read a => ReadS [a]
+readParen :: () => Bool -> ReadS a -> ReadS a
+reads :: Read a => ReadS a
+readsPrec :: Read a => Int -> ReadS a
+realToFrac :: (Real a, Fractional b) => a -> b
+recip :: Fractional a => a -> a
+rem :: Integral a => a -> a -> a
+repeat :: () => a -> [a]
+replicate :: () => Int -> a -> [a]
+replicateM :: Applicative m => Int -> m a -> m [a]
+replicateM_ :: Applicative m => Int -> m a -> m ()
+return :: Monad m => a -> m a
+reverse :: () => [a] -> [a]
+rights :: () => [Either a b] -> [b]
+round :: (RealFrac a, Integral b) => a -> b
+scaleFloat :: RealFloat a => Int -> a -> a
+scanl :: () => b -> a -> b -> b -> [a] -> [b]
+scanl1 :: () => a -> a -> a -> [a] -> [a]
+scanr :: () => a -> b -> b -> b -> [a] -> [b]
+scanr1 :: () => a -> a -> a -> [a] -> [a]
+sconcat :: Semigroup a => NonEmpty a -> a
+seq :: () => a -> b -> b
+sequence :: (Traversable t, Monad m) => t m a -> m t a
+sequenceA :: (Traversable t, Applicative f) => t f a -> f t a
+sequenceA_ :: (Foldable t, Applicative f) => t f a -> f ()
+sequence_ :: (Foldable t, Monad m) => t m a -> m ()
+show :: Show a => a -> String
+showChar :: Char -> ShowS
+showList :: Show a => [a] -> ShowS
+showParen :: Bool -> ShowS -> ShowS
+showString :: String -> ShowS
+shows :: Show a => a -> ShowS
+showsPrec :: Show a => Int -> a -> ShowS
+significand :: RealFloat a => a -> a
+signum :: Num a => a -> a
+sin :: Floating a => a -> a
+sinh :: Floating a => a -> a
+snd :: () => (a, b) -> b
+some :: Alternative f => f a -> f [a]
+span :: () => a -> Bool -> [a] -> ([a], [a])
+splitAt :: () => Int -> [a] -> ([a], [a])
+sqrt :: Floating a => a -> a
+subtract :: Num a => a -> a -> a
+sum :: (Foldable t, Num a) => t a -> a
+tail :: [a] -> Maybe [a]
+tails :: () => [a] -> [[a]]
+take :: () => Int -> [a] -> [a]
+takeWhile :: () => a -> Bool -> [a] -> [a]
+tan :: Floating a => a -> a
+tanh :: Floating a => a -> a
+toInteger :: Integral a => a -> Integer
+toList :: Foldable t => t a -> [a]
+toRational :: Real a => a -> Rational
+traverse :: (Traversable t, Applicative f) => a -> f b -> t a -> f t b
+traverse_ :: (Foldable t, Applicative f) => a -> f b -> t a -> f ()
+truncate :: (RealFrac a, Integral b) => a -> b
+uncons :: () => [a] -> Maybe (a, [a])
+uncurry :: () => a -> b -> c -> (a, b) -> c
+undefined :: HasCallStack => a
+unless :: Applicative f => Bool -> f () -> f ()
+until :: () => a -> Bool -> a -> a -> a -> a
+unzip :: () => [(a, b)] -> ([a], [b])
+unzip3 :: () => [(a, b, c)] -> ([a], [b], [c])
+unzip4 :: () => [(a, b, c, d)] -> ([a], [b], [c], [d])
+unzip5 :: () => [(a, b, c, d, e)] -> ([a], [b], [c], [d], [e])
+unzip6 :: () => [(a, b, c, d, e, f)] -> ([a], [b], [c], [d], [e], [f])
+unzip7 :: () => [(a, b, c, d, e, f, g)] -> ([a], [b], [c], [d], [e], [f], [g])
+void :: Functor f => f a -> f ()
+when :: Applicative f => Bool -> f () -> f ()
+writeFile :: FilePath -> String -> IO ()
+zip :: () => [a] -> [b] -> [(a, b)]
+zip3 :: () => [a] -> [b] -> [c] -> [(a, b, c)]
+zip4 :: () => [a] -> [b] -> [c] -> [d] -> [(a, b, c, d)]
+zip5 :: () => [a] -> [b] -> [c] -> [d] -> [e] -> [(a, b, c, d, e)]
+zip6 :: () => [a] -> [b] -> [c] -> [d] -> [e] -> [f] -> [(a, b, c, d, e, f)]
+zip7 :: () => [a] -> [b] -> [c] -> [d] -> [e] -> [f] -> [g] -> [(a, b, c, d, e, f, g)]
+zipWith :: () => a -> b -> c -> [a] -> [b] -> [c]
+zipWith3 :: () => a -> b -> c -> d -> [a] -> [b] -> [c] -> [d]
+zipWith4 :: () => a -> b -> c -> d -> e -> [a] -> [b] -> [c] -> [d] -> [e]
+zipWith5 :: () => a -> b -> c -> d -> e -> f -> [a] -> [b] -> [c] -> [d] -> [e] -> [f]
+zipWith6 :: () => a -> b -> c -> d -> e -> f -> g -> [a] -> [b] -> [c] -> [d] -> [e] -> [f] -> [g]
+zipWith7 :: () => a -> b -> c -> d -> e -> f -> g -> h -> [a] -> [b] -> [c] -> [d] -> [e] -> [f] -> [g] -> [h]
