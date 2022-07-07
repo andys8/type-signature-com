@@ -31,13 +31,6 @@
 (^) :: (Num a, Integral b) => a -> b -> a
 (^^) :: (Fractional a, Integral b) => a -> b -> a
 (||) :: Bool -> Bool -> Bool
-EQ :: Ordering
-GT :: Ordering
-Just :: a -> Maybe a
-LT :: Ordering
-Left :: a -> Either a b
-Nothing :: Maybe a
-Right :: b -> Either a b
 abs :: Num a => a -> a
 acos :: Floating a => a -> a
 acosh :: Floating a => a -> a

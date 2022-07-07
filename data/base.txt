@@ -1,0 +1,2591 @@
+(!!) :: NonEmpty a -> Int -> a
+(!!) :: [a] -> Int -> a
+(!) :: Ix i => Array i e -> i -> e
+($!) :: forall r a (b :: TYPE r). (a -> b) -> a -> b
+($) :: forall r a (b :: TYPE r). (a -> b) -> a -> b
+($<) :: Contravariant f => f b -> b -> f a
+($>) :: Functor f => f a -> b -> f b
+(%) :: Integral a => a -> a -> Ratio a
+(&&&) :: Arrow a => a b c -> a b c' -> a b (c, c')
+(&&) :: Bool -> Bool -> Bool
+(&) :: a -> (a -> b) -> b
+(*) :: Num a => a -> a -> a
+(**) :: Floating a => a -> a -> a
+(***) :: Arrow a => a b c -> a b' c' -> a (b, b') (c, c')
+(*>) :: Applicative f => f a -> f b -> f b
+(+) :: Num a => a -> a -> a
+(++) :: [a] -> [a] -> [a]
+(+++) :: ArrowChoice a => a b c -> a b' c' -> a (Either b b') (Either c c')
+(+++) :: ReadP a -> ReadP a -> ReadP a
+(+++) :: ReadPrec a -> ReadPrec a -> ReadPrec a
+(-) :: Num a => a -> a -> a
+(.&.) :: Bits a => a -> a -> a
+(.) :: (b -> c) -> (a -> b) -> a -> c
+(.) :: Category cat => cat b c -> cat a b -> cat a c
+(.|.) :: Bits a => a -> a -> a
+(/) :: Fractional a => a -> a -> a
+(//) :: Ix i => Array i e -> [(i, e)] -> Array i e
+(/=) :: Eq a => a -> a -> Bool
+(:$$:) :: ErrorMessage -> ErrorMessage -> ErrorMessage
+(:%) :: !a -> !a -> Ratio a
+(:*:) :: f p -> g p -> (:*:) (f :: k -> Type) (g :: k -> Type) (p :: k)
+(:+) :: !a -> !a -> Complex a
+(:<>:) :: ErrorMessage -> ErrorMessage -> ErrorMessage
+(:|) :: a -> [a] -> NonEmpty a
+(<!>) :: a -> a -> a
+(<$!>) :: Monad m => (a -> b) -> m a -> m b
+(<$) :: Functor f => a -> f b -> f a
+(<$>) :: Functor f => (a -> b) -> f a -> f b
+(<&>) :: Functor f => f a -> (a -> b) -> f b
+(<) :: Ord a => a -> a -> Bool
+(<*) :: Applicative f => f a -> f b -> f a
+(<**>) :: Applicative f => f a -> f (a -> b) -> f b
+(<*>) :: Applicative f => f (a -> b) -> f a -> f b
+(<++) :: ReadP a -> ReadP a -> ReadP a
+(<++) :: ReadPrec a -> ReadPrec a -> ReadPrec a
+(<+>) :: ArrowPlus a => a b c -> a b c -> a b c
+(<<<) :: Category cat => cat b c -> cat a b -> cat a c
+(<<^) :: Arrow a => a c d -> (b -> c) -> a b d
+(<=) :: Ord a => a -> a -> Bool
+(<=<) :: Monad m => (b -> m c) -> (a -> m b) -> a -> m c
+(<>) :: Semigroup a => a -> a -> a
+(<|) :: a -> NonEmpty a -> NonEmpty a
+(<|>) :: Alternative f => f a -> f a -> f a
+(=<<) :: Monad m => (a -> m b) -> m a -> m b
+(==) :: Eq a => a -> a -> Bool
+(>$$<) :: Contravariant f => f b -> (a -> b) -> f a
+(>$) :: Contravariant f => b -> f b -> f a
+(>$<) :: Contravariant f => (a -> b) -> f b -> f a
+(>) :: Ord a => a -> a -> Bool
+(>=) :: Ord a => a -> a -> Bool
+(>=>) :: Monad m => (a -> m b) -> (b -> m c) -> a -> m c
+(>>) :: forall a b. Monad m => m a -> m b -> m b
+(>>=) :: forall a b. Monad m => m a -> (a -> m b) -> m b
+(>>>) :: Category cat => cat a b -> cat b c -> cat a c
+(>>>) :: forall arr. Arrow arr => forall a b c. arr a b -> arr b c -> arr a c
+(>>^) :: Arrow a => a b c -> (c -> d) -> a b d
+(\\) :: Eq a => [a] -> [a] -> [a]
+(^%^) :: Integral a => Rational -> a -> Rational
+(^) :: (Num a, Integral b) => a -> b -> a
+(^<<) :: Arrow a => (c -> d) -> a b c -> a b d
+(^>>) :: Arrow a => (b -> c) -> a c d -> a b d
+(^^%^^) :: Integral a => Rational -> a -> Rational
+(^^) :: (Fractional a, Integral b) => a -> b -> a
+(||) :: Bool -> Bool -> Bool
+(|||) :: ArrowChoice a => a b d -> a c d -> a (Either b c) d
+abs :: Num a => a -> a
+absInteger :: Integer -> Integer
+absentErr :: a
+absurd :: Void -> a
+accum :: Ix i => (e -> a -> e) -> Array i e -> [(i, a)] -> Array i e
+accumArray :: Ix i => (e -> a -> e) -> e -> (i, i) -> [(i, a)] -> Array i e
+acos :: Floating a => a -> a
+acosDouble :: Double -> Double
+acosFloat :: Float -> Float
+acosh :: Floating a => a -> a
+acoshDouble :: Double -> Double
+acoshFloat :: Float -> Float
+addFinalizer :: key -> IO () -> IO ()
+addForeignPtrConcFinalizer :: ForeignPtr a -> IO () -> IO ()
+addForeignPtrFinalizer :: FinalizerPtr a -> ForeignPtr a -> IO ()
+addForeignPtrFinalizer :: ForeignPtr a -> IO () -> IO ()
+addForeignPtrFinalizerEnv :: FinalizerEnvPtr env a -> Ptr env -> ForeignPtr a -> IO ()
+addHandleFinalizer :: Handle -> HandleFinalizer -> IO ()
+addMVarFinalizer :: MVar a -> IO () -> IO ()
+advancePtr :: forall a. Storable a => Ptr a -> Int -> Ptr a
+alignPtr :: Ptr a -> Int -> Ptr a
+alignment :: Storable a => a -> Int
+all :: (a -> Bool) -> [a] -> Bool
+all :: Foldable t => (a -> Bool) -> t a -> Bool
+alloca :: forall a b. Storable a => (Ptr a -> IO b) -> IO b
+allocaArray :: forall a b. Storable a => Int -> (Ptr a -> IO b) -> IO b
+allocaArray0 :: Storable a => Int -> (Ptr a -> IO b) -> IO b
+allocaBytes :: Int -> (Ptr a -> IO b) -> IO b
+allocaBytesAligned :: Int -> Int -> (Ptr a -> IO b) -> IO b
+allocationLimitExceeded :: SomeException
+allowInterrupt :: IO ()
+alreadyExistsErrorType :: IOErrorType
+alreadyInUseErrorType :: IOErrorType
+amap :: (a -> b) -> Array i a -> Array i b
+and :: Foldable t => t Bool -> Bool
+and :: [Bool] -> Bool
+andInteger :: Integer -> Integer -> Integer
+andNatural :: Natural -> Natural -> Natural
+annotateIOError :: IOError -> String -> Maybe Handle -> Maybe FilePath -> IOError
+any :: (a -> Bool) -> [a] -> Bool
+any :: Foldable t => (a -> Bool) -> t a -> Bool
+ap :: Monad m => m (a -> b) -> m a -> m b
+app :: ArrowApply a => a (a b c, b) c
+appPrec :: Int
+appPrec1 :: Int
+append :: NonEmpty a -> NonEmpty a -> NonEmpty a
+appendFile :: FilePath -> String -> IO ()
+appendList :: NonEmpty a -> [a] -> NonEmpty a
+apply :: (f :~: g) -> (a :~: b) -> f a :~: g b
+approxRational :: RealFrac a => a -> a -> Rational
+arch :: String
+argvEncoding :: IO TextEncoding
+arr :: Arrow a => (b -> c) -> a b c
+arrEleBottom :: a
+array :: Ix i => (i, i) -> [(i, e)] -> Array i e
+asProxyTypeOf :: a -> proxy a -> a
+asTypeOf :: a -> a -> a
+ascii :: TextEncoding
+asciiTab :: [String]
+ascii_decode :: DecodeBuffer
+ascii_encode :: EncodeBuffer
+asin :: Floating a => a -> a
+asinDouble :: Double -> Double
+asinFloat :: Float -> Float
+asinh :: Floating a => a -> a
+asinhDouble :: Double -> Double
+asinhFloat :: Float -> Float
+assert :: Bool -> a -> a
+assertError :: (?callStack :: CallStack) => Bool -> a -> a
+assocs :: Ix i => Array i e -> [(i, e)]
+asum :: (Foldable t, Alternative f) => t (f a) -> f a
+asyncExceptionFromException :: Exception e => SomeException -> Maybe e
+asyncExceptionToException :: Exception e => e -> SomeException
+atan :: Floating a => a -> a
+atan2 :: RealFloat a => a -> a -> a
+atanDouble :: Double -> Double
+atanFloat :: Float -> Float
+atanh :: Floating a => a -> a
+atanhDouble :: Double -> Double
+atanhFloat :: Float -> Float
+atomicModifyIORef :: IORef a -> (a -> (a, b)) -> IO b
+atomicModifyIORef' :: IORef a -> (a -> (a, b)) -> IO b
+atomicModifyIORef'_ :: IORef a -> (a -> a) -> IO (a, a)
+atomicModifyIORef2 :: IORef a -> (a -> (a, b)) -> IO (a, (a, b))
+atomicModifyIORef2Lazy :: IORef a -> (a -> (a, b)) -> IO (a, (a, b))
+atomicModifyIORefLazy_ :: IORef a -> (a -> a) -> IO (a, a)
+atomicModifyIORefP :: IORef a -> (a -> (a, b)) -> IO b
+atomicSwapIORef :: IORef a -> a -> IO a
+atomicWriteIORef :: IORef a -> a -> IO ()
+atomically :: STM a -> IO a
+augment :: forall a. (forall b. (a -> b -> b) -> b -> b) -> [a] -> [a]
+augmentIOError :: IOException -> String -> Handle -> IOException
+badSafeIndex :: Int -> Int -> Int
+between :: ReadP open -> ReadP close -> ReadP a -> ReadP a
+biList :: Bifoldable t => t a a -> [a]
+biall :: Bifoldable t => (a -> Bool) -> (b -> Bool) -> t a b -> Bool
+biand :: Bifoldable t => t Bool Bool -> Bool
+biany :: Bifoldable t => (a -> Bool) -> (b -> Bool) -> t a b -> Bool
+biasum :: (Bifoldable t, Alternative f) => t (f a) (f a) -> f a
+biconcat :: Bifoldable t => t [a] [a] -> [a]
+biconcatMap :: Bifoldable t => (a -> [c]) -> (b -> [c]) -> t a b -> [c]
+bielem :: (Bifoldable t, Eq a) => a -> t a a -> Bool
+bifind :: Bifoldable t => (a -> Bool) -> t a a -> Maybe a
+bifold :: (Bifoldable p, Monoid m) => p m m -> m
+bifoldMap :: (Bifoldable p, Monoid m) => (a -> m) -> (b -> m) -> p a b -> m
+bifoldMapDefault :: forall t m a b. (Bitraversable t, Monoid m) => (a -> m) -> (b -> m) -> t a b -> m
+bifoldl :: Bifoldable p => (c -> a -> c) -> (c -> b -> c) -> c -> p a b -> c
+bifoldl' :: Bifoldable t => (a -> b -> a) -> (a -> c -> a) -> a -> t b c -> a
+bifoldl1 :: Bifoldable t => (a -> a -> a) -> t a a -> a
+bifoldlM :: (Bifoldable t, Monad m) => (a -> b -> m a) -> (a -> c -> m a) -> a -> t b c -> m a
+bifoldr :: Bifoldable p => (a -> c -> c) -> (b -> c -> c) -> c -> p a b -> c
+bifoldr' :: Bifoldable t => (a -> c -> c) -> (b -> c -> c) -> c -> t a b -> c
+bifoldr1 :: Bifoldable t => (a -> a -> a) -> t a a -> a
+bifoldrM :: (Bifoldable t, Monad m) => (a -> c -> m c) -> (b -> c -> m c) -> c -> t a b -> m c
+bifor :: (Bitraversable t, Applicative f) => t a b -> (a -> f c) -> (b -> f d) -> f (t c d)
+biforM :: (Bitraversable t, Applicative f) => t a b -> (a -> f c) -> (b -> f d) -> f (t c d)
+biforM_ :: (Bifoldable t, Applicative f) => t a b -> (a -> f c) -> (b -> f d) -> f ()
+bifor_ :: (Bifoldable t, Applicative f) => t a b -> (a -> f c) -> (b -> f d) -> f ()
+bilength :: Bifoldable t => t a b -> Int
+bimap :: Bifunctor p => (a -> b) -> (c -> d) -> p a c -> p b d
+bimapAccumL :: Bitraversable t => (a -> b -> (a, c)) -> (a -> d -> (a, e)) -> a -> t b d -> (a, t c e)
+bimapAccumR :: Bitraversable t => (a -> b -> (a, c)) -> (a -> d -> (a, e)) -> a -> t b d -> (a, t c e)
+bimapDefault :: forall t a b c d. Bitraversable t => (a -> b) -> (c -> d) -> t a c -> t b d
+bimapM :: (Bitraversable t, Applicative f) => (a -> f c) -> (b -> f d) -> t a b -> f (t c d)
+bimapM_ :: (Bifoldable t, Applicative f) => (a -> f c) -> (b -> f d) -> t a b -> f ()
+bimaximum :: forall t a. (Bifoldable t, Ord a) => t a a -> a
+bimaximumBy :: Bifoldable t => (a -> a -> Ordering) -> t a a -> a
+biminimum :: forall t a. (Bifoldable t, Ord a) => t a a -> a
+biminimumBy :: Bifoldable t => (a -> a -> Ordering) -> t a a -> a
+bimsum :: (Bifoldable t, Alternative f) => t (f a) (f a) -> f a
+bindIO :: IO a -> (a -> IO b) -> IO b
+binotElem :: (Bifoldable t, Eq a) => a -> t a a -> Bool
+binull :: Bifoldable t => t a b -> Bool
+bior :: Bifoldable t => t Bool Bool -> Bool
+biproduct :: (Bifoldable t, Num a) => t a a -> a
+bisequence :: (Bitraversable t, Applicative f) => t (f a) (f b) -> f (t a b)
+bisequenceA :: (Bitraversable t, Applicative f) => t (f a) (f b) -> f (t a b)
+bisequenceA_ :: (Bifoldable t, Applicative f) => t (f a) (f b) -> f ()
+bisequence_ :: (Bifoldable t, Applicative f) => t (f a) (f b) -> f ()
+bisum :: (Bifoldable t, Num a) => t a a -> a
+bit :: Bits a => Int -> a
+bitDefault :: (Bits a, Num a) => Int -> a
+bitReverse16 :: Word16 -> Word16
+bitReverse32 :: Word32 -> Word32
+bitReverse64 :: Word64 -> Word64
+bitReverse8 :: Word8 -> Word8
+bitSize :: Bits a => a -> Int
+bitSizeMaybe :: Bits a => a -> Maybe Int
+bitraverse :: (Bitraversable t, Applicative f) => (a -> f c) -> (b -> f d) -> t a b -> f (t c d)
+bitraverse_ :: (Bifoldable t, Applicative f) => (a -> f c) -> (b -> f d) -> t a b -> f ()
+blockedIndefinitelyOnMVar :: SomeException
+blockedIndefinitelyOnSTM :: SomeException
+bool :: a -> a -> Bool -> a
+boundedEnumFrom :: (Enum a, Bounded a) => a -> [a]
+boundedEnumFromThen :: (Enum a, Bounded a) => a -> a -> [a]
+bounds :: Array i e -> (i, i)
+boundsIOArray :: IOArray i e -> (i, i)
+boundsSTArray :: STArray s i e -> (i, i)
+bracket :: IO a -> (a -> IO b) -> (a -> IO c) -> IO c
+bracketOnError :: IO a -> (a -> IO b) -> (a -> IO c) -> IO c
+bracket_ :: IO a -> IO b -> IO c -> IO c
+break :: (a -> Bool) -> NonEmpty a -> ([a], [a])
+break :: (a -> Bool) -> [a] -> ([a], [a])
+breakpoint :: a -> a
+breakpointCond :: Bool -> a -> a
+bufferAdd :: Int -> Buffer e -> Buffer e
+bufferAddOffset :: Int -> Buffer e -> Buffer e
+bufferAdjustL :: Int -> Buffer e -> Buffer e
+bufferAdjustOffset :: Word64 -> Buffer e -> Buffer e
+bufferAvailable :: Buffer e -> Int
+bufferElems :: Buffer e -> Int
+bufferOffset :: Buffer e -> Word64
+bufferRemove :: Int -> Buffer e -> Buffer e
+build :: forall a. (forall b. (a -> b -> b) -> b -> b) -> [a]
+byteSwap16 :: Word16 -> Word16
+byteSwap32 :: Word32 -> Word32
+byteSwap64 :: Word64 -> Word64
+c_access :: CString -> CInt -> IO CInt
+c_chmod :: CString -> CMode -> IO CInt
+c_close :: CInt -> IO CInt
+c_creat :: CString -> CMode -> IO CInt
+c_dup :: CInt -> IO CInt
+c_dup2 :: CInt -> CInt -> IO CInt
+c_fcntl_lock :: CInt -> CInt -> Ptr CFLock -> IO CInt
+c_fcntl_read :: CInt -> CInt -> IO CInt
+c_fcntl_write :: CInt -> CInt -> CLong -> IO CInt
+c_fork :: IO CPid
+c_fstat :: CInt -> Ptr CStat -> IO CInt
+c_ftruncate :: CInt -> COff -> IO CInt
+c_getpid :: IO CPid
+c_interruptible_open :: CFilePath -> CInt -> CMode -> IO CInt
+c_interruptible_open_ :: CFilePath -> CInt -> CMode -> IO CInt
+c_isatty :: CInt -> IO CInt
+c_lflag :: Ptr CTermios -> IO CTcflag
+c_link :: CString -> CString -> IO CInt
+c_lseek :: CInt -> COff -> CInt -> IO COff
+c_mkfifo :: CString -> CMode -> IO CInt
+c_open :: CFilePath -> CInt -> CMode -> IO CInt
+c_pipe :: Ptr CInt -> IO CInt
+c_read :: CInt -> Ptr Word8 -> CSize -> IO CSsize
+c_s_isblk :: CMode -> CInt
+c_s_ischr :: CMode -> CInt
+c_s_isdir :: CMode -> CInt
+c_s_isfifo :: CMode -> CInt
+c_s_isreg :: CMode -> CInt
+c_s_issock :: CMode -> CInt
+c_safe_open :: CFilePath -> CInt -> CMode -> IO CInt
+c_safe_open_ :: CFilePath -> CInt -> CMode -> IO CInt
+c_safe_read :: CInt -> Ptr Word8 -> CSize -> IO CSsize
+c_safe_write :: CInt -> Ptr Word8 -> CSize -> IO CSsize
+c_sigaddset :: Ptr CSigset -> CInt -> IO CInt
+c_sigemptyset :: Ptr CSigset -> IO CInt
+c_sigprocmask :: CInt -> Ptr CSigset -> Ptr CSigset -> IO CInt
+c_stat :: CFilePath -> Ptr CStat -> IO CInt
+c_tcgetattr :: CInt -> Ptr CTermios -> IO CInt
+c_tcsetattr :: CInt -> CInt -> Ptr CTermios -> IO CInt
+c_umask :: CMode -> IO CMode
+c_unlink :: CString -> IO CInt
+c_utime :: CString -> Ptr CUtimbuf -> IO CInt
+c_waitpid :: CPid -> Ptr CInt -> CInt -> IO CPid
+c_write :: CInt -> Ptr Word8 -> CSize -> IO CSsize
+callStack :: HasCallStack => CallStack
+calloc :: forall a. Storable a => IO (Ptr a)
+callocArray :: forall a. Storable a => Int -> IO (Ptr a)
+callocArray0 :: Storable a => Int -> IO (Ptr a)
+callocBytes :: Int -> IO (Ptr a)
+cannotCompactFunction :: SomeException
+cannotCompactMutable :: SomeException
+cannotCompactPinned :: SomeException
+cast :: forall a b. (Typeable a, Typeable b) => a -> Maybe b
+castCCharToChar :: CChar -> Char
+castCSCharToChar :: CSChar -> Char
+castCUCharToChar :: CUChar -> Char
+castCharToCChar :: Char -> CChar
+castCharToCSChar :: Char -> CSChar
+castCharToCUChar :: Char -> CUChar
+castDoubleToWord64 :: Double -> Word64
+castFloatToWord32 :: Float -> Word32
+castForeignPtr :: ForeignPtr a -> ForeignPtr b
+castFunPtr :: FunPtr a -> FunPtr b
+castFunPtrToPtr :: FunPtr a -> Ptr b
+castPtr :: Ptr a -> Ptr b
+castPtrToFunPtr :: Ptr a -> FunPtr b
+castPtrToStablePtr :: Ptr () -> StablePtr a
+castStablePtrToPtr :: StablePtr a -> Ptr ()
+castWith :: (a :~: b) -> a -> b
+castWord32ToFloat :: Word32 -> Float
+castWord64ToDouble :: Word64 -> Double
+catMaybes :: [Maybe a] -> [a]
+catch :: Exception e => IO a -> (e -> IO a) -> IO a
+catchAny :: IO a -> (forall e. Exception e => e -> IO a) -> IO a
+catchException :: Exception e => IO a -> (e -> IO a) -> IO a
+catchIOError :: IO a -> (IOError -> IO a) -> IO a
+catchJust :: Exception e => (e -> Maybe b) -> IO a -> (b -> IO a) -> IO a
+catchSTM :: Exception e => STM a -> (e -> STM a) -> STM a
+catches :: IO a -> [Handler a] -> IO a
+ccLabel :: Ptr CostCentre -> IO CString
+ccModule :: Ptr CostCentre -> IO CString
+ccSrcSpan :: Ptr CostCentre -> IO CString
+ccsCC :: Ptr CostCentreStack -> IO (Ptr CostCentre)
+ccsParent :: Ptr CostCentreStack -> IO (Ptr CostCentreStack)
+ccsToStrings :: Ptr CostCentreStack -> IO [String]
+ceiling :: (RealFrac a, Integral b) => a -> b
+ceilingDoubleInt :: Double -> Int
+ceilingDoubleInteger :: Double -> Integer
+ceilingFloatInt :: Float -> Int
+ceilingFloatInteger :: Float -> Integer
+chainl :: ReadP a -> ReadP (a -> a -> a) -> a -> ReadP a
+chainl1 :: ReadP a -> ReadP (a -> a -> a) -> ReadP a
+chainr :: ReadP a -> ReadP (a -> a -> a) -> a -> ReadP a
+chainr1 :: ReadP a -> ReadP (a -> a -> a) -> ReadP a
+char :: Char -> ReadP Char
+char8 :: TextEncoding
+charIsRepresentable :: Char -> IO Bool
+charIsRepresentable :: TextEncoding -> Char -> IO Bool
+charSize :: Int
+charVal :: forall n proxy. KnownChar n => proxy n -> Char
+checkBuffer :: Buffer a -> IO ()
+checkHandleInvariants :: Handle__ -> IO ()
+childHandler :: SomeException -> IO ()
+choice :: [ReadP a] -> ReadP a
+choice :: [ReadPrec a] -> ReadPrec a
+choose :: [(String, ReadPrec a)] -> ReadPrec a
+chr :: Int -> Char
+cis :: Floating a => a -> Complex a
+clamp :: Int -> Int -> Int
+clamp :: Ord a => (a, a) -> a -> a
+clearBit :: Bits a => a -> Int -> a
+clearCCS :: IO a -> IO a
+close :: IODevice a => a -> IO ()
+closeFd :: EventManager -> (Fd -> IO ()) -> Fd -> IO ()
+closeFdWith :: (Fd -> IO ()) -> Fd -> IO ()
+closeTextCodecs :: Handle__ -> IO ()
+cmpArray :: (Ix i, Ord e) => Array i e -> Array i e -> Ordering
+cmpChar :: forall a b proxy1 proxy2. (KnownChar a, KnownChar b) => proxy1 a -> proxy2 b -> OrderingI a b
+cmpIntArray :: Ord e => Array Int e -> Array Int e -> Ordering
+cmpNat :: forall a b proxy1 proxy2. (KnownNat a, KnownNat b) => proxy1 a -> proxy2 b -> OrderingI a b
+cmpSymbol :: forall a b proxy1 proxy2. (KnownSymbol a, KnownSymbol b) => proxy1 a -> proxy2 b -> OrderingI a b
+codingFailureModeSuffix :: CodingFailureMode -> String
+coerce :: forall {k :: RuntimeRep} (a :: TYPE k) (b :: TYPE k). Coercible a b => a -> b
+coerceWith :: Coercion a b -> a -> b
+collectStackTrace :: IO (Maybe StackTrace)
+commitBuffer' :: RawCharBuffer -> Int -> Int -> Bool -> Bool -> Handle__ -> IO CharBuffer
+compare :: Ord a => a -> a -> Ordering
+compare1 :: (Ord1 f, Ord a) => f a -> f a -> Ordering
+compare2 :: (Ord2 f, Ord a, Ord b) => f a b -> f a b -> Ordering
+compareInteger :: Integer -> Integer -> Ordering
+comparing :: Ord a => (b -> a) -> b -> b -> Ordering
+comparisonEquivalence :: Comparison a -> Equivalence a
+compilerName :: String
+compilerVersion :: Version
+complement :: Bits a => a -> a
+complementBit :: Bits a => a -> Int -> a
+complementInteger :: Integer -> Integer
+conFixity :: Constructor c => t c (f :: k -> Type) (a :: k) -> Fixity
+conIsRecord :: Constructor c => t c (f :: k -> Type) (a :: k) -> Bool
+conName :: Constructor c => t c (f :: k -> Type) (a :: k) -> [Char]
+concat :: Foldable t => t [a] -> [a]
+concat :: [[a]] -> [a]
+concatMap :: (a -> [b]) -> [a] -> [b]
+concatMap :: Foldable t => (a -> [b]) -> t a -> [b]
+conditional :: a -> a -> a
+conjugate :: Num a => Complex a -> Complex a
+cons :: a -> NonEmpty a -> NonEmpty a
+considerAccessible :: Bool
+const :: a -> b -> a
+const_echo :: CInt
+const_f_getfl :: CInt
+const_f_setfd :: CInt
+const_f_setfl :: CInt
+const_fd_cloexec :: CLong
+const_icanon :: CInt
+const_sig_block :: CInt
+const_sig_setmask :: CInt
+const_sigttou :: CInt
+const_tcsanow :: CInt
+const_vmin :: CInt
+const_vtime :: CInt
+constrFields :: Constr -> [String]
+constrFixity :: Constr -> Fixity
+constrIndex :: Constr -> ConIndex
+constrRep :: Constr -> ConstrRep
+contramap :: Contravariant f => (a' -> a) -> f a -> f a'
+copyArray :: forall a. Storable a => Ptr a -> Ptr a -> Int -> IO ()
+copyBytes :: Ptr a -> Ptr a -> Int -> IO ()
+cos :: Floating a => a -> a
+cosDouble :: Double -> Double
+cosFloat :: Float -> Float
+cosh :: Floating a => a -> a
+coshDouble :: Double -> Double
+coshFloat :: Float -> Float
+count :: Int -> ReadP a -> ReadP [a]
+countLeadingZeros :: FiniteBits b => b -> Int
+countTrailingZeros :: FiniteBits b => b -> Int
+cpuTimePrecision :: Integer
+currentCallStack :: IO [String]
+curry :: ((a, b) -> c) -> a -> b -> c
+cycle :: NonEmpty a -> NonEmpty a
+cycle :: [a] -> [a]
+cycle1 :: Semigroup m => m -> m
+dEFAULT_BUFFER_SIZE :: Int
+dEFAULT_CHAR_BUFFER_SIZE :: Int
+deRefStablePtr :: StablePtr a -> IO a
+deRefStaticPtr :: StaticPtr a -> a
+deRefWeak :: Weak v -> IO (Maybe v)
+debugIO :: String -> IO ()
+decodeByteBuf :: Handle__ -> CharBuffer -> IO CharBuffer
+decodeFloat :: RealFloat a => a -> (Integer, Int)
+defaultComparison :: Ord a => Comparison a
+defaultEquivalence :: Eq a => Equivalence a
+delete :: Eq a => a -> [a] -> [a]
+deleteBy :: (a -> a -> Bool) -> a -> [a] -> [a]
+deleteFirstsBy :: (a -> a -> Bool) -> [a] -> [a] -> [a]
+denominator :: Ratio a -> a
+devType :: IODevice a => a -> IO IODeviceType
+die :: String -> IO a
+diff :: Semigroup m => m -> Endo m
+digitToInt :: Char -> Int
+disableAllocationLimit :: IO ()
+disableBuffering :: IO ()
+displayException :: Exception e => e -> String
+div :: Integral a => a -> a -> a
+div' :: (Real a, Integral b) => a -> a -> b
+divInt :: Int -> Int -> Int
+divInteger :: Integer -> Integer -> Integer
+divMod :: Integral a => a -> a -> (a, a)
+divMod' :: (Real a, Integral b) => a -> a -> (b, a)
+divModInt :: Int -> Int -> (Int, Int)
+divZeroError :: a
+divZeroException :: SomeException
+divideDouble :: Double -> Double -> Double
+divideFloat :: Float -> Float -> Float
+doesNotExistErrorType :: IOErrorType
+double2Float :: Double -> Float
+double2Int :: Double -> Int
+drop :: Int -> NonEmpty a -> [a]
+drop :: Int -> [a] -> [a]
+dropWhile :: (a -> Bool) -> NonEmpty a -> [a]
+dropWhile :: (a -> Bool) -> [a] -> [a]
+dropWhileEnd :: (a -> Bool) -> [a] -> [a]
+dup :: IODevice a => a -> IO a
+dup2 :: IODevice a => a -> a -> IO a
+dupChan :: Chan a -> IO (Chan a)
+dynApp :: Dynamic -> Dynamic -> Dynamic
+dynApply :: Dynamic -> Dynamic -> Maybe Dynamic
+dynTypeRep :: Dynamic -> SomeTypeRep
+e2BIG :: Errno
+eACCES :: Errno
+eADDRINUSE :: Errno
+eADDRNOTAVAIL :: Errno
+eADV :: Errno
+eAFNOSUPPORT :: Errno
+eAGAIN :: Errno
+eALREADY :: Errno
+eBADF :: Errno
+eBADMSG :: Errno
+eBADRPC :: Errno
+eBUSY :: Errno
+eCHILD :: Errno
+eCOMM :: Errno
+eCONNABORTED :: Errno
+eCONNREFUSED :: Errno
+eCONNRESET :: Errno
+eDEADLK :: Errno
+eDESTADDRREQ :: Errno
+eDIRTY :: Errno
+eDOM :: Errno
+eDQUOT :: Errno
+eEXIST :: Errno
+eFAULT :: Errno
+eFBIG :: Errno
+eFTYPE :: Errno
+eHOSTDOWN :: Errno
+eHOSTUNREACH :: Errno
+eIDRM :: Errno
+eILSEQ :: Errno
+eINPROGRESS :: Errno
+eINTR :: Errno
+eINVAL :: Errno
+eIO :: Errno
+eISCONN :: Errno
+eISDIR :: Errno
+eLOOP :: Errno
+eMFILE :: Errno
+eMLINK :: Errno
+eMSGSIZE :: Errno
+eMULTIHOP :: Errno
+eNAMETOOLONG :: Errno
+eNETDOWN :: Errno
+eNETRESET :: Errno
+eNETUNREACH :: Errno
+eNFILE :: Errno
+eNOBUFS :: Errno
+eNODEV :: Errno
+eNOENT :: Errno
+eNOEXEC :: Errno
+eNOLCK :: Errno
+eNOLINK :: Errno
+eNOMEM :: Errno
+eNOMSG :: Errno
+eNONET :: Errno
+eNOPROTOOPT :: Errno
+eNOSPC :: Errno
+eNOSR :: Errno
+eNOSTR :: Errno
+eNOSYS :: Errno
+eNOTBLK :: Errno
+eNOTCONN :: Errno
+eNOTDIR :: Errno
+eNOTEMPTY :: Errno
+eNOTSOCK :: Errno
+eNOTSUP :: Errno
+eNOTTY :: Errno
+eNXIO :: Errno
+eOK :: Errno
+eOPNOTSUPP :: Errno
+ePERM :: Errno
+ePFNOSUPPORT :: Errno
+ePIPE :: Errno
+ePROCLIM :: Errno
+ePROCUNAVAIL :: Errno
+ePROGMISMATCH :: Errno
+ePROGUNAVAIL :: Errno
+ePROTO :: Errno
+ePROTONOSUPPORT :: Errno
+ePROTOTYPE :: Errno
+eRANGE :: Errno
+eREMCHG :: Errno
+eREMOTE :: Errno
+eROFS :: Errno
+eRPCMISMATCH :: Errno
+eRREMOTE :: Errno
+eSHUTDOWN :: Errno
+eSOCKTNOSUPPORT :: Errno
+eSPIPE :: Errno
+eSRCH :: Errno
+eSRMNT :: Errno
+eSTALE :: Errno
+eTIME :: Errno
+eTIMEDOUT :: Errno
+eTOOMANYREFS :: Errno
+eTXTBSY :: Errno
+eUSERS :: Errno
+eWOULDBLOCK :: Errno
+eXDEV :: Errno
+either :: (a -> c) -> (b -> c) -> Either a b -> c
+elem :: (Foldable t, Eq a) => a -> t a -> Bool
+elem :: Eq a => a -> [a] -> Bool
+elemIndex :: Eq a => a -> [a] -> Maybe Int
+elemIndices :: Eq a => a -> [a] -> [Int]
+elems :: Array i e -> [e]
+empty :: Alternative f => f a
+emptyBuffer :: RawBuffer e -> Int -> BufferState -> Buffer e
+emptyCallStack :: CallStack
+emptyWriteBuffer :: BufferedIO dev => dev -> Buffer Word8 -> IO (Buffer Word8)
+enableAllocationLimit :: IO ()
+encodeFloat :: RealFloat a => Integer -> Int -> a
+endBy :: ReadP a -> ReadP sep -> ReadP [a]
+endBy1 :: ReadP a -> ReadP sep -> ReadP [a]
+ensureIOManagerIsRunning :: IO ()
+enumFrom :: Enum a => a -> [a]
+enumFromThen :: Enum a => a -> a -> [a]
+enumFromThenTo :: Enum a => a -> a -> a -> [a]
+enumFromTo :: Enum a => a -> a -> [a]
+eof :: ReadP ()
+eofErrorType :: IOErrorType
+eq1 :: (Eq1 f, Eq a) => f a -> f a -> Bool
+eq2 :: (Eq2 f, Eq a, Eq b) => f a b -> f a b -> Bool
+eqArray :: (Ix i, Eq e) => Array i e -> Array i e -> Bool
+eqChar :: Char -> Char -> Bool
+eqDouble :: Double -> Double -> Bool
+eqFloat :: Float -> Float -> Bool
+eqInt :: Int -> Int -> Bool
+eqInt16 :: Int16 -> Int16 -> Bool
+eqInt32 :: Int32 -> Int32 -> Bool
+eqInt64 :: Int64 -> Int64 -> Bool
+eqInt8 :: Int8 -> Int8 -> Bool
+eqInteger :: Integer -> Integer -> Bool
+eqStableName :: StableName a -> StableName b -> Bool
+eqString :: String -> String -> Bool
+eqT :: forall a b. (Typeable a, Typeable b) => Maybe (a :~: b)
+eqTypeRep :: forall k1 k2 (a :: k1) (b :: k2). TypeRep a -> TypeRep b -> Maybe (a :~~: b)
+eqWord :: Word -> Word -> Bool
+eqWord16 :: Word16 -> Word16 -> Bool
+eqWord32 :: Word32 -> Word32 -> Bool
+eqWord64 :: Word64 -> Word64 -> Bool
+eqWord8 :: Word8 -> Word8 -> Bool
+errnoToIOError :: String -> Errno -> Maybe Handle -> Maybe String -> IOError
+error :: forall (r :: RuntimeRep). forall (a :: TYPE r). HasCallStack => [Char] -> a
+errorBadArgument :: a
+errorBadFormat :: Char -> a
+errorCallException :: String -> SomeException
+errorCallWithCallStackException :: String -> CallStack -> SomeException
+errorEmptyList :: String -> a
+errorMissingArgument :: a
+errorShortFormat :: a
+errorWithStackTrace :: String -> a
+errorWithoutStackTrace :: forall (r :: RuntimeRep). forall (a :: TYPE r). [Char] -> a
+escapeArgs :: [String] -> String
+evalWrapper :: String -> [String] -> IO a -> IO a
+evaluate :: a -> IO a
+even :: Integral a => a -> Bool
+evtRead :: Event
+evtWrite :: Event
+exitFailure :: IO a
+exitSuccess :: IO a
+exitWith :: ExitCode -> IO a
+exp :: Floating a => a -> a
+expDouble :: Double -> Double
+expFloat :: Float -> Float
+expandResponse :: [String] -> IO [String]
+expect :: Lexeme -> ReadP ()
+expectP :: Lexeme -> ReadPrec ()
+expm1 :: Floating a => a -> a
+expm1Double :: Double -> Double
+expm1Float :: Float -> Float
+exponent :: RealFloat a => a -> Int
+expt :: Integer -> Int -> Integer
+expts :: Array Int Integer
+expts10 :: Array Int Integer
+fabsDouble :: Double -> Double
+fabsFloat :: Float -> Float
+fail :: MonadFail m => String -> m a
+failIO :: String -> IO a
+fdFileSize :: FD -> IO Integer
+fdGetMode :: FD -> IO IOMode
+fdStat :: FD -> IO (IODeviceType, CDev, CIno)
+fdToHandle :: FD -> IO Handle
+fdToHandle' :: CInt -> Maybe IODeviceType -> Bool -> FilePath -> IOMode -> Bool -> IO Handle
+fdType :: FD -> IO IODeviceType
+fileType :: FilePath -> IO IODeviceType
+fillBytes :: Ptr a -> Word8 -> Int -> IO ()
+fillReadBuffer :: BufferedIO dev => dev -> Buffer Word8 -> IO (Int, Buffer Word8)
+fillReadBuffer0 :: BufferedIO dev => dev -> Buffer Word8 -> IO (Maybe Int, Buffer Word8)
+filter :: (a -> Bool) -> NonEmpty a -> [a]
+filter :: (a -> Bool) -> [a] -> [a]
+filterM :: Applicative m => (a -> m Bool) -> [a] -> m [a]
+finalize :: Weak v -> IO ()
+finalizeForeignPtr :: ForeignPtr a -> IO ()
+finalizerFree :: FinalizerPtr a
+finally :: IO a -> IO b -> IO a
+find :: (a -> Bool) -> [a] -> Maybe a
+find :: Foldable t => (a -> Bool) -> t a -> Maybe a
+findIndex :: (a -> Bool) -> [a] -> Maybe Int
+findIndices :: (a -> Bool) -> [a] -> [Int]
+fingerprint0 :: Fingerprint
+fingerprintFingerprints :: [Fingerprint] -> Fingerprint
+fingerprintString :: String -> Fingerprint
+finiteBitSize :: FiniteBits b => b -> Int
+first :: Arrow a => a b c -> a (b, d) (c, d)
+first :: Bifunctor p => (a -> b) -> p a c -> p b c
+fix :: (a -> a) -> a
+fixIO :: (a -> IO a) -> IO a
+fixST :: (a -> ST s a) -> ST s a
+flip :: (a -> b -> c) -> b -> a -> c
+float2Double :: Float -> Double
+float2Int :: Float -> Int
+floatDigits :: RealFloat a => a -> Int
+floatRadix :: RealFloat a => a -> Integer
+floatRange :: RealFloat a => a -> (Int, Int)
+floatToDigits :: RealFloat a => Integer -> a -> ([Int], Int)
+floor :: (RealFrac a, Integral b) => a -> b
+floorDoubleInt :: Double -> Int
+floorDoubleInteger :: Double -> Integer
+floorFloatInt :: Float -> Int
+floorFloatInteger :: Float -> Integer
+flushAll :: IO ()
+flushBuffer :: Handle__ -> IO ()
+flushByteReadBuffer :: Handle__ -> IO ()
+flushByteWriteBuffer :: Handle__ -> IO ()
+flushCharBuffer :: Handle__ -> IO ()
+flushCharReadBuffer :: Handle__ -> IO ()
+flushEventLog :: IO ()
+flushStdHandles :: IO ()
+flushWriteBuffer :: BufferedIO dev => dev -> Buffer Word8 -> IO (Buffer Word8)
+flushWriteBuffer :: Handle__ -> IO ()
+flushWriteBuffer0 :: BufferedIO dev => dev -> Buffer Word8 -> IO (Int, Buffer Word8)
+fmap :: Functor f => (a -> b) -> f a -> f b
+fmapDefault :: forall t a b. Traversable t => (a -> b) -> t a -> t b
+fold :: (Foldable t, Monoid m) => t m -> m
+foldM :: (Foldable t, Monad m) => (b -> a -> m b) -> b -> t a -> m b
+foldM_ :: (Foldable t, Monad m) => (b -> a -> m b) -> b -> t a -> m ()
+foldMap :: (Foldable t, Monoid m) => (a -> m) -> t a -> m
+foldMap' :: (Foldable t, Monoid m) => (a -> m) -> t a -> m
+foldMapDefault :: forall t m a. (Traversable t, Monoid m) => (a -> m) -> t a -> m
+foldl :: Foldable t => (b -> a -> b) -> b -> t a -> b
+foldl :: forall a b. (b -> a -> b) -> b -> [a] -> b
+foldl' :: Foldable t => (b -> a -> b) -> b -> t a -> b
+foldl' :: forall a b. (b -> a -> b) -> b -> [a] -> b
+foldl1 :: (a -> a -> a) -> [a] -> a
+foldl1 :: Foldable t => (a -> a -> a) -> t a -> a
+foldl1' :: (a -> a -> a) -> [a] -> a
+foldl1Elems :: (a -> a -> a) -> Array i a -> a
+foldlElems :: (b -> a -> b) -> b -> Array i a -> b
+foldlElems' :: (b -> a -> b) -> b -> Array i a -> b
+foldlM :: (Foldable t, Monad m) => (b -> a -> m b) -> b -> t a -> m b
+foldr :: (a -> b -> b) -> b -> [a] -> b
+foldr :: Foldable t => (a -> b -> b) -> b -> t a -> b
+foldr' :: Foldable t => (a -> b -> b) -> b -> t a -> b
+foldr1 :: (a -> a -> a) -> [a] -> a
+foldr1 :: Foldable t => (a -> a -> a) -> t a -> a
+foldr1Elems :: (a -> a -> a) -> Array i a -> a
+foldrElems :: (a -> b -> b) -> b -> Array i a -> b
+foldrElems' :: (a -> b -> b) -> b -> Array i a -> b
+foldrM :: (Foldable t, Monad m) => (a -> b -> m b) -> b -> t a -> m b
+for :: (Traversable t, Applicative f) => t a -> (a -> f b) -> f (t b)
+forM :: (Traversable t, Monad m) => t a -> (a -> m b) -> m (t b)
+forM_ :: (Foldable t, Monad m) => t a -> (a -> m b) -> m ()
+for_ :: (Foldable t, Applicative f) => t a -> (a -> f b) -> f ()
+forever :: Applicative f => f a -> f b
+forkFinally :: IO a -> (Either SomeException a -> IO ()) -> IO ThreadId
+forkIO :: IO () -> IO ThreadId
+forkIOWithUnmask :: ((forall a. IO a -> IO a) -> IO ()) -> IO ThreadId
+forkOS :: IO () -> IO ThreadId
+forkOSWithUnmask :: ((forall a. IO a -> IO a) -> IO ()) -> IO ThreadId
+forkOn :: Int -> IO () -> IO ThreadId
+forkOnWithUnmask :: Int -> ((forall a. IO a -> IO a) -> IO ()) -> IO ThreadId
+formatArg :: PrintfArg a => a -> FieldFormatter
+formatChar :: Char -> FieldFormatter
+formatInt :: (Integral a, Bounded a) => a -> FieldFormatter
+formatInteger :: Integer -> FieldFormatter
+formatRealFloat :: RealFloat a => FFFormat -> Maybe Int -> a -> String
+formatRealFloat :: RealFloat a => a -> FieldFormatter
+formatRealFloatAlt :: RealFloat a => FFFormat -> Maybe Int -> Bool -> a -> String
+formatString :: IsChar a => [a] -> FieldFormatter
+free :: Ptr a -> IO ()
+freeHaskellFunPtr :: FunPtr a -> IO ()
+freePool :: Pool -> IO ()
+freeStablePtr :: StablePtr a -> IO ()
+freezeCallStack :: CallStack -> CallStack
+freezeSTArray :: STArray s i e -> ST s (Array i e)
+from :: Generic a => a -> Rep a x
+from1 :: Generic1 f => f a -> Rep1 f a
+fromBool :: Num a => Bool -> a
+fromCallSiteList :: [([Char], SrcLoc)] -> CallStack
+fromChar :: IsChar c => Char -> c
+fromDyn :: Typeable a => Dynamic -> a -> a
+fromDynamic :: forall a. Typeable a => Dynamic -> Maybe a
+fromEnum :: Enum a => a -> Int
+fromEnumError :: Show a => String -> a -> b
+fromException :: Exception e => SomeException -> Maybe e
+fromInteger :: Num a => Integer -> a
+fromIntegral :: (Integral a, Num b) => a -> b
+fromJust :: HasCallStack => Maybe a -> a
+fromLabel :: IsLabel x a => a
+fromLeft :: a -> Either a b -> a
+fromList :: IsList l => [Item l] -> l
+fromList :: [a] -> NonEmpty a
+fromListN :: IsList l => Int -> [Item l] -> l
+fromMaybe :: a -> Maybe a -> a
+fromRat :: RealFloat a => Rational -> a
+fromRat' :: RealFloat a => Rational -> a
+fromRat'' :: RealFloat a => Int -> Int -> Integer -> Integer -> a
+fromRational :: Fractional a => Rational -> a
+fromRight :: b -> Either a b -> b
+fromStaticPtr :: IsStatic p => StaticPtr a -> p a
+fromString :: IsString a => String -> a
+fst :: (a, b) -> a
+fullCompilerVersion :: Version
+fullErrorType :: IOErrorType
+funResultTy :: TypeRep -> TypeRep -> Maybe TypeRep
+gather :: ReadP a -> ReadP (String, a)
+gcast :: forall a b c. (Typeable a, Typeable b) => c a -> Maybe (c b)
+gcast1 :: forall c t t' a. (Typeable t, Typeable t') => c (t a) -> Maybe (c (t' a))
+gcast2 :: forall c t t' a b. (Typeable t, Typeable t') => c (t a b) -> Maybe (c (t' a b))
+gcastWith :: (a :~: b) -> (a ~ b => r) -> r
+gcd :: Integral a => a -> a -> a
+gcdNatural :: Natural -> Natural -> Natural
+gcoerceWith :: Coercion a b -> (Coercible a b => r) -> r
+geDouble :: Double -> Double -> Bool
+geFloat :: Float -> Float -> Bool
+geInt :: Int -> Int -> Bool
+geInt16 :: Int16 -> Int16 -> Bool
+geInt32 :: Int32 -> Int32 -> Bool
+geInt64 :: Int64 -> Int64 -> Bool
+geInt8 :: Int8 -> Int8 -> Bool
+geInteger :: Integer -> Integer -> Bool
+geWord :: Word -> Word -> Bool
+geWord16 :: Word16 -> Word16 -> Bool
+geWord32 :: Word32 -> Word32 -> Bool
+geWord64 :: Word64 -> Word64 -> Bool
+geWord8 :: Word8 -> Word8 -> Bool
+generalCategory :: Char -> GeneralCategory
+genericDrop :: Integral i => i -> [a] -> [a]
+genericIndex :: Integral i => [a] -> i -> a
+genericLength :: Num i => [a] -> i
+genericReplicate :: Integral i => i -> a -> [a]
+genericSplitAt :: Integral i => i -> [a] -> ([a], [a])
+genericTake :: Integral i => i -> [a] -> [a]
+get :: ReadP Char
+get :: ReadPrec Char
+getAllocationCounter :: IO Int64
+getArgs :: IO [String]
+getArgsWithResponseFiles :: IO [String]
+getCCFlags :: IO CCFlags
+getCCSOf :: a -> IO (Ptr CostCentreStack)
+getCPUTime :: IO Integer
+getCallStack :: CallStack -> [([Char], SrcLoc)]
+getChanContents :: Chan a -> IO [a]
+getChar :: IO Char
+getConcFlags :: IO ConcFlags
+getContents :: IO String
+getContents' :: IO String
+getCurrentCCS :: dummy -> IO (Ptr CostCentreStack)
+getDebugFlags :: IO DebugFlags
+getEcho :: FD -> IO Bool
+getEcho :: IODevice a => a -> IO Bool
+getEnv :: String -> IO (Maybe String)
+getEnv :: String -> IO String
+getEnvDefault :: String -> String -> IO String
+getEnvironment :: IO [(String, String)]
+getErrno :: IO Errno
+getExecutablePath :: IO FilePath
+getField :: HasField x r a => r -> a
+getFileHash :: FilePath -> IO Fingerprint
+getFileSystemEncoding :: IO TextEncoding
+getForeignEncoding :: IO TextEncoding
+getFullArgs :: IO [String]
+getGCFlags :: IO GCFlags
+getIoManagerFlag :: IO IoSubSystem
+getLine :: IO String
+getLocaleEncoding :: IO TextEncoding
+getMaskingState :: IO MaskingState
+getMiscFlags :: IO MiscFlags
+getMonotonicTime :: IO Double
+getMonotonicTimeNSec :: IO Word64
+getNumCapabilities :: IO Int
+getNumProcessors :: IO Int
+getOpt :: ArgOrder a -> [OptDescr a] -> [String] -> ([a], [String], [String])
+getOpt' :: ArgOrder a -> [OptDescr a] -> [String] -> ([a], [String], [String], [String])
+getParFlags :: IO ParFlags
+getProfFlags :: IO ProfFlags
+getProgName :: IO String
+getRTSFlags :: IO RTSFlags
+getRTSStats :: IO RTSStats
+getRTSStatsEnabled :: IO Bool
+getSize :: IODevice a => a -> IO Integer
+getStackTrace :: IO (Maybe [Location])
+getSystemEventManager :: IO (Maybe EventManager)
+getSystemTimerManager :: IO TimerManager
+getTickyFlags :: IO TickyFlags
+getTraceFlags :: IO TraceFlags
+getUncaughtExceptionHandler :: IO (SomeException -> IO ())
+get_saved_termios :: CInt -> IO (Ptr CTermios)
+ghciStepIO :: GHCiSandboxIO m => m a -> IO a
+group :: (Foldable f, Eq a) => f a -> [NonEmpty a]
+group :: Eq a => [a] -> [[a]]
+group1 :: Eq a => NonEmpty a -> NonEmpty (NonEmpty a)
+groupAllWith :: Ord b => (a -> b) -> [a] -> [NonEmpty a]
+groupAllWith1 :: Ord b => (a -> b) -> NonEmpty a -> NonEmpty (NonEmpty a)
+groupBy :: (a -> a -> Bool) -> [a] -> [[a]]
+groupBy :: Foldable f => (a -> a -> Bool) -> f a -> [NonEmpty a]
+groupBy1 :: (a -> a -> Bool) -> NonEmpty a -> NonEmpty (NonEmpty a)
+groupWith :: (Foldable f, Eq b) => (a -> b) -> f a -> [NonEmpty a]
+groupWith :: Ord b => (a -> b) -> [a] -> [[a]]
+groupWith1 :: Eq b => (a -> b) -> NonEmpty a -> NonEmpty (NonEmpty a)
+gtDouble :: Double -> Double -> Bool
+gtFloat :: Float -> Float -> Bool
+gtInt :: Int -> Int -> Bool
+gtInt16 :: Int16 -> Int16 -> Bool
+gtInt32 :: Int32 -> Int32 -> Bool
+gtInt64 :: Int64 -> Int64 -> Bool
+gtInt8 :: Int8 -> Int8 -> Bool
+gtInteger :: Integer -> Integer -> Bool
+gtWord :: Word -> Word -> Bool
+gtWord16 :: Word16 -> Word16 -> Bool
+gtWord32 :: Word32 -> Word32 -> Bool
+gtWord64 :: Word64 -> Word64 -> Bool
+gtWord8 :: Word8 -> Word8 -> Bool
+guard :: Alternative f => Bool -> f ()
+hClose :: Handle -> IO ()
+hClose_help :: Handle__ -> IO (Handle__, Maybe SomeException)
+hClose_impl :: Handle -> IO ()
+hDuplicate :: Handle -> IO Handle
+hDuplicateTo :: Handle -> Handle -> IO ()
+hFileSize :: Handle -> IO Integer
+hFlush :: Handle -> IO ()
+hFlushAll :: Handle -> IO ()
+hGetBuf :: Handle -> Ptr a -> Int -> IO Int
+hGetBufNonBlocking :: Handle -> Ptr a -> Int -> IO Int
+hGetBufSome :: Handle -> Ptr a -> Int -> IO Int
+hGetBuffering :: Handle -> IO BufferMode
+hGetChar :: Handle -> IO Char
+hGetContents :: Handle -> IO String
+hGetContents' :: Handle -> IO String
+hGetEcho :: Handle -> IO Bool
+hGetEncoding :: Handle -> IO (Maybe TextEncoding)
+hGetLine :: Handle -> IO String
+hGetPosn :: Handle -> IO HandlePosn
+hIsClosed :: Handle -> IO Bool
+hIsEOF :: Handle -> IO Bool
+hIsOpen :: Handle -> IO Bool
+hIsReadable :: Handle -> IO Bool
+hIsSeekable :: Handle -> IO Bool
+hIsTerminalDevice :: Handle -> IO Bool
+hIsWritable :: Handle -> IO Bool
+hLock :: Handle -> LockMode -> IO ()
+hLookAhead :: Handle -> IO Char
+hLookAhead_ :: Handle__ -> IO Char
+hPrint :: Show a => Handle -> a -> IO ()
+hPrintf :: HPrintfType r => Handle -> String -> r
+hPutBuf :: Handle -> Ptr a -> Int -> IO ()
+hPutBufNonBlocking :: Handle -> Ptr a -> Int -> IO Int
+hPutChar :: Handle -> Char -> IO ()
+hPutStr :: Handle -> String -> IO ()
+hPutStrLn :: Handle -> String -> IO ()
+hReady :: Handle -> IO Bool
+hSeek :: Handle -> SeekMode -> Integer -> IO ()
+hSetBinaryMode :: Handle -> Bool -> IO ()
+hSetBuffering :: Handle -> BufferMode -> IO ()
+hSetEcho :: Handle -> Bool -> IO ()
+hSetEncoding :: Handle -> TextEncoding -> IO ()
+hSetFileSize :: Handle -> Integer -> IO ()
+hSetNewlineMode :: Handle -> NewlineMode -> IO ()
+hSetPosn :: HandlePosn -> IO ()
+hShow :: Handle -> IO String
+hTell :: Handle -> IO Integer
+hTryLock :: Handle -> LockMode -> IO Bool
+hUnlock :: Handle -> IO ()
+hWaitForInput :: Handle -> Int -> IO Bool
+handle :: Exception e => (e -> IO a) -> IO a -> IO a
+handleFinalizer :: FilePath -> MVar Handle__ -> IO ()
+handleJust :: Exception e => (e -> Maybe b) -> (b -> IO a) -> IO a -> IO a
+handleToFd :: Handle -> IO FD
+hashStableName :: StableName a -> Int
+hashUnique :: Unique -> Int
+head :: NonEmpty a -> a
+head :: [a] -> a
+heapOverflow :: SomeException
+hostIsThreaded :: Bool
+hsLex :: ReadP String
+iconvEncoding :: String -> IO (Maybe TextEncoding)
+id :: Category cat => cat a a
+id :: a -> a
+illegalOperationErrorType :: IOErrorType
+imagPart :: Complex a -> a
+inRange :: Ix a => (a, a) -> a -> Bool
+index :: Ix a => (a, a) -> a -> Int
+indexError :: Show a => (a, a) -> a -> String -> b
+indices :: Ix i => Array i e -> [i]
+infinity :: Rational
+init :: NonEmpty a -> [a]
+init :: [a] -> [a]
+initBufferState :: HandleType -> BufferState
+initLocaleEncoding :: TextEncoding
+inits :: Foldable f => f a -> NonEmpty [a]
+inits :: [a] -> [[a]]
+inline :: a -> a
+inner :: (f a :~: g b) -> a :~: b
+insert :: (Foldable f, Ord a) => a -> f a -> NonEmpty a
+insert :: Ord a => a -> [a] -> [a]
+insertBy :: (a -> a -> Ordering) -> a -> [a] -> [a]
+int2Double :: Int -> Double
+int2Float :: Int -> Float
+intPtrToPtr :: IntPtr -> Ptr a
+intToDigit :: Int -> Char
+integerToBinaryFloat' :: RealFloat a => Integer -> a
+integralEnumFrom :: (Integral a, Bounded a) => a -> [a]
+integralEnumFromThen :: (Integral a, Bounded a) => a -> a -> [a]
+integralEnumFromThenTo :: Integral a => a -> a -> a -> [a]
+integralEnumFromTo :: Integral a => a -> a -> [a]
+interact :: (String -> String) -> IO ()
+intercalate :: [a] -> [[a]] -> [a]
+interruptIOManager :: IO ()
+interruptible :: IO a -> IO a
+intersect :: Eq a => [a] -> [a] -> [a]
+intersectBy :: (a -> a -> Bool) -> [a] -> [a] -> [a]
+intersperse :: a -> NonEmpty a -> NonEmpty a
+intersperse :: a -> [a] -> [a]
+invalidateDebugCache :: IO ()
+ioError :: IOError -> IO a
+ioException :: IOException -> IO a
+ioManagerCapabilitiesChanged :: IO ()
+ioSubSystem :: IoSubSystem
+ioToST :: IO a -> ST RealWorld a
+ioeGetErrorString :: IOError -> String
+ioeGetErrorType :: IOError -> IOErrorType
+ioeGetFileName :: IOError -> Maybe FilePath
+ioeGetHandle :: IOError -> Maybe Handle
+ioeGetLocation :: IOError -> String
+ioeSetErrorString :: IOError -> String -> IOError
+ioeSetErrorType :: IOError -> IOErrorType -> IOError
+ioeSetFileName :: IOError -> FilePath -> IOError
+ioeSetHandle :: IOError -> Handle -> IOError
+ioeSetLocation :: IOError -> String -> IOError
+ioe_EOF :: IO a
+ioe_bufsiz :: Int -> IO a
+ioe_closedHandle :: IO a
+ioe_finalizedHandle :: FilePath -> Handle__
+ioe_notReadable :: IO a
+ioe_notWritable :: IO a
+ioe_semiclosedHandle :: IO a
+ioe_unknownfiletype :: IOException
+isAlpha :: Char -> Bool
+isAlphaNum :: Char -> Bool
+isAlreadyExistsError :: IOError -> Bool
+isAlreadyExistsErrorType :: IOErrorType -> Bool
+isAlreadyInUseError :: IOError -> Bool
+isAlreadyInUseErrorType :: IOErrorType -> Bool
+isAppendHandleType :: HandleType -> Bool
+isAscii :: Char -> Bool
+isAsciiLower :: Char -> Bool
+isAsciiUpper :: Char -> Bool
+isControl :: Char -> Bool
+isCurrentThreadBound :: IO Bool
+isDenormalized :: RealFloat a => a -> Bool
+isDigit :: Char -> Bool
+isDoesNotExistError :: IOError -> Bool
+isDoesNotExistErrorType :: IOErrorType -> Bool
+isDoubleDenormalized :: Double -> Int
+isDoubleFinite :: Double -> Int
+isDoubleInfinite :: Double -> Int
+isDoubleNaN :: Double -> Int
+isDoubleNegativeZero :: Double -> Int
+isEOF :: IO Bool
+isEOFError :: IOError -> Bool
+isEOFErrorType :: IOErrorType -> Bool
+isEmptyBuffer :: Buffer e -> Bool
+isEmptyMVar :: MVar a -> IO Bool
+isFloatDenormalized :: Float -> Int
+isFloatFinite :: Float -> Int
+isFloatInfinite :: Float -> Int
+isFloatNaN :: Float -> Int
+isFloatNegativeZero :: Float -> Int
+isFullBuffer :: Buffer e -> Bool
+isFullCharBuffer :: Buffer e -> Bool
+isFullError :: IOError -> Bool
+isFullErrorType :: IOErrorType -> Bool
+isHexDigit :: Char -> Bool
+isIEEE :: RealFloat a => a -> Bool
+isIllegalOperation :: IOError -> Bool
+isIllegalOperationErrorType :: IOErrorType -> Bool
+isInfinite :: RealFloat a => a -> Bool
+isJust :: Maybe a -> Bool
+isLatin1 :: Char -> Bool
+isLeft :: Either a b -> Bool
+isLetter :: Char -> Bool
+isLower :: Char -> Bool
+isMark :: Char -> Bool
+isNaN :: RealFloat a => a -> Bool
+isNegativeZero :: RealFloat a => a -> Bool
+isNothing :: Maybe a -> Bool
+isNumber :: Char -> Bool
+isOctDigit :: Char -> Bool
+isPermissionError :: IOError -> Bool
+isPermissionErrorType :: IOErrorType -> Bool
+isPrefixOf :: Eq a => [a] -> NonEmpty a -> Bool
+isPrefixOf :: Eq a => [a] -> [a] -> Bool
+isPrint :: Char -> Bool
+isPunctuation :: Char -> Bool
+isReadWriteHandleType :: HandleType -> Bool
+isReadableHandleType :: HandleType -> Bool
+isResourceVanishedError :: IOError -> Bool
+isResourceVanishedErrorType :: IOErrorType -> Bool
+isRight :: Either a b -> Bool
+isSeekable :: IODevice a => a -> IO Bool
+isSeparator :: Char -> Bool
+isSigned :: Bits a => a -> Bool
+isSpace :: Char -> Bool
+isSubsequenceOf :: Eq a => [a] -> [a] -> Bool
+isSuffixOf :: Eq a => [a] -> [a] -> Bool
+isSurrogate :: Char -> Bool
+isSymbol :: Char -> Bool
+isSymbolChar :: Char -> Bool
+isTerminal :: IODevice a => a -> IO Bool
+isUpper :: Char -> Bool
+isUserError :: IOError -> Bool
+isUserErrorType :: IOErrorType -> Bool
+isValidErrno :: Errno -> Bool
+isValidNatural :: Natural -> Bool
+isWindowsNativeIO :: Bool
+isWritableHandleType :: HandleType -> Bool
+isWriteBuffer :: Buffer e -> Bool
+iterate :: (a -> a) -> a -> NonEmpty a
+iterate :: (a -> a) -> a -> [a]
+iterate' :: (a -> a) -> a -> [a]
+ixmap :: (Ix i, Ix j) => (i, i) -> (i -> j) -> Array j e -> Array i e
+join :: Monad m => m (m a) -> m a
+killThread :: ThreadId -> IO ()
+labelThread :: ThreadId -> String -> IO ()
+last :: NonEmpty a -> a
+last :: [a] -> a
+latin1 :: TextEncoding
+latin1_checked :: TextEncoding
+latin1_checked_encode :: EncodeBuffer
+latin1_decode :: Buffer Word8 -> CharBuffer -> IO (Buffer Word8, CharBuffer)
+latin1_decode :: DecodeBuffer
+latin1_encode :: CharBuffer -> Buffer Word8 -> IO (CharBuffer, Buffer Word8)
+latin1_encode :: EncodeBuffer
+lazy :: a -> a
+lazyToStrictST :: ST s a -> ST s a
+lcm :: Integral a => a -> a -> a
+lcmNatural :: Natural -> Natural -> Natural
+leDouble :: Double -> Double -> Bool
+leFloat :: Float -> Float -> Bool
+leInt :: Int -> Int -> Bool
+leInt16 :: Int16 -> Int16 -> Bool
+leInt32 :: Int32 -> Int32 -> Bool
+leInt64 :: Int64 -> Int64 -> Bool
+leInt8 :: Int8 -> Int8 -> Bool
+leInteger :: Integer -> Integer -> Bool
+leWord :: Word -> Word -> Bool
+leWord16 :: Word16 -> Word16 -> Bool
+leWord32 :: Word32 -> Word32 -> Bool
+leWord64 :: Word64 -> Word64 -> Bool
+leWord8 :: Word8 -> Word8 -> Bool
+left :: ArrowChoice a => a b c -> a (Either b d) (Either c d)
+leftApp :: ArrowApply a => a b c -> a (Either b d) (Either c d)
+leftSection :: forall {q :: RuntimeRep} {r :: RuntimeRep} {n :: Multiplicity} (a :: TYPE q) (b :: TYPE r). (a %n -> b) -> a %n -> b
+lefts :: [Either a b] -> [a]
+length :: Foldable t => t a -> Int
+length :: NonEmpty a -> Int
+length :: [a] -> Int
+lengthArray0 :: (Storable a, Eq a) => a -> Ptr a -> IO Int
+lessSafeIndex :: Ix i => (i, i) -> Int -> i -> Int
+lex :: ReadP Lexeme
+lex :: ReadS String
+lexChar :: ReadP Char
+lexDigits :: ReadS String
+lexLitChar :: ReadS String
+lexP :: ReadPrec Lexeme
+lift :: ReadP a -> ReadPrec a
+liftA :: Applicative f => (a -> b) -> f a -> f b
+liftA2 :: Applicative f => (a -> b -> c) -> f a -> f b -> f c
+liftA3 :: Applicative f => (a -> b -> c -> d) -> f a -> f b -> f c -> f d
+liftCompare :: Ord1 f => (a -> b -> Ordering) -> f a -> f b -> Ordering
+liftCompare2 :: Ord2 f => (a -> b -> Ordering) -> (c -> d -> Ordering) -> f a c -> f b d -> Ordering
+liftEq :: Eq1 f => (a -> b -> Bool) -> f a -> f b -> Bool
+liftEq2 :: Eq2 f => (a -> b -> Bool) -> (c -> d -> Bool) -> f a c -> f b d -> Bool
+liftIO :: MonadIO m => IO a -> m a
+liftM :: Monad m => (a1 -> r) -> m a1 -> m r
+liftM2 :: Monad m => (a1 -> a2 -> r) -> m a1 -> m a2 -> m r
+liftM3 :: Monad m => (a1 -> a2 -> a3 -> r) -> m a1 -> m a2 -> m a3 -> m r
+liftM4 :: Monad m => (a1 -> a2 -> a3 -> a4 -> r) -> m a1 -> m a2 -> m a3 -> m a4 -> m r
+liftM5 :: Monad m => (a1 -> a2 -> a3 -> a4 -> a5 -> r) -> m a1 -> m a2 -> m a3 -> m a4 -> m a5 -> m r
+liftReadList :: Read1 f => (Int -> ReadS a) -> ReadS [a] -> ReadS [f a]
+liftReadList2 :: Read2 f => (Int -> ReadS a) -> ReadS [a] -> (Int -> ReadS b) -> ReadS [b] -> ReadS [f a b]
+liftReadList2Default :: Read2 f => (Int -> ReadS a) -> ReadS [a] -> (Int -> ReadS b) -> ReadS [b] -> ReadS [f a b]
+liftReadListDefault :: Read1 f => (Int -> ReadS a) -> ReadS [a] -> ReadS [f a]
+liftReadListPrec :: Read1 f => ReadPrec a -> ReadPrec [a] -> ReadPrec [f a]
+liftReadListPrec2 :: Read2 f => ReadPrec a -> ReadPrec [a] -> ReadPrec b -> ReadPrec [b] -> ReadPrec [f a b]
+liftReadListPrec2Default :: Read2 f => ReadPrec a -> ReadPrec [a] -> ReadPrec b -> ReadPrec [b] -> ReadPrec [f a b]
+liftReadListPrecDefault :: Read1 f => ReadPrec a -> ReadPrec [a] -> ReadPrec [f a]
+liftReadPrec :: Read1 f => ReadPrec a -> ReadPrec [a] -> ReadPrec (f a)
+liftReadPrec2 :: Read2 f => ReadPrec a -> ReadPrec [a] -> ReadPrec b -> ReadPrec [b] -> ReadPrec (f a b)
+liftReadsPrec :: Read1 f => (Int -> ReadS a) -> ReadS [a] -> Int -> ReadS (f a)
+liftReadsPrec2 :: Read2 f => (Int -> ReadS a) -> ReadS [a] -> (Int -> ReadS b) -> ReadS [b] -> Int -> ReadS (f a b)
+liftShowList :: Show1 f => (Int -> a -> ShowS) -> ([a] -> ShowS) -> [f a] -> ShowS
+liftShowList2 :: Show2 f => (Int -> a -> ShowS) -> ([a] -> ShowS) -> (Int -> b -> ShowS) -> ([b] -> ShowS) -> [f a b] -> ShowS
+liftShowsPrec :: Show1 f => (Int -> a -> ShowS) -> ([a] -> ShowS) -> Int -> f a -> ShowS
+liftShowsPrec2 :: Show2 f => (Int -> a -> ShowS) -> ([a] -> ShowS) -> (Int -> b -> ShowS) -> ([b] -> ShowS) -> Int -> f a b -> ShowS
+lines :: String -> [String]
+list :: ReadPrec a -> ReadPrec [a]
+listArray :: Ix i => (i, i) -> [e] -> Array i e
+listToMaybe :: [a] -> Maybe a
+localeEncoding :: TextEncoding
+localeEncodingName :: String
+log :: Floating a => a -> a
+log1mexp :: Floating a => a -> a
+log1mexpOrd :: (Ord a, Floating a) => a -> a
+log1p :: Floating a => a -> a
+log1pDouble :: Double -> Double
+log1pFloat :: Float -> Float
+log1pexp :: Floating a => a -> a
+logBase :: Floating a => a -> a -> a
+logDouble :: Double -> Double
+logFloat :: Float -> Float
+look :: ReadP String
+look :: ReadPrec String
+lookup :: Eq a => a -> [(a, b)] -> Maybe b
+lookupEnv :: String -> IO (Maybe String)
+loop :: ArrowLoop a => a (b, d) (c, d) -> a b c
+lstat :: CFilePath -> Ptr CStat -> IO CInt
+ltDouble :: Double -> Double -> Bool
+ltFloat :: Float -> Float -> Bool
+ltInt :: Int -> Int -> Bool
+ltInt16 :: Int16 -> Int16 -> Bool
+ltInt32 :: Int32 -> Int32 -> Bool
+ltInt64 :: Int64 -> Int64 -> Bool
+ltInt8 :: Int8 -> Int8 -> Bool
+ltInteger :: Integer -> Integer -> Bool
+ltWord :: Word -> Word -> Bool
+ltWord16 :: Word16 -> Word16 -> Bool
+ltWord32 :: Word32 -> Word32 -> Bool
+ltWord64 :: Word64 -> Word64 -> Bool
+ltWord8 :: Word8 -> Word8 -> Bool
+magicDict :: a
+magnitude :: RealFloat a => Complex a -> a
+makeStableName :: a -> IO (StableName a)
+makeVersion :: [Int] -> Version
+malloc :: forall a. Storable a => IO (Ptr a)
+mallocArray :: forall a. Storable a => Int -> IO (Ptr a)
+mallocArray0 :: Storable a => Int -> IO (Ptr a)
+mallocBytes :: Int -> IO (Ptr a)
+mallocForeignPtr :: Storable a => IO (ForeignPtr a)
+mallocForeignPtrAlignedBytes :: Int -> Int -> IO (ForeignPtr a)
+mallocForeignPtrArray :: Storable a => Int -> IO (ForeignPtr a)
+mallocForeignPtrArray0 :: Storable a => Int -> IO (ForeignPtr a)
+mallocForeignPtrBytes :: Int -> IO (ForeignPtr a)
+mallocPlainForeignPtr :: Storable a => IO (ForeignPtr a)
+mallocPlainForeignPtrAlignedBytes :: Int -> Int -> IO (ForeignPtr a)
+mallocPlainForeignPtrBytes :: Int -> IO (ForeignPtr a)
+many :: Alternative f => f a -> f [a]
+many :: ReadP a -> ReadP [a]
+many1 :: ReadP a -> ReadP [a]
+manyTill :: ReadP a -> ReadP end -> ReadP [a]
+map :: (a -> b) -> NonEmpty a -> NonEmpty b
+map :: (a -> b) -> [a] -> [b]
+mapAccumL :: (acc -> x -> (acc, y)) -> acc -> [x] -> (acc, [y])
+mapAccumL :: forall t s a b. Traversable t => (s -> a -> (s, b)) -> s -> t a -> (s, t b)
+mapAccumR :: (acc -> x -> (acc, y)) -> acc -> [x] -> (acc, [y])
+mapAccumR :: forall t s a b. Traversable t => (s -> a -> (s, b)) -> s -> t a -> (s, t b)
+mapAndUnzipM :: Applicative m => (a -> m (b, c)) -> [a] -> m ([b], [c])
+mapException :: (Exception e1, Exception e2) => (e1 -> e2) -> a -> a
+mapFB :: (elt -> lst -> lst) -> (a -> elt) -> a -> lst -> lst
+mapM :: (Traversable t, Monad m) => (a -> m b) -> t a -> m (t b)
+mapM :: Monad m => (a -> m b) -> [a] -> m [b]
+mapM_ :: (Foldable t, Monad m) => (a -> m b) -> t a -> m ()
+mapMaybe :: (a -> Maybe b) -> [a] -> [b]
+mappend :: Monoid a => a -> a -> a
+mask :: ((forall a. IO a -> IO a) -> IO b) -> IO b
+mask_ :: IO a -> IO a
+max :: Ord a => a -> a -> a
+maxBound :: Bounded a => a
+maxExpt :: Int
+maxExpt10 :: Int
+maxInt :: Int
+maxTupleSize :: Int
+maximum :: Ord a => [a] -> a
+maximum :: forall a. (Foldable t, Ord a) => t a -> a
+maximumBy :: (a -> a -> Ordering) -> [a] -> a
+maximumBy :: Foldable t => (a -> a -> Ordering) -> t a -> a
+maybe :: b -> (a -> b) -> Maybe a -> b
+maybeNew :: (a -> IO (Ptr b)) -> Maybe a -> IO (Ptr b)
+maybePeek :: (Ptr a -> IO b) -> Ptr a -> IO (Maybe b)
+maybeToList :: Maybe a -> [a]
+maybeWith :: (a -> (Ptr b -> IO c) -> IO c) -> Maybe a -> (Ptr b -> IO c) -> IO c
+mconcat :: Monoid a => [a] -> a
+memcpy :: Ptr a -> Ptr a -> CSize -> IO (Ptr ())
+mempty :: Monoid a => a
+mfilter :: MonadPlus m => (a -> Bool) -> m a -> m a
+mfix :: MonadFix m => (a -> m a) -> m a
+min :: Ord a => a -> a -> a
+minBound :: Bounded a => a
+minExpt :: Int
+minInt :: Int
+minPrec :: Prec
+minimum :: Ord a => [a] -> a
+minimum :: forall a. (Foldable t, Ord a) => t a -> a
+minimumBy :: (a -> a -> Ordering) -> [a] -> a
+minimumBy :: Foldable t => (a -> a -> Ordering) -> t a -> a
+minusDouble :: Double -> Double -> Double
+minusFloat :: Float -> Float -> Float
+minusInteger :: Integer -> Integer -> Integer
+minusNatural :: Natural -> Natural -> Natural
+minusNaturalMaybe :: Natural -> Natural -> Maybe Natural
+minusPtr :: Ptr a -> Ptr b -> Int
+mkAscii :: CodingFailureMode -> TextEncoding
+mkDuplexHandle :: (RawIO dev, IODevice dev, BufferedIO dev, Typeable dev) => dev -> FilePath -> Maybe TextEncoding -> NewlineMode -> IO Handle
+mkDuplexHandleNoFinalizer :: (RawIO dev, IODevice dev, BufferedIO dev, Typeable dev) => dev -> FilePath -> Maybe TextEncoding -> NewlineMode -> IO Handle
+mkFD :: CInt -> IOMode -> Maybe (IODeviceType, CDev, CIno) -> Bool -> Bool -> IO (FD, IODeviceType)
+mkFileHandle :: (RawIO dev, IODevice dev, BufferedIO dev, Typeable dev) => dev -> FilePath -> IOMode -> Maybe TextEncoding -> NewlineMode -> IO Handle
+mkFileHandleNoFinalizer :: (RawIO dev, IODevice dev, BufferedIO dev, Typeable dev) => dev -> FilePath -> IOMode -> Maybe TextEncoding -> NewlineMode -> IO Handle
+mkFunTy :: TypeRep -> TypeRep -> TypeRep
+mkHandle :: (RawIO dev, IODevice dev, BufferedIO dev, Typeable dev) => dev -> FilePath -> HandleType -> Bool -> Maybe TextEncoding -> NewlineMode -> Maybe HandleFinalizer -> Maybe (MVar Handle__) -> IO Handle
+mkHandleFromFD :: FD -> IODeviceType -> FilePath -> IOMode -> Bool -> Maybe TextEncoding -> IO Handle
+mkIOError :: IOErrorType -> String -> Maybe Handle -> Maybe FilePath -> IOError
+mkIconvEncoding :: CodingFailureMode -> String -> IO (Maybe TextEncoding)
+mkLatin1 :: CodingFailureMode -> TextEncoding
+mkLatin1_checked :: CodingFailureMode -> TextEncoding
+mkNatural :: [Word] -> Natural
+mkPolar :: Floating a => a -> a -> Complex a
+mkRationalBase10 :: Rational -> Integer -> Rational
+mkRationalBase2 :: Rational -> Integer -> Rational
+mkRationalWithExponentBase :: Rational -> Integer -> FractionalExponentBase -> Rational
+mkTextEncoding :: String -> IO TextEncoding
+mkTrApp :: forall k1 k2 (a :: k1 -> k2) (b :: k1). TypeRep (a :: k1 -> k2) -> TypeRep (b :: k1) -> TypeRep (a b)
+mkTrCon :: forall k (a :: k). TyCon -> [SomeTypeRep] -> TypeRep a
+mkTyCon :: String -> String -> String -> Int -> KindRep -> TyCon
+mkUTF16 :: CodingFailureMode -> TextEncoding
+mkUTF16be :: CodingFailureMode -> TextEncoding
+mkUTF16le :: CodingFailureMode -> TextEncoding
+mkUTF32 :: CodingFailureMode -> TextEncoding
+mkUTF32be :: CodingFailureMode -> TextEncoding
+mkUTF32le :: CodingFailureMode -> TextEncoding
+mkUTF8 :: CodingFailureMode -> TextEncoding
+mkUTF8_bom :: CodingFailureMode -> TextEncoding
+mkUserError :: [Char] -> SomeException
+mkWeak :: k -> v -> Maybe (IO ()) -> IO (Weak v)
+mkWeakIORef :: IORef a -> IO () -> IO (Weak (IORef a))
+mkWeakMVar :: MVar a -> IO () -> IO (Weak (MVar a))
+mkWeakPair :: k -> v -> Maybe (IO ()) -> IO (Weak (k, v))
+mkWeakPtr :: k -> Maybe (IO ()) -> IO (Weak k)
+mkWeakThreadId :: ThreadId -> IO (Weak ThreadId)
+mod :: Integral a => a -> a -> a
+mod' :: Real a => a -> a -> a
+modInt :: Int -> Int -> Int
+modInteger :: Integer -> Integer -> Integer
+modifyIOError :: (IOError -> IOError) -> IO a -> IO a
+modifyIORef :: IORef a -> (a -> a) -> IO ()
+modifyIORef' :: IORef a -> (a -> a) -> IO ()
+modifyMVar :: MVar a -> (a -> IO (a, b)) -> IO b
+modifyMVarMasked :: MVar a -> (a -> IO (a, b)) -> IO b
+modifyMVarMasked_ :: MVar a -> (a -> IO a) -> IO ()
+modifyMVar_ :: MVar a -> (a -> IO a) -> IO ()
+modifySTRef :: STRef s a -> (a -> a) -> ST s ()
+modifySTRef' :: STRef s a -> (a -> a) -> ST s ()
+module Control.Applicative
+module Control.Arrow
+module Control.Category
+module Control.Concurrent
+module Control.Concurrent.Chan
+module Control.Concurrent.MVar
+module Control.Concurrent.QSem
+module Control.Concurrent.QSemN
+module Control.Exception
+module Control.Exception.Base
+module Control.Monad
+module Control.Monad.Fail
+module Control.Monad.Fix
+module Control.Monad.ST
+module Control.Monad.ST.Lazy
+module Control.Monad.ST.Lazy.Safe
+module Control.Monad.ST.Lazy.Unsafe
+module Control.Monad.ST.Safe
+module Control.Monad.ST.Strict
+module Control.Monad.ST.Unsafe
+module Control.Monad.Zip
+module Debug.Trace
+module Foreign
+module Foreign.C
+module Foreign.C.Error
+module Foreign.C.String
+module Foreign.C.Types
+module Foreign.Concurrent
+module Foreign.ForeignPtr
+module Foreign.ForeignPtr.Safe
+module Foreign.ForeignPtr.Unsafe
+module Foreign.Marshal
+module Foreign.Marshal.Alloc
+module Foreign.Marshal.Array
+module Foreign.Marshal.Error
+module Foreign.Marshal.Pool
+module Foreign.Marshal.Safe
+module Foreign.Marshal.Unsafe
+module Foreign.Marshal.Utils
+module Foreign.Ptr
+module Foreign.Safe
+module Foreign.StablePtr
+module Foreign.Storable
+module GHC.Arr
+module GHC.Base
+module GHC.Bits
+module GHC.ByteOrder
+module GHC.Char
+module GHC.Clock
+module GHC.Conc
+module GHC.Conc.IO
+module GHC.Conc.Signal
+module GHC.Conc.Sync
+module GHC.ConsoleHandler
+module GHC.Constants
+module GHC.Desugar
+module GHC.Enum
+module GHC.Environment
+module GHC.Err
+module GHC.Event
+module GHC.Event.TimeOut
+module GHC.Exception
+module GHC.Exception.Type
+module GHC.ExecutionStack
+module GHC.ExecutionStack.Internal
+module GHC.Exts
+module GHC.Fingerprint
+module GHC.Fingerprint.Type
+module GHC.Float
+module GHC.Float.ConversionUtils
+module GHC.Float.RealFracMethods
+module GHC.Foreign
+module GHC.ForeignPtr
+module GHC.GHCi
+module GHC.GHCi.Helpers
+module GHC.Generics
+module GHC.IO
+module GHC.IO.Buffer
+module GHC.IO.BufferedIO
+module GHC.IO.Device
+module GHC.IO.Encoding
+module GHC.IO.Encoding.CodePage
+module GHC.IO.Encoding.Failure
+module GHC.IO.Encoding.Iconv
+module GHC.IO.Encoding.Latin1
+module GHC.IO.Encoding.Types
+module GHC.IO.Encoding.UTF16
+module GHC.IO.Encoding.UTF32
+module GHC.IO.Encoding.UTF8
+module GHC.IO.Exception
+module GHC.IO.FD
+module GHC.IO.Handle
+module GHC.IO.Handle.FD
+module GHC.IO.Handle.Internals
+module GHC.IO.Handle.Lock
+module GHC.IO.Handle.Text
+module GHC.IO.Handle.Types
+module GHC.IO.IOMode
+module GHC.IO.StdHandles
+module GHC.IO.SubSystem
+module GHC.IO.Unsafe
+module GHC.IOArray
+module GHC.IORef
+module GHC.Int
+module GHC.Integer.Logarithms
+module GHC.Ix
+module GHC.List
+module GHC.MVar
+module GHC.Maybe
+module GHC.Natural
+module GHC.Num
+module GHC.OldList
+module GHC.OverloadedLabels
+module GHC.Pack
+module GHC.Profiling
+module GHC.Ptr
+module GHC.RTS.Flags
+module GHC.Read
+module GHC.Real
+module GHC.Records
+module GHC.ResponseFile
+module GHC.ST
+module GHC.STRef
+module GHC.Show
+module GHC.Stable
+module GHC.StableName
+module GHC.Stack
+module GHC.Stack.CCS
+module GHC.Stack.Types
+module GHC.StaticPtr
+module GHC.Stats
+module GHC.Storable
+module GHC.TopHandler
+module GHC.TypeLits
+module GHC.TypeLits.Internal
+module GHC.TypeNats
+module GHC.TypeNats.Internal
+module GHC.Unicode
+module GHC.Weak
+module GHC.Word
+module Numeric
+module Numeric.Natural
+module Prelude
+module System.CPUTime
+module System.Console.GetOpt
+module System.Environment
+module System.Environment.Blank
+module System.Exit
+module System.IO
+module System.IO.Error
+module System.IO.Unsafe
+module System.Info
+module System.Mem
+module System.Mem.StableName
+module System.Mem.Weak
+module System.Posix.Internals
+module System.Posix.Types
+module System.Timeout
+module Text.ParserCombinators.ReadP
+module Text.ParserCombinators.ReadPrec
+module Text.Printf
+module Text.Read
+module Text.Read.Lex
+module Text.Show
+module Text.Show.Functions
+module Type.Reflection
+module Type.Reflection.Unsafe
+module Unsafe.Coerce
+moduleName :: Module -> String
+modulePackage :: Module -> String
+moveArray :: forall a. Storable a => Ptr a -> Ptr a -> Int -> IO ()
+moveBytes :: Ptr a -> Ptr a -> Int -> IO ()
+mplus :: MonadPlus m => m a -> m a -> m a
+mplusIO :: IO a -> IO a -> IO a
+msum :: (Foldable t, MonadPlus m) => t (m a) -> m a
+mtimesDefault :: (Integral b, Monoid a) => b -> a -> a
+munch :: (Char -> Bool) -> ReadP String
+munch1 :: (Char -> Bool) -> ReadP String
+munzip :: MonadZip m => m (a, b) -> (m a, m b)
+myThreadId :: IO ThreadId
+mzero :: MonadPlus m => m a
+mzip :: MonadZip m => m a -> m b -> m (a, b)
+mzipWith :: MonadZip m => (a -> b -> c) -> m a -> m b -> m c
+natVal :: forall n proxy. KnownNat n => proxy n -> Integer
+natVal :: forall n proxy. KnownNat n => proxy n -> Natural
+nativeNewline :: Newline
+nativeNewlineMode :: NewlineMode
+naturalFromInteger :: Integer -> Natural
+naturalToInteger :: Natural -> Integer
+naturalToWord :: Natural -> Word
+naturalToWordMaybe :: Natural -> Maybe Word
+neChar :: Char -> Char -> Bool
+neInt :: Int -> Int -> Bool
+neInt16 :: Int16 -> Int16 -> Bool
+neInt32 :: Int32 -> Int32 -> Bool
+neInt64 :: Int64 -> Int64 -> Bool
+neInt8 :: Int8 -> Int8 -> Bool
+neWord :: Word -> Word -> Bool
+neWord16 :: Word16 -> Word16 -> Bool
+neWord32 :: Word32 -> Word32 -> Bool
+neWord64 :: Word64 -> Word64 -> Bool
+neWord8 :: Word8 -> Word8 -> Bool
+negRange :: Int
+negate :: Num a => a -> a
+negateDouble :: Double -> Double
+negateFloat :: Float -> Float
+negateInteger :: Integer -> Integer
+negateNatural :: Natural -> Natural
+neqInteger :: Integer -> Integer -> Bool
+nestedAtomically :: SomeException
+new :: IO EventManager
+new :: Storable a => a -> IO (Ptr a)
+newArray :: Storable a => [a] -> IO (Ptr a)
+newArray0 :: Storable a => a -> [a] -> IO (Ptr a)
+newBuffer :: BufferedIO dev => dev -> BufferState -> IO (Buffer Word8)
+newBuffer :: Int -> Int -> BufferState -> IO (Buffer e)
+newByteBuffer :: Int -> BufferState -> IO (Buffer Word8)
+newCAString :: String -> IO CString
+newCAStringLen :: String -> IO CStringLen
+newCString :: String -> IO CString
+newCString :: TextEncoding -> String -> IO CString
+newCStringLen :: String -> IO CStringLen
+newCStringLen :: TextEncoding -> String -> IO CStringLen
+newCWString :: String -> IO CWString
+newCWStringLen :: String -> IO CWStringLen
+newChan :: IO (Chan a)
+newCharBuffer :: Int -> BufferState -> IO CharBuffer
+newConcForeignPtr :: Ptr a -> IO () -> IO (ForeignPtr a)
+newEmptyMVar :: IO (MVar a)
+newFilePath :: FilePath -> IO CString
+newForeignPtr :: FinalizerPtr a -> Ptr a -> IO (ForeignPtr a)
+newForeignPtr :: Ptr a -> IO () -> IO (ForeignPtr a)
+newForeignPtrEnv :: FinalizerEnvPtr env a -> Ptr env -> Ptr a -> IO (ForeignPtr a)
+newForeignPtr_ :: Ptr a -> IO (ForeignPtr a)
+newIOArray :: Ix i => (i, i) -> e -> IO (IOArray i e)
+newIORef :: a -> IO (IORef a)
+newMVar :: a -> IO (MVar a)
+newPool :: IO Pool
+newQSem :: Int -> IO QSem
+newQSemN :: Int -> IO QSemN
+newSTArray :: Ix i => (i, i) -> e -> ST s (STArray s i e)
+newSTRef :: a -> ST s (STRef s a)
+newStablePtr :: a -> IO (StablePtr a)
+newStablePtrPrimMVar :: MVar () -> IO (StablePtr PrimMVar)
+newTVar :: a -> STM (TVar a)
+newTVarIO :: a -> IO (TVar a)
+newUnique :: IO Unique
+noDuplicate :: IO ()
+noNewlineTranslation :: NewlineMode
+noinline :: a -> a
+nonEmpty :: [a] -> Maybe (NonEmpty a)
+nonTermination :: SomeException
+not :: Bool -> Bool
+notANumber :: Rational
+notElem :: (Foldable t, Eq a) => a -> t a -> Bool
+notElem :: Eq a => a -> [a] -> Bool
+nub :: Eq a => NonEmpty a -> NonEmpty a
+nub :: Eq a => [a] -> [a]
+nubBy :: (a -> a -> Bool) -> NonEmpty a -> NonEmpty a
+nubBy :: (a -> a -> Bool) -> [a] -> [a]
+null :: Foldable t => t a -> Bool
+null :: [a] -> Bool
+nullFunPtr :: FunPtr a
+nullPtr :: Ptr a
+numCapabilities :: Int
+numElements :: Array i e -> Int
+numElementsSTArray :: STArray s i e -> Int
+numSparks :: IO Int
+numberToFixed :: Integer -> Number -> Maybe (Integer, Integer)
+numberToInteger :: Number -> Maybe Integer
+numberToRangedRational :: (Int, Int) -> Number -> Maybe Rational
+numberToRational :: Number -> Rational
+numerator :: Ratio a -> a
+numericEnumFrom :: Fractional a => a -> [a]
+numericEnumFromThen :: Fractional a => a -> a -> [a]
+numericEnumFromThenTo :: (Ord a, Fractional a) => a -> a -> a -> [a]
+numericEnumFromTo :: (Ord a, Fractional a) => a -> a -> [a]
+o_APPEND :: CInt
+o_BINARY :: CInt
+o_CREAT :: CInt
+o_EXCL :: CInt
+o_NOCTTY :: CInt
+o_NONBLOCK :: CInt
+o_RDONLY :: CInt
+o_RDWR :: CInt
+o_TRUNC :: CInt
+o_WRONLY :: CInt
+odd :: Integral a => a -> Bool
+on :: (b -> b -> c) -> (a -> b) -> a -> a -> c
+onException :: IO a -> IO b -> IO a
+oneBits :: FiniteBits a => a
+oneShot :: forall {q :: RuntimeRep} {r :: RuntimeRep} (a :: TYPE q) (b :: TYPE r). (a -> b) -> a -> b
+openBinaryFile :: FilePath -> IOMode -> IO Handle
+openBinaryTempFile :: FilePath -> String -> IO (FilePath, Handle)
+openBinaryTempFileWithDefaultPermissions :: FilePath -> String -> IO (FilePath, Handle)
+openFile :: FilePath -> IOMode -> Bool -> IO (FD, IODeviceType)
+openFile :: FilePath -> IOMode -> IO Handle
+openFileBlocking :: FilePath -> IOMode -> IO Handle
+openFileWith :: FilePath -> IOMode -> Bool -> (FD -> IODeviceType -> IO r) -> ((forall x. IO x -> IO x) -> r -> IO s) -> IO s
+openTempFile :: FilePath -> String -> IO (FilePath, Handle)
+openTempFileWithDefaultPermissions :: FilePath -> String -> IO (FilePath, Handle)
+openTextEncoding :: Maybe TextEncoding -> HandleType -> (forall es ds. Maybe (TextEncoder es) -> Maybe (TextDecoder ds) -> IO a) -> IO a
+option :: a -> ReadP a -> ReadP a
+optional :: Alternative f => f a -> f (Maybe a)
+optional :: ReadP a -> ReadP ()
+or :: Foldable t => t Bool -> Bool
+or :: [Bool] -> Bool
+orElse :: STM a -> STM a -> STM a
+orInteger :: Integer -> Integer -> Integer
+orNatural :: Natural -> Natural -> Natural
+ord :: Char -> Int
+os :: String
+otherwise :: Bool
+outer :: (f a :~: g b) -> f :~: g
+overflowError :: a
+overflowException :: SomeException
+par :: a -> b -> b
+paren :: ReadPrec a -> ReadPrec a
+parens :: ReadPrec a -> ReadPrec a
+parseFormat :: PrintfArg a => a -> ModifierParser
+parseVersion :: ReadP Version
+partition :: (a -> Bool) -> NonEmpty a -> ([a], [a])
+partition :: (a -> Bool) -> [a] -> ([a], [a])
+partitionEithers :: [Either a b] -> ([a], [b])
+pattern App :: forall k2 (t :: k2). () => forall k1 (a :: k1 -> k2) (b :: k1). t ~ a b => TypeRep a -> TypeRep b -> TypeRep t
+pattern Con :: forall k (a :: k). () => IsApplication a ~ "" => TyCon -> TypeRep a
+pattern Con' :: forall k (a :: k). () => IsApplication a ~ "" => TyCon -> [SomeTypeRep] -> TypeRep a
+pattern ErrorCall :: String -> ErrorCall
+pattern Fun :: forall k (fun :: k). () => forall (r1 :: RuntimeRep) (r2 :: RuntimeRep) (arg :: TYPE r1) (res :: TYPE r2). (k ~ Type, fun ~~ (arg -> res)) => TypeRep arg -> TypeRep res -> TypeRep fun
+pattern KindRepTypeLit :: TypeLitSort -> String -> KindRep
+peek :: Storable a => Ptr a -> IO a
+peekArray :: Storable a => Int -> Ptr a -> IO [a]
+peekArray0 :: (Storable a, Eq a) => a -> Ptr a -> IO [a]
+peekByteOff :: Storable a => Ptr b -> Int -> IO a
+peekCAString :: CString -> IO String
+peekCAStringLen :: CStringLen -> IO String
+peekCString :: CString -> IO String
+peekCString :: TextEncoding -> CString -> IO String
+peekCStringLen :: CStringLen -> IO String
+peekCStringLen :: TextEncoding -> CStringLen -> IO String
+peekCWString :: CWString -> IO String
+peekCWStringLen :: CWStringLen -> IO String
+peekCharBuf :: RawCharBuffer -> Int -> IO Char
+peekElemOff :: Storable a => Ptr a -> Int -> IO a
+peekFilePath :: CString -> IO FilePath
+peekFilePathLen :: CStringLen -> IO FilePath
+performGC :: IO ()
+performMajorGC :: IO ()
+performMinorGC :: IO ()
+permissionErrorType :: IOErrorType
+permutations :: [a] -> [[a]]
+perror :: String -> a
+pfail :: ReadP a
+pfail :: ReadPrec a
+phantom :: (Functor f, Contravariant f) => f a -> f b
+phase :: RealFloat a => Complex a -> a
+pi :: Floating a => a
+plusDouble :: Double -> Double -> Double
+plusFloat :: Float -> Float -> Float
+plusForeignPtr :: ForeignPtr a -> Int -> ForeignPtr b
+plusInteger :: Integer -> Integer -> Integer
+plusNatural :: Natural -> Natural -> Natural
+plusPtr :: Ptr a -> Int -> Ptr b
+poke :: Storable a => Ptr a -> a -> IO ()
+pokeArray :: Storable a => Ptr a -> [a] -> IO ()
+pokeArray0 :: Storable a => a -> Ptr a -> [a] -> IO ()
+pokeByteOff :: Storable a => Ptr b -> Int -> a -> IO ()
+pokeElemOff :: Storable a => Ptr a -> Int -> a -> IO ()
+poke_c_lflag :: Ptr CTermios -> CTcflag -> IO ()
+polar :: RealFloat a => Complex a -> (a, a)
+pooledMalloc :: forall a. Storable a => Pool -> IO (Ptr a)
+pooledMallocArray :: forall a. Storable a => Pool -> Int -> IO (Ptr a)
+pooledMallocArray0 :: Storable a => Pool -> Int -> IO (Ptr a)
+pooledMallocBytes :: Pool -> Int -> IO (Ptr a)
+pooledNew :: Storable a => Pool -> a -> IO (Ptr a)
+pooledNewArray :: Storable a => Pool -> [a] -> IO (Ptr a)
+pooledNewArray0 :: Storable a => Pool -> a -> [a] -> IO (Ptr a)
+pooledRealloc :: forall a. Storable a => Pool -> Ptr a -> IO (Ptr a)
+pooledReallocArray :: forall a. Storable a => Pool -> Ptr a -> Int -> IO (Ptr a)
+pooledReallocArray0 :: Storable a => Pool -> Ptr a -> Int -> IO (Ptr a)
+pooledReallocBytes :: Pool -> Ptr a -> Int -> IO (Ptr a)
+popCallStack :: CallStack -> CallStack
+popCount :: Bits a => a -> Int
+popCountDefault :: (Bits a, Num a) => a -> Int
+popCountNatural :: Natural -> Int
+powModNatural :: Natural -> Natural -> Natural -> Natural
+powerDouble :: Double -> Double -> Double
+powerFloat :: Float -> Float -> Float
+prec :: Fixity -> Int
+prec :: Prec -> ReadPrec a -> ReadPrec a
+pred :: Enum a => a -> a
+predError :: String -> a
+prependList :: [a] -> NonEmpty a -> NonEmpty a
+prettyCallStack :: CallStack -> String
+prettyCallStackLines :: CallStack -> [String]
+prettySrcLoc :: SrcLoc -> String
+print :: Show a => a -> IO ()
+printf :: PrintfType r => String -> r
+product :: (Foldable t, Num a) => t a -> a
+product :: Num a => [a] -> a
+properFraction :: (RealFrac a, Integral b) => a -> (b, a)
+properFractionDoubleInt :: Double -> (Int, Double)
+properFractionDoubleInteger :: Double -> (Integer, Double)
+properFractionFloatInt :: Float -> (Int, Float)
+properFractionFloatInteger :: Float -> (Integer, Float)
+protectEsc :: (Char -> Bool) -> ShowS -> ShowS
+pseq :: a -> b -> b
+ptrToIntPtr :: Ptr a -> IntPtr
+ptrToWordPtr :: Ptr a -> WordPtr
+ptr_c_cc :: Ptr CTermios -> IO (Ptr Word8)
+pure :: Applicative f => a -> f a
+pushCallStack :: ([Char], SrcLoc) -> CallStack -> CallStack
+putChar :: Char -> IO ()
+putMVar :: MVar a -> a -> IO ()
+putStr :: String -> IO ()
+putStrLn :: String -> IO ()
+putTraceMsg :: String -> IO ()
+puts :: String -> IO ()
+quot :: Integral a => a -> a -> a
+quotInt :: Int -> Int -> Int
+quotInteger :: Integer -> Integer -> Integer
+quotNatural :: Natural -> Natural -> Natural
+quotRem :: Integral a => a -> a -> (a, a)
+quotRemInt :: Int -> Int -> (Int, Int)
+quotRemNatural :: Natural -> Natural -> (Natural, Natural)
+range :: Ix a => (a, a) -> [a]
+rangeSize :: Ix a => (a, a) -> Int
+ratioPrec :: Int
+ratioPrec1 :: Int
+ratioZeroDenomException :: SomeException
+ratioZeroDenominatorError :: a
+rationalToDouble :: Integer -> Integer -> Double
+rationalToFloat :: Integer -> Integer -> Float
+read :: RawIO a => a -> Ptr Word8 -> Word64 -> Int -> IO Int
+read :: Read a => String -> a
+readBin :: (Eq a, Num a) => ReadS a
+readBinP :: (Eq a, Num a) => ReadP a
+readBinaryWith :: ReadPrec a -> ReadPrec b -> String -> (a -> b -> t) -> ReadPrec t
+readBuf :: RawIO dev => dev -> Buffer Word8 -> IO (Int, Buffer Word8)
+readBufNonBlocking :: RawIO dev => dev -> Buffer Word8 -> IO (Maybe Int, Buffer Word8)
+readChan :: Chan a -> IO a
+readCharBuf :: RawCharBuffer -> Int -> IO (Char, Int)
+readCharBufPtr :: Ptr CharBufElem -> Int -> IO (Char, Int)
+readDec :: (Eq a, Num a) => ReadS a
+readDecP :: (Eq a, Num a) => ReadP a
+readDoubleOffPtr :: Ptr Double -> Int -> IO Double
+readEither :: Read a => String -> Either String a
+readField :: String -> ReadPrec a -> ReadPrec a
+readFieldHash :: String -> ReadPrec a -> ReadPrec a
+readFile :: FilePath -> IO String
+readFile' :: FilePath -> IO String
+readFloat :: RealFrac a => ReadS a
+readFloatOffPtr :: Ptr Float -> Int -> IO Float
+readFunPtrOffPtr :: Ptr (FunPtr a) -> Int -> IO (FunPtr a)
+readHex :: (Eq a, Num a) => ReadS a
+readHexP :: (Eq a, Num a) => ReadP a
+readIO :: Read a => String -> IO a
+readIOArray :: Ix i => IOArray i e -> i -> IO e
+readIORef :: IORef a -> IO a
+readInt :: Num a => a -> (Char -> Bool) -> (Char -> Int) -> ReadS a
+readInt16OffPtr :: Ptr Int16 -> Int -> IO Int16
+readInt32OffPtr :: Ptr Int32 -> Int -> IO Int32
+readInt64OffPtr :: Ptr Int64 -> Int -> IO Int64
+readInt8OffPtr :: Ptr Int8 -> Int -> IO Int8
+readIntOffPtr :: Ptr Int -> Int -> IO Int
+readIntP :: Num a => a -> (Char -> Bool) -> (Char -> Int) -> ReadP a
+readList :: Read a => ReadS [a]
+readListDefault :: Read a => ReadS [a]
+readListPrec :: Read a => ReadPrec [a]
+readListPrecDefault :: Read a => ReadPrec [a]
+readLitChar :: ReadS Char
+readLn :: Read a => IO a
+readMVar :: MVar a -> IO a
+readMaybe :: Read a => String -> Maybe a
+readNonBlocking :: RawIO a => a -> Ptr Word8 -> Word64 -> Int -> IO (Maybe Int)
+readNumber :: Num a => (Lexeme -> ReadPrec a) -> ReadPrec a
+readOct :: (Eq a, Num a) => ReadS a
+readOctP :: (Eq a, Num a) => ReadP a
+readP_to_Prec :: (Int -> ReadP a) -> ReadPrec a
+readP_to_S :: ReadP a -> ReadS a
+readParen :: Bool -> ReadS a -> ReadS a
+readPrec :: Read a => ReadPrec a
+readPrec1 :: (Read1 f, Read a) => ReadPrec (f a)
+readPrec2 :: (Read2 f, Read a, Read b) => ReadPrec (f a b)
+readPrec_to_P :: ReadPrec a -> Int -> ReadP a
+readPrec_to_S :: ReadPrec a -> Int -> ReadS a
+readPtrOffPtr :: Ptr (Ptr a) -> Int -> IO (Ptr a)
+readRawBufferPtr :: String -> FD -> Ptr Word8 -> Int -> CSize -> IO Int
+readRawBufferPtrNoBlock :: String -> FD -> Ptr Word8 -> Int -> CSize -> IO Int
+readSTArray :: Ix i => STArray s i e -> i -> ST s e
+readSTRef :: STRef s a -> ST s a
+readS_to_P :: ReadS a -> ReadP a
+readS_to_Prec :: (Int -> ReadS a) -> ReadPrec a
+readSigned :: Real a => ReadS a -> ReadS a
+readStablePtrOffPtr :: Ptr (StablePtr a) -> Int -> IO (StablePtr a)
+readSymField :: String -> ReadPrec a -> ReadPrec a
+readTVar :: TVar a -> STM a
+readTVarIO :: TVar a -> IO a
+readTextDevice :: Handle__ -> CharBuffer -> IO CharBuffer
+readTextDeviceNonBlocking :: Handle__ -> CharBuffer -> IO CharBuffer
+readUnaryWith :: ReadPrec a -> String -> (a -> t) -> ReadPrec t
+readWideCharOffPtr :: Ptr Char -> Int -> IO Char
+readWord16OffPtr :: Ptr Word16 -> Int -> IO Word16
+readWord32OffPtr :: Ptr Word32 -> Int -> IO Word32
+readWord64OffPtr :: Ptr Word64 -> Int -> IO Word64
+readWord8Buf :: RawBuffer Word8 -> Int -> IO Word8
+readWord8OffPtr :: Ptr Word8 -> Int -> IO Word8
+readWordOffPtr :: Ptr Word -> Int -> IO Word
+reads :: Read a => ReadS a
+readsBinary1 :: (Read1 f, Read1 g, Read a) => String -> (f a -> g a -> t) -> String -> ReadS t
+readsBinaryWith :: (Int -> ReadS a) -> (Int -> ReadS b) -> String -> (a -> b -> t) -> String -> ReadS t
+readsPrec :: Read a => Int -> ReadS a
+readsPrec1 :: (Read1 f, Read a) => Int -> ReadS (f a)
+readsPrec2 :: (Read2 f, Read a, Read b) => Int -> ReadS (f a b)
+readsUnary :: Read a => String -> (a -> t) -> String -> ReadS t
+readsUnary1 :: (Read1 f, Read a) => String -> (f a -> t) -> String -> ReadS t
+readsUnaryWith :: (Int -> ReadS a) -> String -> (a -> t) -> String -> ReadS t
+ready :: IODevice a => a -> Bool -> Int -> IO Bool
+realPart :: Complex a -> a
+realToFrac :: (Real a, Fractional b) => a -> b
+realloc :: forall a b. Storable b => Ptr a -> IO (Ptr b)
+reallocArray :: forall a. Storable a => Ptr a -> Int -> IO (Ptr a)
+reallocArray0 :: Storable a => Ptr a -> Int -> IO (Ptr a)
+reallocBytes :: Ptr a -> Int -> IO (Ptr a)
+recip :: Fractional a => a -> a
+recoverDecode :: CodingFailureMode -> Buffer Word8 -> Buffer Char -> IO (Buffer Word8, Buffer Char)
+recoverEncode :: CodingFailureMode -> Buffer Char -> Buffer Word8 -> IO (Buffer Char, Buffer Word8)
+reduce :: Integral a => a -> a -> Ratio a
+registerDelay :: Int -> IO (TVar Bool)
+registerFd :: EventManager -> IOCallback -> Fd -> Event -> Lifetime -> IO FdKey
+registerTimeout :: TimerManager -> Int -> TimeoutCallback -> IO TimeoutKey
+release :: FD -> IO ()
+rem :: Integral a => a -> a -> a
+remInt :: Int -> Int -> Int
+remInteger :: Integer -> Integer -> Integer
+remNatural :: Natural -> Natural -> Natural
+renderStack :: [String] -> String
+repeat :: a -> NonEmpty a
+repeat :: a -> [a]
+replicate :: Int -> a -> [a]
+replicateM :: Applicative m => Int -> m a -> m [a]
+replicateM_ :: Applicative m => Int -> m a -> m ()
+reportError :: SomeException -> IO ()
+reportHeapOverflow :: IO ()
+reportStackOverflow :: IO ()
+repr :: (a :~: b) -> Coercion a b
+requestHeapCensus :: IO ()
+reset :: ReadPrec a -> ReadPrec a
+resetErrno :: IO ()
+resolution :: HasResolution a => p a -> Integer
+resourceVanishedErrorType :: IOErrorType
+retry :: STM a
+return :: Monad m => a -> m a
+returnA :: Arrow a => a b b
+returnIO :: a -> IO a
+reverse :: NonEmpty a -> NonEmpty a
+reverse :: [a] -> [a]
+right :: ArrowChoice a => a b c -> a (Either d b) (Either d c)
+rightSection :: forall {q :: RuntimeRep} {r :: RuntimeRep} {s :: RuntimeRep} {n :: Multiplicity} {o :: Multiplicity} (a :: TYPE q) (b :: TYPE r) (c :: TYPE s). (a %n -> b %o -> c) -> b %o -> a %n -> c
+rights :: [Either a b] -> [b]
+rnfModule :: Module -> ()
+rnfSomeTypeRep :: SomeTypeRep -> ()
+rnfTyCon :: TyCon -> ()
+rnfTypeRep :: TypeRep -> ()
+rnfTypeRep :: TypeRep a -> ()
+rotate :: Bits a => a -> Int -> a
+rotateL :: Bits a => a -> Int -> a
+rotateR :: Bits a => a -> Int -> a
+round :: (RealFrac a, Integral b) => a -> b
+roundDoubleInt :: Double -> Int
+roundDoubleInteger :: Double -> Integer
+roundFloatInt :: Float -> Int
+roundFloatInteger :: Float -> Integer
+roundTo :: Int -> Int -> [Int] -> (Int, [Int])
+rtsIsThreaded_ :: Int
+rtsSupportsBoundThreads :: Bool
+runHandlers :: ForeignPtr Word8 -> Signal -> IO ()
+runHandlersPtr :: Ptr Word8 -> Signal -> IO ()
+runIO :: IO a -> IO a
+runIOFastExit :: IO a -> IO a
+runInBoundThread :: IO a -> IO a
+runInUnboundThread :: IO a -> IO a
+runMainIO :: IO a -> IO a
+runNonIO :: a -> IO a
+runST :: (forall s. ST s a) -> a
+runSparks :: IO ()
+sEEK_CUR :: CInt
+sEEK_END :: CInt
+sEEK_SET :: CInt
+s_isblk :: CMode -> Bool
+s_ischr :: CMode -> Bool
+s_isdir :: CMode -> Bool
+s_isfifo :: CMode -> Bool
+s_isreg :: CMode -> Bool
+s_issock :: CMode -> Bool
+safeIndex :: Ix i => (i, i) -> Int -> i -> Int
+safeRangeSize :: Ix i => (i, i) -> Int
+sameChar :: (KnownChar a, KnownChar b) => proxy1 a -> proxy2 b -> Maybe (a :~: b)
+sameNat :: (KnownNat a, KnownNat b) => proxy1 a -> proxy2 b -> Maybe (a :~: b)
+sameSymbol :: (KnownSymbol a, KnownSymbol b) => proxy1 a -> proxy2 b -> Maybe (a :~: b)
+satisfy :: (Char -> Bool) -> ReadP Char
+scaleFloat :: RealFloat a => Int -> a -> a
+scanl :: (b -> a -> b) -> b -> [a] -> [b]
+scanl :: Foldable f => (b -> a -> b) -> b -> f a -> NonEmpty b
+scanl' :: (b -> a -> b) -> b -> [a] -> [b]
+scanl1 :: (a -> a -> a) -> NonEmpty a -> NonEmpty a
+scanl1 :: (a -> a -> a) -> [a] -> [a]
+scanr :: (a -> b -> b) -> b -> [a] -> [b]
+scanr :: Foldable f => (a -> b -> b) -> b -> f a -> NonEmpty b
+scanr1 :: (a -> a -> a) -> NonEmpty a -> NonEmpty a
+scanr1 :: (a -> a -> a) -> [a] -> [a]
+sconcat :: Semigroup a => NonEmpty a -> a
+second :: Arrow a => a b c -> a (d, b) (d, c)
+second :: Bifunctor p => (b -> c) -> p a b -> p a c
+seek :: IODevice a => a -> SeekMode -> Integer -> IO Integer
+selDecidedStrictness :: Selector s => t s (f :: k -> Type) (a :: k) -> DecidedStrictness
+selName :: Selector s => t s (f :: k -> Type) (a :: k) -> [Char]
+selSourceStrictness :: Selector s => t s (f :: k -> Type) (a :: k) -> SourceStrictness
+selSourceUnpackedness :: Selector s => t s (f :: k -> Type) (a :: k) -> SourceUnpackedness
+sepBy :: ReadP a -> ReadP sep -> ReadP [a]
+sepBy1 :: ReadP a -> ReadP sep -> ReadP [a]
+seq :: forall {r :: RuntimeRep} a (b :: TYPE r). a -> b -> b
+sequence :: (Traversable t, Monad m) => t (m a) -> m (t a)
+sequence :: Monad m => [m a] -> m [a]
+sequenceA :: (Traversable t, Applicative f) => t (f a) -> f (t a)
+sequenceA_ :: (Foldable t, Applicative f) => t (f a) -> f ()
+sequence_ :: (Foldable t, Monad m) => t (m a) -> m ()
+setAllocationCounter :: Int64 -> IO ()
+setBit :: Bits a => a -> Int -> a
+setCloseOnExec :: FD -> IO ()
+setCooked :: FD -> Bool -> IO ()
+setEcho :: FD -> Bool -> IO ()
+setEcho :: IODevice a => a -> Bool -> IO ()
+setEnv :: String -> String -> Bool -> IO ()
+setEnv :: String -> String -> IO ()
+setFileSystemEncoding :: TextEncoding -> IO ()
+setForeignEncoding :: TextEncoding -> IO ()
+setHandler :: Signal -> Maybe (HandlerFun, Dynamic) -> IO (Maybe (HandlerFun, Dynamic))
+setLocaleEncoding :: TextEncoding -> IO ()
+setNonBlockingFD :: FD -> Bool -> IO ()
+setNonBlockingMode :: FD -> Bool -> IO FD
+setNumCapabilities :: Int -> IO ()
+setRaw :: IODevice a => a -> Bool -> IO ()
+setSize :: IODevice a => a -> Integer -> IO ()
+setUncaughtExceptionHandler :: (SomeException -> IO ()) -> IO ()
+set_saved_termios :: CInt -> Ptr CTermios -> IO ()
+sharedCAF :: a -> (Ptr a -> IO (Ptr a)) -> IO a
+shift :: Bits a => a -> Int -> a
+shiftL :: Bits a => a -> Int -> a
+shiftLNatural :: Natural -> Int -> Natural
+shiftR :: Bits a => a -> Int -> a
+shiftRNatural :: Natural -> Int -> Natural
+show :: Show a => a -> String
+showBin :: (Integral a, Show a) => a -> ShowS
+showCCSStack :: [String] -> [String]
+showChar :: Char -> ShowS
+showCommaSpace :: ShowS
+showConstr :: Constr -> String
+showEFloat :: RealFloat a => Maybe Int -> a -> ShowS
+showFFloat :: RealFloat a => Maybe Int -> a -> ShowS
+showFFloatAlt :: RealFloat a => Maybe Int -> a -> ShowS
+showFixed :: HasResolution a => Bool -> Fixed a -> String
+showFloat :: RealFloat a => a -> ShowS
+showGFloat :: RealFloat a => Maybe Int -> a -> ShowS
+showGFloatAlt :: RealFloat a => Maybe Int -> a -> ShowS
+showHFloat :: RealFloat a => a -> ShowS
+showHandle :: FilePath -> String -> String
+showHex :: (Integral a, Show a) => a -> ShowS
+showInt :: Integral a => a -> ShowS
+showIntAtBase :: (Integral a, Show a) => a -> (Int -> Char) -> a -> ShowS
+showList :: Show a => [a] -> ShowS
+showListWith :: (a -> ShowS) -> [a] -> ShowS
+showList__ :: (a -> ShowS) -> [a] -> ShowS
+showLitChar :: Char -> ShowS
+showLitString :: String -> ShowS
+showMultiLineString :: String -> [String]
+showOct :: (Integral a, Show a) => a -> ShowS
+showParen :: Bool -> ShowS -> ShowS
+showSigned :: Real a => (a -> ShowS) -> Int -> a -> ShowS
+showSignedFloat :: RealFloat a => (a -> ShowS) -> Int -> a -> ShowS
+showSignedInt :: Int -> Int -> ShowS
+showSpace :: ShowS
+showStackFrames :: [Location] -> ShowS
+showStackTrace :: IO (Maybe String)
+showString :: String -> ShowS
+showThreadId :: ThreadId -> String
+showVersion :: Version -> String
+shows :: Show a => a -> ShowS
+showsBinary1 :: (Show1 f, Show1 g, Show a) => String -> Int -> f a -> g a -> ShowS
+showsBinaryWith :: (Int -> a -> ShowS) -> (Int -> b -> ShowS) -> String -> Int -> a -> b -> ShowS
+showsPrec :: Show a => Int -> a -> ShowS
+showsPrec1 :: (Show1 f, Show a) => Int -> f a -> ShowS
+showsPrec2 :: (Show2 f, Show a, Show b) => Int -> f a b -> ShowS
+showsTypeRep :: TypeRep -> ShowS
+showsUnary :: Show a => String -> Int -> a -> ShowS
+showsUnary1 :: (Show1 f, Show a) => String -> Int -> f a -> ShowS
+showsUnaryWith :: (Int -> a -> ShowS) -> String -> Int -> a -> ShowS
+signalQSem :: QSem -> IO ()
+signalQSemN :: QSemN -> Int -> IO ()
+significand :: RealFloat a => a -> a
+signum :: Num a => a -> a
+signumInteger :: Integer -> Integer
+signumNatural :: Natural -> Natural
+sin :: Floating a => a -> a
+sinDouble :: Double -> Double
+sinFloat :: Float -> Float
+singleton :: a -> NonEmpty a
+singleton :: a -> [a]
+sinh :: Floating a => a -> a
+sinhDouble :: Double -> Double
+sinhFloat :: Float -> Float
+sizeOf :: Storable a => a -> Int
+sizeof_sigset_t :: Int
+sizeof_stat :: Int
+sizeof_termios :: Int
+skipMany :: ReadP a -> ReadP ()
+skipMany1 :: ReadP a -> ReadP ()
+skipSpaces :: ReadP ()
+slideContents :: Buffer Word8 -> IO (Buffer Word8)
+snd :: (a, b) -> b
+some :: Alternative f => f a -> f [a]
+some1 :: Alternative f => f a -> f (NonEmpty a)
+someCharVal :: Char -> SomeChar
+someNatVal :: Integer -> Maybe SomeNat
+someNatVal :: Natural -> SomeNat
+someSymbolVal :: String -> SomeSymbol
+someTypeRep :: forall proxy a. Typeable a => proxy a -> SomeTypeRep
+someTypeRepFingerprint :: SomeTypeRep -> Fingerprint
+someTypeRepTyCon :: SomeTypeRep -> TyCon
+sort :: Ord a => NonEmpty a -> NonEmpty a
+sort :: Ord a => [a] -> [a]
+sortBy :: (a -> a -> Ordering) -> NonEmpty a -> NonEmpty a
+sortBy :: (a -> a -> Ordering) -> [a] -> [a]
+sortOn :: Ord b => (a -> b) -> [a] -> [a]
+sortWith :: Ord b => (a -> b) -> [a] -> [a]
+sortWith :: Ord o => (a -> o) -> NonEmpty a -> NonEmpty a
+span :: (a -> Bool) -> NonEmpty a -> ([a], [a])
+span :: (a -> Bool) -> [a] -> ([a], [a])
+splitApps :: TypeRep a -> (TyCon, [SomeTypeRep])
+splitAt :: Int -> NonEmpty a -> ([a], [a])
+splitAt :: Int -> [a] -> ([a], [a])
+splitTyConApp :: TypeRep -> (TyCon, [TypeRep])
+sqrt :: Floating a => a -> a
+sqrtDouble :: Double -> Double
+sqrtFloat :: Float -> Float
+stToIO :: ST RealWorld a -> IO a
+st_dev :: Ptr CStat -> IO CDev
+st_ino :: Ptr CStat -> IO CIno
+st_mode :: Ptr CStat -> IO CMode
+st_mtime :: Ptr CStat -> IO CTime
+st_size :: Ptr CStat -> IO COff
+stackDepth :: StackTrace -> Int
+stackFrames :: StackTrace -> Maybe [Location]
+stackOverflow :: SomeException
+startHeapProfTimer :: IO ()
+startProfTimer :: IO ()
+statGetType :: Ptr CStat -> IO IODeviceType
+staticKey :: StaticPtr a -> StaticKey
+staticPtrInfo :: StaticPtr a -> StaticPtrInfo
+staticPtrKeys :: IO [StaticKey]
+stderr :: FD
+stderr :: Handle
+stdin :: FD
+stdin :: Handle
+stdout :: FD
+stdout :: Handle
+step :: ReadPrec a -> ReadPrec a
+stimes :: (Semigroup a, Integral b) => b -> a -> a
+stimesIdempotent :: Integral b => b -> a -> a
+stimesIdempotentMonoid :: (Integral b, Monoid a) => b -> a -> a
+stimesMonoid :: (Integral b, Monoid a) => b -> a -> a
+stopHeapProfTimer :: IO ()
+stopProfTimer :: IO ()
+strictToLazyST :: ST s a -> ST s a
+string :: String -> ReadP String
+stripPrefix :: Eq a => [a] -> [a] -> Maybe [a]
+subsequences :: [a] -> [[a]]
+subtract :: Num a => a -> a -> a
+succ :: Enum a => a -> a
+succError :: String -> a
+sum :: (Foldable t, Num a) => t a -> a
+sum :: Num a => [a] -> a
+summaryBuffer :: Buffer a -> String
+swap :: (a, b) -> (b, a)
+swapMVar :: MVar a -> a -> IO a
+sym :: (a :~: b) -> b :~: a
+sym :: Coercion a b -> Coercion b a
+symbolVal :: forall n proxy. KnownSymbol n => proxy n -> String
+tail :: NonEmpty a -> [a]
+tail :: [a] -> [a]
+tails :: Foldable f => f a -> NonEmpty [a]
+tails :: [a] -> [[a]]
+take :: Int -> NonEmpty a -> [a]
+take :: Int -> [a] -> [a]
+takeMVar :: MVar a -> IO a
+takeWhile :: (a -> Bool) -> NonEmpty a -> [a]
+takeWhile :: (a -> Bool) -> [a] -> [a]
+tan :: Floating a => a -> a
+tanDouble :: Double -> Double
+tanFloat :: Float -> Float
+tanh :: Floating a => a -> a
+tanhDouble :: Double -> Double
+tanhFloat :: Float -> Float
+targetByteOrder :: ByteOrder
+tcSetAttr :: FD -> (Ptr CTermios -> IO a) -> IO a
+tell :: IODevice a => a -> IO Integer
+testBit :: Bits a => a -> Int -> Bool
+testBitDefault :: (Bits a, Num a) => a -> Int -> Bool
+testBitNatural :: Natural -> Int -> Bool
+testCoercion :: TestCoercion f => f a -> f b -> Maybe (Coercion a b)
+testEquality :: TestEquality f => f a -> f b -> Maybe (a :~: b)
+thawSTArray :: Array i e -> ST s (STArray s i e)
+the :: Eq a => [a] -> a
+thenIO :: IO a -> IO b -> IO b
+threadCapability :: ThreadId -> IO (Int, Bool)
+threadDelay :: Int -> IO ()
+threadStatus :: ThreadId -> IO ThreadStatus
+threadWaitRead :: Fd -> IO ()
+threadWaitReadSTM :: Fd -> IO (STM (), IO ())
+threadWaitWrite :: Fd -> IO ()
+threadWaitWriteSTM :: Fd -> IO (STM (), IO ())
+throw :: forall (r :: RuntimeRep). forall (a :: TYPE r). forall e. Exception e => e -> a
+throwErrno :: String -> IO a
+throwErrnoIf :: (a -> Bool) -> String -> IO a -> IO a
+throwErrnoIfMinus1 :: (Eq a, Num a) => String -> IO a -> IO a
+throwErrnoIfMinus1Retry :: (Eq a, Num a) => String -> IO a -> IO a
+throwErrnoIfMinus1RetryMayBlock :: (Eq a, Num a) => String -> IO a -> IO b -> IO a
+throwErrnoIfMinus1RetryMayBlock_ :: (Eq a, Num a) => String -> IO a -> IO b -> IO ()
+throwErrnoIfMinus1Retry_ :: (Eq a, Num a) => String -> IO a -> IO ()
+throwErrnoIfMinus1_ :: (Eq a, Num a) => String -> IO a -> IO ()
+throwErrnoIfNull :: String -> IO (Ptr a) -> IO (Ptr a)
+throwErrnoIfNullRetry :: String -> IO (Ptr a) -> IO (Ptr a)
+throwErrnoIfNullRetryMayBlock :: String -> IO (Ptr a) -> IO b -> IO (Ptr a)
+throwErrnoIfRetry :: (a -> Bool) -> String -> IO a -> IO a
+throwErrnoIfRetryMayBlock :: (a -> Bool) -> String -> IO a -> IO b -> IO a
+throwErrnoIfRetryMayBlock_ :: (a -> Bool) -> String -> IO a -> IO b -> IO ()
+throwErrnoIfRetry_ :: (a -> Bool) -> String -> IO a -> IO ()
+throwErrnoIf_ :: (a -> Bool) -> String -> IO a -> IO ()
+throwErrnoPath :: String -> FilePath -> IO a
+throwErrnoPathIf :: (a -> Bool) -> String -> FilePath -> IO a -> IO a
+throwErrnoPathIfMinus1 :: (Eq a, Num a) => String -> FilePath -> IO a -> IO a
+throwErrnoPathIfMinus1_ :: (Eq a, Num a) => String -> FilePath -> IO a -> IO ()
+throwErrnoPathIfNull :: String -> FilePath -> IO (Ptr a) -> IO (Ptr a)
+throwErrnoPathIf_ :: (a -> Bool) -> String -> FilePath -> IO a -> IO ()
+throwIO :: Exception e => e -> IO a
+throwIf :: (a -> Bool) -> (a -> String) -> IO a -> IO a
+throwIfNeg :: (Ord a, Num a) => (a -> String) -> IO a -> IO a
+throwIfNeg_ :: (Ord a, Num a) => (a -> String) -> IO a -> IO ()
+throwIfNull :: String -> IO (Ptr a) -> IO (Ptr a)
+throwIf_ :: (a -> Bool) -> (a -> String) -> IO a -> IO ()
+throwSTM :: Exception e => e -> STM a
+throwTo :: Exception e => ThreadId -> e -> IO ()
+timeout :: Int -> IO a -> IO (Maybe a)
+timesDouble :: Double -> Double -> Double
+timesFloat :: Float -> Float -> Float
+timesInteger :: Integer -> Integer -> Integer
+timesNatural :: Natural -> Natural -> Natural
+to :: Generic a => Rep a x -> a
+to1 :: Generic1 f => Rep1 f a -> f a
+toBool :: (Eq a, Num a) => a -> Bool
+toChar :: IsChar c => c -> Char
+toDyn :: Typeable a => a -> Dynamic
+toEnum :: Enum a => Int -> a
+toEnumError :: Show a => String -> Int -> (a, a) -> b
+toException :: Exception e => e -> SomeException
+toInteger :: Integral a => a -> Integer
+toIntegralSized :: (Integral a, Integral b, Bits a, Bits b) => a -> Maybe b
+toList :: Foldable t => t a -> [a]
+toList :: IsList l => l -> [Item l]
+toList :: NonEmpty a -> [a]
+toLower :: Char -> Char
+toRational :: Real a => a -> Rational
+toTitle :: Char -> Char
+toUpper :: Char -> Char
+topHandler :: SomeException -> IO a
+topHandlerFastExit :: SomeException -> IO a
+touchForeignPtr :: ForeignPtr a -> IO ()
+trLiftedRep :: TypeRep ('BoxedRep 'Lifted)
+trace :: String -> a -> a
+traceEvent :: String -> IO ()
+traceEvent :: String -> a -> a
+traceEventIO :: String -> IO ()
+traceIO :: String -> IO ()
+traceId :: String -> String
+traceM :: Applicative f => String -> f ()
+traceMarker :: String -> a -> a
+traceMarkerIO :: String -> IO ()
+traceShow :: Show a => a -> b -> b
+traceShowId :: Show a => a -> a
+traceShowM :: (Show a, Applicative f) => a -> f ()
+traceStack :: String -> a -> a
+trans :: (a :~: b) -> (b :~: c) -> a :~: c
+trans :: Coercion a b -> Coercion b c -> Coercion a c
+transpose :: NonEmpty (NonEmpty a) -> NonEmpty (NonEmpty a)
+transpose :: [[a]] -> [[a]]
+traverse :: (Traversable t, Applicative f) => (a -> f b) -> t a -> f (t b)
+traverse_ :: (Foldable t, Applicative f) => (a -> f b) -> t a -> f ()
+truncate :: (RealFrac a, Integral b) => a -> b
+truncateDoubleInteger :: Double -> Integer
+truncateFloatInteger :: Float -> Integer
+try :: Exception e => IO a -> IO (Either e a)
+tryIOError :: IO a -> IO (Either IOError a)
+tryJust :: Exception e => (e -> Maybe b) -> IO a -> IO (Either b a)
+tryPutMVar :: MVar a -> a -> IO Bool
+tryReadMVar :: MVar a -> IO (Maybe a)
+tryTakeMVar :: MVar a -> IO (Maybe a)
+tyConFingerprint :: TyCon -> Fingerprint
+tyConKindArgs :: TyCon -> Int
+tyConKindRep :: TyCon -> KindRep
+tyConModule :: TyCon -> String
+tyConName :: TyCon -> String
+tyConPackage :: TyCon -> String
+tyconModule :: String -> String
+tyconUQname :: String -> String
+type ArgMax a b = Max (Arg a b)
+type ArgMin a b = Min (Arg a b)
+type ByteCount = CSize
+type C1 = M1 C
+type CFilePath = CString
+type CString = Ptr CChar
+type CStringLen = (Ptr CChar, Int)
+type CWString = Ptr CWchar
+type CWStringLen = (Ptr CWchar, Int)
+type Centi = Fixed E2
+type CharBufElem = Char
+type CharBuffer = Buffer Char
+type ClockTick = CClock
+type CodeBuffer from to = Buffer from -> Buffer to -> IO (CodingProgress, Buffer from, Buffer to)
+type ConIndex = Int
+type D1 = M1 D
+type Deci = Fixed E1
+type DecodeBuffer = CodeBuffer Word8 Char
+type DeviceID = CDev
+type EncodeBuffer = CodeBuffer Char Word8
+type EpochTime = CTime
+type FD = CInt
+type FieldFormatter = FieldFormat -> ShowS
+type FileID = CIno
+type FileMode = CMode
+type FileOffset = COff
+type FilePath = String
+type FinalizerEnvPtr env a = FunPtr (Ptr env -> Ptr a -> IO ())
+type FinalizerPtr a = FunPtr (Ptr a -> IO ())
+type GroupID = CGid
+type HandleFinalizer = FilePath -> MVar Handle__ -> IO ()
+type HandlePosition = Integer
+type HandlerFun = ForeignPtr Word8 -> IO ()
+type HasCallStack = (?callStack :: CallStack)
+type IOCallback = FdKey -> Event -> IO ()
+type IOError = IOException
+type LiftedRep = 'BoxedRep 'Lifted
+type Limit = CLong
+type LinkCount = CNlink
+type Max m n = OrdCond (Compare m n) n n m
+type Micro = Fixed E6
+type Milli = Fixed E3
+type Min m n = OrdCond (Compare m n) m m n
+type ModifierParser = String -> FormatParse
+type Nano = Fixed E9
+type Nat = Natural
+type Pico = Fixed E12
+type Prec = Int
+type ProcessGroupID = CPid
+type ProcessID = CPid
+type Rational = Ratio Integer
+type RawBuffer e = ForeignPtr e
+type RawCharBuffer = RawBuffer CharBufElem
+type ReadS a = String -> [(a, String)]
+type Rec0 = K1 R
+type RtsTime = Int64
+type RtsTime = Word64
+type S1 = M1 S
+type ShowS = String -> String
+type Signal = CInt
+type StaticKey = Fingerprint
+type String = [Char]
+type TextDecoder state = BufferCodec Word8 CharBufElem state
+type TextEncoder state = BufferCodec CharBufElem Word8 state
+type TimeoutCallback = IO ()
+type TimeoutEdit = TimeoutQueue -> TimeoutQueue
+type TimeoutQueue = PSQ TimeoutCallback
+type Type = TYPE LiftedRep
+type TypeRep = SomeTypeRep
+type UAddr = URec (Ptr ())
+type UChar = URec Char
+type UDouble = URec Double
+type UFloat = URec Float
+type UInt = URec Int
+type UWord = URec Word
+type Uni = Fixed E0
+type UnliftedRep = 'BoxedRep 'Unlifted
+type UnliftedType = TYPE UnliftedRep
+type UserID = CUid
+type family (m :: Nat) * (n :: Nat) :: Nat
+type family (m :: Nat) + (n :: Nat) :: Nat
+type family (m :: Nat) - (n :: Nat) :: Nat
+type family (m :: Nat) ^ (n :: Nat) :: Nat
+type family Any :: k
+type family AppendSymbol (m :: Symbol) (n :: Symbol) :: Symbol
+type family CharToNat (c :: Char) :: Nat
+type family CmpChar (a :: Char) (b :: Char) :: Ordering
+type family CmpNat (m :: Natural) (n :: Natural) :: Ordering
+type family CmpSymbol (m :: Symbol) (n :: Symbol) :: Ordering
+type family Compare (a :: k) (b :: k) :: Ordering
+type family ConsSymbol (a :: Char) (b :: Symbol) :: Symbol
+type family Div (m :: Nat) (n :: Nat) :: Nat
+type family If cond tru fls
+type family Log2 (m :: Nat) :: Nat
+type family Mod (m :: Nat) (n :: Nat) :: Nat
+type family NatToChar (n :: Nat) :: Char
+type family Not a = res | res -> a
+type family OrdCond o lt eq gt
+type family TypeError (a :: ErrorMessage) :: b
+type family UnconsSymbol (a :: Symbol) :: Maybe (Char, Symbol)
+type family a && b
+type family a == b
+type family a || b
+type m <=? n = OrdCond (Compare m n) 'True 'True 'False
+type m <? n = OrdCond (Compare m n) 'True 'False 'False
+type m >=? n = OrdCond (Compare m n) 'False 'True 'True
+type m >? n = OrdCond (Compare m n) 'False 'False 'True
+type x < y = (x <? y) ~ 'True
+type x <= y = (x <=? y) ~ 'True
+type x > y = (x >? y) ~ 'True
+type x >= y = (x >=? y) ~ 'True
+typeOf :: Typeable a => a -> TypeRep a
+typeOf :: forall a. Typeable a => a -> TypeRep
+typeOf1 :: forall t (a :: Type). Typeable t => t a -> TypeRep
+typeOf2 :: forall t (a :: Type) (b :: Type). Typeable t => t a b -> TypeRep
+typeOf3 :: forall t (a :: Type) (b :: Type) (c :: Type). Typeable t => t a b c -> TypeRep
+typeOf4 :: forall t (a :: Type) (b :: Type) (c :: Type) (d :: Type). Typeable t => t a b c d -> TypeRep
+typeOf5 :: forall t (a :: Type) (b :: Type) (c :: Type) (d :: Type) (e :: Type). Typeable t => t a b c d e -> TypeRep
+typeOf6 :: forall t (a :: Type) (b :: Type) (c :: Type) (d :: Type) (e :: Type) (f :: Type). Typeable t => t a b c d e f -> TypeRep
+typeOf7 :: forall t (a :: Type) (b :: Type) (c :: Type) (d :: Type) (e :: Type) (f :: Type) (g :: Type). Typeable t => t a b c d e f g -> TypeRep
+typeRep :: Typeable a => TypeRep a
+typeRep :: forall proxy a. Typeable a => proxy a -> TypeRep
+typeRepArgs :: TypeRep -> [TypeRep]
+typeRepFingerprint :: TypeRep -> Fingerprint
+typeRepFingerprint :: TypeRep a -> Fingerprint
+typeRepKind :: TypeRep (a :: k) -> TypeRep k
+typeRepTyCon :: TypeRep -> TyCon
+typeRepTyCon :: TypeRep a -> TyCon
+uncons :: NonEmpty a -> (a, Maybe (NonEmpty a))
+uncons :: [a] -> Maybe (a, [a])
+uncurry :: (a -> b -> c) -> (a, b) -> c
+undefined :: forall (r :: RuntimeRep). forall (a :: TYPE r). HasCallStack => a
+underflowError :: a
+underflowException :: SomeException
+unescapeArgs :: String -> [String]
+unfold :: (a -> (b, Maybe a)) -> a -> NonEmpty b
+unfoldr :: (a -> (b, Maybe a)) -> a -> NonEmpty b
+unfoldr :: (b -> Maybe (a, b)) -> b -> [a]
+unicodeVersion :: Version
+uninterruptibleMask :: ((forall a. IO a -> IO a) -> IO b) -> IO b
+uninterruptibleMask_ :: IO a -> IO a
+union :: Eq a => [a] -> [a] -> [a]
+unionBy :: (a -> a -> Bool) -> [a] -> [a] -> [a]
+universalNewlineMode :: NewlineMode
+unless :: Applicative f => Bool -> f () -> f ()
+unlines :: [String] -> String
+unpackCString :: Ptr a -> [Char]
+unregisterFd :: EventManager -> FdKey -> IO ()
+unregisterFd_ :: EventManager -> FdKey -> IO Bool
+unregisterTimeout :: TimerManager -> TimeoutKey -> IO ()
+unsafeAccum :: (e -> a -> e) -> Array i e -> [(Int, a)] -> Array i e
+unsafeAccumArray :: Ix i => (e -> a -> e) -> e -> (i, i) -> [(Int, a)] -> Array i e
+unsafeAccumArray' :: (e -> a -> e) -> e -> (i, i) -> Int -> [(Int, a)] -> Array i e
+unsafeArray :: Ix i => (i, i) -> [(Int, e)] -> Array i e
+unsafeArray' :: (i, i) -> Int -> [(Int, e)] -> Array i e
+unsafeAt :: Array i e -> Int -> e
+unsafeChr :: Int -> Char
+unsafeCoerce :: forall (a :: Type) (b :: Type). a -> b
+unsafeCoerceAddr :: forall (a :: TYPE 'AddrRep) (b :: TYPE 'AddrRep). a -> b
+unsafeCoerceUnlifted :: forall (a :: TYPE ('BoxedRep 'Unlifted)) (b :: TYPE ('BoxedRep 'Unlifted)). a -> b
+unsafeDupableInterleaveIO :: IO a -> IO a
+unsafeDupableInterleaveST :: ST s a -> ST s a
+unsafeDupablePerformIO :: IO a -> a
+unsafeEqualityProof :: forall a b. UnsafeEquality a b
+unsafeFixIO :: (a -> IO a) -> IO a
+unsafeForeignPtrToPtr :: ForeignPtr a -> Ptr a
+unsafeFreezeSTArray :: STArray s i e -> ST s (Array i e)
+unsafeIOToST :: IO a -> ST s a
+unsafeIOToSTM :: IO a -> STM a
+unsafeIndex :: Ix a => (a, a) -> a -> Int
+unsafeInterleaveIO :: IO a -> IO a
+unsafeInterleaveST :: ST s a -> ST s a
+unsafeLocalState :: IO a -> a
+unsafeLookupStaticPtr :: StaticKey -> IO (Maybe (StaticPtr a))
+unsafePerformIO :: IO a -> a
+unsafeRangeSize :: Ix a => (a, a) -> Int
+unsafeReadIOArray :: IOArray i e -> Int -> IO e
+unsafeReadSTArray :: STArray s i e -> Int -> ST s e
+unsafeReplace :: Array i e -> [(Int, e)] -> Array i e
+unsafeSTToIO :: ST s a -> IO a
+unsafeShiftL :: Bits a => a -> Int -> a
+unsafeShiftR :: Bits a => a -> Int -> a
+unsafeThawSTArray :: Array i e -> ST s (STArray s i e)
+unsafeUnmask :: IO a -> IO a
+unsafeWithForeignPtr :: ForeignPtr a -> (Ptr a -> IO b) -> IO b
+unsafeWriteIOArray :: IOArray i e -> Int -> e -> IO ()
+unsafeWriteSTArray :: STArray s i e -> Int -> e -> ST s ()
+unsetEnv :: String -> IO ()
+unsupportedOperation :: IOError
+until :: (a -> Bool) -> (a -> a) -> a -> a
+unwords :: [String] -> String
+unzip :: Functor f => f (a, b) -> (f a, f b)
+unzip :: [(a, b)] -> ([a], [b])
+unzip3 :: [(a, b, c)] -> ([a], [b], [c])
+unzip4 :: [(a, b, c, d)] -> ([a], [b], [c], [d])
+unzip5 :: [(a, b, c, d, e)] -> ([a], [b], [c], [d], [e])
+unzip6 :: [(a, b, c, d, e, f)] -> ([a], [b], [c], [d], [e], [f])
+unzip7 :: [(a, b, c, d, e, f, g)] -> ([a], [b], [c], [d], [e], [f], [g])
+updateTimeout :: TimerManager -> TimeoutKey -> Int -> IO ()
+usageInfo :: String -> [OptDescr a] -> String
+userError :: String -> IOError
+userErrorType :: IOErrorType
+utf16 :: TextEncoding
+utf16_decode :: IORef (Maybe DecodeBuffer) -> DecodeBuffer
+utf16_encode :: IORef Bool -> EncodeBuffer
+utf16be :: TextEncoding
+utf16be_decode :: DecodeBuffer
+utf16be_encode :: EncodeBuffer
+utf16le :: TextEncoding
+utf16le_decode :: DecodeBuffer
+utf16le_encode :: EncodeBuffer
+utf32 :: TextEncoding
+utf32_decode :: IORef (Maybe DecodeBuffer) -> DecodeBuffer
+utf32_encode :: IORef Bool -> EncodeBuffer
+utf32be :: TextEncoding
+utf32be_decode :: DecodeBuffer
+utf32be_encode :: EncodeBuffer
+utf32le :: TextEncoding
+utf32le_decode :: DecodeBuffer
+utf32le_encode :: EncodeBuffer
+utf8 :: TextEncoding
+utf8_bom :: TextEncoding
+vFmt :: Char -> FieldFormat -> FieldFormat
+vacuous :: Functor f => f Void -> f a
+void :: Functor f => f a -> f ()
+void :: IO a -> IO ()
+waitQSem :: QSem -> IO ()
+waitQSemN :: QSemN -> Int -> IO ()
+wantReadableHandle :: String -> Handle -> (Handle__ -> IO (Handle__, a)) -> IO a
+wantReadableHandle_ :: String -> Handle -> (Handle__ -> IO a) -> IO a
+wantSeekableHandle :: String -> Handle -> (Handle__ -> IO a) -> IO a
+wantWritableHandle :: String -> Handle -> (Handle__ -> IO a) -> IO a
+wgencat :: Int -> Int
+when :: Applicative f => Bool -> f () -> f ()
+whenIoSubSystem :: IoSubSystem -> IO () -> IO ()
+whereFrom :: a -> IO [String]
+whoCreated :: a -> IO [String]
+with :: Storable a => a -> (Ptr a -> IO b) -> IO b
+withAllHandles__ :: String -> Handle -> (Handle__ -> IO Handle__) -> IO ()
+withArgs :: [String] -> IO a -> IO a
+withArray :: Storable a => [a] -> (Ptr a -> IO b) -> IO b
+withArray0 :: Storable a => a -> [a] -> (Ptr a -> IO b) -> IO b
+withArrayLen :: Storable a => [a] -> (Int -> Ptr a -> IO b) -> IO b
+withArrayLen0 :: Storable a => a -> [a] -> (Int -> Ptr a -> IO b) -> IO b
+withBinaryFile :: FilePath -> IOMode -> (Handle -> IO r) -> IO r
+withBuffer :: Buffer e -> (Ptr e -> IO a) -> IO a
+withCAString :: String -> (CString -> IO a) -> IO a
+withCAStringLen :: String -> (CStringLen -> IO a) -> IO a
+withCString :: String -> (CString -> IO a) -> IO a
+withCString :: TextEncoding -> String -> (CString -> IO a) -> IO a
+withCStringLen :: String -> (CStringLen -> IO a) -> IO a
+withCStringLen :: TextEncoding -> String -> (CStringLen -> IO a) -> IO a
+withCStringsLen :: TextEncoding -> [String] -> (Int -> Ptr CString -> IO a) -> IO a
+withCWString :: String -> (CWString -> IO a) -> IO a
+withCWStringLen :: String -> (CWStringLen -> IO a) -> IO a
+withFile :: FilePath -> IOMode -> (Handle -> IO r) -> IO r
+withFileBlocking :: FilePath -> IOMode -> (Handle -> IO r) -> IO r
+withFilePath :: FilePath -> (CString -> IO a) -> IO a
+withForeignPtr :: ForeignPtr a -> (Ptr a -> IO b) -> IO b
+withFrozenCallStack :: HasCallStack => (HasCallStack => a) -> a
+withHandle :: String -> Handle -> (Handle__ -> IO (Handle__, a)) -> IO a
+withHandle' :: String -> Handle -> MVar Handle__ -> (Handle__ -> IO (Handle__, a)) -> IO a
+withHandle_ :: String -> Handle -> (Handle__ -> IO a) -> IO a
+withHandle_' :: String -> Handle -> MVar Handle__ -> (Handle__ -> IO a) -> IO a
+withHandle__' :: String -> Handle -> MVar Handle__ -> (Handle__ -> IO Handle__) -> IO ()
+withIoSubSystem :: (IoSubSystem -> IO a) -> IO a
+withIoSubSystem' :: (IoSubSystem -> a) -> a
+withMVar :: MVar a -> (a -> IO b) -> IO b
+withMVarMasked :: MVar a -> (a -> IO b) -> IO b
+withMany :: (a -> (b -> res) -> res) -> [a] -> ([b] -> res) -> res
+withPool :: (Pool -> IO b) -> IO b
+withProgName :: String -> IO a -> IO a
+withRawBuffer :: RawBuffer e -> (Ptr e -> IO a) -> IO a
+withTypeable :: forall k (a :: k) rep (r :: TYPE rep). () => TypeRep a -> (Typeable a => r) -> r
+word2Double :: Word -> Double
+word2Float :: Word -> Float
+wordPtrToPtr :: WordPtr -> Ptr a
+wordToNatural :: Word -> Natural
+words :: String -> [String]
+write :: RawIO a => a -> Ptr Word8 -> Word64 -> Int -> IO ()
+writeBuf :: RawIO dev => dev -> Buffer Word8 -> IO (Buffer Word8)
+writeBufNonBlocking :: RawIO dev => dev -> Buffer Word8 -> IO (Int, Buffer Word8)
+writeChan :: Chan a -> a -> IO ()
+writeCharBuf :: RawCharBuffer -> Int -> Char -> IO Int
+writeCharBufPtr :: Ptr CharBufElem -> Int -> Char -> IO Int
+writeCharBuffer :: Handle__ -> CharBuffer -> IO ()
+writeDoubleOffPtr :: Ptr Double -> Int -> Double -> IO ()
+writeFile :: FilePath -> String -> IO ()
+writeFloatOffPtr :: Ptr Float -> Int -> Float -> IO ()
+writeFunPtrOffPtr :: Ptr (FunPtr a) -> Int -> FunPtr a -> IO ()
+writeIOArray :: Ix i => IOArray i e -> i -> e -> IO ()
+writeIORef :: IORef a -> a -> IO ()
+writeInt16OffPtr :: Ptr Int16 -> Int -> Int16 -> IO ()
+writeInt32OffPtr :: Ptr Int32 -> Int -> Int32 -> IO ()
+writeInt64OffPtr :: Ptr Int64 -> Int -> Int64 -> IO ()
+writeInt8OffPtr :: Ptr Int8 -> Int -> Int8 -> IO ()
+writeIntOffPtr :: Ptr Int -> Int -> Int -> IO ()
+writeList2Chan :: Chan a -> [a] -> IO ()
+writeNonBlocking :: RawIO a => a -> Ptr Word8 -> Word64 -> Int -> IO Int
+writePtrOffPtr :: Ptr (Ptr a) -> Int -> Ptr a -> IO ()
+writeRawBufferPtr :: String -> FD -> Ptr Word8 -> Int -> CSize -> IO CInt
+writeSTArray :: Ix i => STArray s i e -> i -> e -> ST s ()
+writeSTRef :: STRef s a -> a -> ST s ()
+writeStablePtrOffPtr :: Ptr (StablePtr a) -> Int -> StablePtr a -> IO ()
+writeTVar :: TVar a -> a -> STM ()
+writeWideCharOffPtr :: Ptr Char -> Int -> Char -> IO ()
+writeWord16OffPtr :: Ptr Word16 -> Int -> Word16 -> IO ()
+writeWord32OffPtr :: Ptr Word32 -> Int -> Word32 -> IO ()
+writeWord64OffPtr :: Ptr Word64 -> Int -> Word64 -> IO ()
+writeWord8Buf :: RawBuffer Word8 -> Int -> Word8 -> IO ()
+writeWord8OffPtr :: Ptr Word8 -> Int -> Word8 -> IO ()
+writeWordOffPtr :: Ptr Word -> Int -> Word -> IO ()
+xor :: Bits a => a -> a -> a
+xor :: NonEmpty Bool -> Bool
+xorInteger :: Integer -> Integer -> Integer
+xorNatural :: Natural -> Natural -> Natural
+yield :: IO ()
+zeroArrow :: ArrowZero a => a b c
+zeroBits :: Bits a => a
+zip :: NonEmpty a -> NonEmpty b -> NonEmpty (a, b)
+zip :: [a] -> [b] -> [(a, b)]
+zip3 :: [a] -> [b] -> [c] -> [(a, b, c)]
+zip4 :: [a] -> [b] -> [c] -> [d] -> [(a, b, c, d)]
+zip5 :: [a] -> [b] -> [c] -> [d] -> [e] -> [(a, b, c, d, e)]
+zip6 :: [a] -> [b] -> [c] -> [d] -> [e] -> [f] -> [(a, b, c, d, e, f)]
+zip7 :: [a] -> [b] -> [c] -> [d] -> [e] -> [f] -> [g] -> [(a, b, c, d, e, f, g)]
+zipWith :: (a -> b -> c) -> NonEmpty a -> NonEmpty b -> NonEmpty c
+zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith3 :: (a -> b -> c -> d) -> [a] -> [b] -> [c] -> [d]
+zipWith4 :: (a -> b -> c -> d -> e) -> [a] -> [b] -> [c] -> [d] -> [e]
+zipWith5 :: (a -> b -> c -> d -> e -> f) -> [a] -> [b] -> [c] -> [d] -> [e] -> [f]
+zipWith6 :: (a -> b -> c -> d -> e -> f -> g) -> [a] -> [b] -> [c] -> [d] -> [e] -> [f] -> [g]
+zipWith7 :: (a -> b -> c -> d -> e -> f -> g -> h) -> [a] -> [b] -> [c] -> [d] -> [e] -> [f] -> [g] -> [h]
+zipWithM :: Applicative m => (a -> b -> m c) -> [a] -> [b] -> m [c]
+zipWithM_ :: Applicative m => (a -> b -> m c) -> [a] -> [b] -> m ()
