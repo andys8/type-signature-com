@@ -2,16 +2,20 @@ module Main where
 
 import Prelude
 
+import Data.Functions (loadFunctions)
 import Data.Maybe (Maybe(..))
 import Effect (Effect)
+import Effect.Class.Console (log)
 import Effect.Exception (throw)
 import Foreign.Daisyui (button, footer, footerTitle, hero, heroContent, navbar, navbarStart)
 import Foreign.Object as O
 import React.Basic (JSX, element)
-import React.Basic.DOM.Client (createRoot, renderRoot)
 import React.Basic.DOM as R
+import React.Basic.DOM.Client (createRoot, renderRoot)
 import React.Basic.Events (handler_)
-import React.Basic.Hooks (Component, component)
+import React.Basic.Hooks (Component, component, useEffect)
+import React.Basic.Hooks as React
+import React.Basic.Hooks.Aff (useAff)
 import Web.DOM.NonElementParentNode (getElementById)
 import Web.HTML (window)
 import Web.HTML.HTMLDocument (toNonElementParentNode)
@@ -30,6 +34,10 @@ main = do
 
 mkApp :: Component {}
 mkApp = component "App" \_ -> React.do
+  functions <- useAff unit loadFunctions
+  useEffect functions $ do
+    log $ show functions
+    pure mempty
   pure $ R.div
     { _data: O.fromHomogeneous { theme: "dracula" }
     , className: "flex flex-col h-screen justify-between"

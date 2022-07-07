@@ -3,6 +3,7 @@
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]
 , dependencies =
   [ "aff"
+  , "affjax-web"
   , "console"
   , "effect"
   , "exceptions"
