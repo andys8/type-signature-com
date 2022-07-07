@@ -1,2 +1,2 @@
-export { default as haskellPreludeUrl } from "../../data/haskell/prelude.txt";
-export { default as haskellBaseUrl } from "../../data/haskell/base.txt";
+export { default as haskellPreludeUrl } from "url:../../data/haskell/prelude.txt";
+export { default as haskellBaseUrl } from "url:../../data/haskell/base.txt";

@@ -11,7 +11,7 @@
     "start": "concurrently -k npm:start:*",
     "start:spago": "spago build --watch --clear-screen",
     "start:parcel": "parcel serve -p 3000 --open",
-    "build": "spago bundle-module -y && mv index.js output/Main/index.js && parcel build",
+    "build": "spago build && parcel build",
     "test": "spago test"
   },
   "repository": {
