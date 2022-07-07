@@ -7,7 +7,7 @@
   "homepage": "https://github.com/andys8/type-signature-com#readme",
   "source": "src/index.html",
   "scripts": {
-    "postinstall": "spago install",
+    "postinstall": "spago install && spago build",
     "start": "concurrently -k npm:start:*",
     "start:spago": "spago build --watch --clear-screen",
     "start:parcel": "parcel serve -p 3000 --open",
@@ -24,7 +24,7 @@
     "esbuild": "^0.14.47",
     "parcel": "^2.6.2",
     "postcss": "^8.4.14",
-    "purescript": "^0.15.3",
+    "purescript": "^0.15.4",
     "spago": "^0.20.9",
     "tailwindcss": "^3.1.4"
   },
