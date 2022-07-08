@@ -9,6 +9,7 @@ import Effect.Class.Console (log)
 import Effect.Exception (throw)
 import Foreign.Daisyui (button, footer, footerTitle, hero, heroContent, navbar, navbarStart)
 import Foreign.Object as O
+import Foreign.ReactIcons (faGithub, faTwitter, tbSignature)
 import React.Basic (JSX, element)
 import React.Basic.DOM as R
 import React.Basic.DOM.Client (createRoot, renderRoot)
@@ -73,9 +74,10 @@ startPage = element hero
           { className: "text-center"
           , children:
               [ R.div
-                  { className: "max-w-md"
+                  { className: "max-w-md flex flex-col items-center"
                   , children:
-                      [ R.h1
+                      [ element tbSignature { size: "160px" }
+                      , R.h1
                           { className: "text-5xl font-bold"
                           , children: [ R.text "type-signature" ]
                           }
@@ -99,33 +101,54 @@ startPage = element hero
 appFooter :: JSX
 appFooter = element footer
   { center: false
-  , className: "p-10 bg-neutral text-neutral-content"
+  , className: "footer items-center p-4 bg-neutral text-neutral-content"
   , children:
-      [ R.div_
-          [ element footerTitle { children: [ R.text "About" ] }
-          , R.a
-              { className: "link link-hover"
-              , href: "https://github.com/andys8/type-signature-com"
-              , children: [ R.text "Github" ]
-              }
-          , R.a
-              { className: "link link-hover"
-              , href: "https://twitter.com/_andys8"
-              , children: [ R.text "Twitter" ]
-              }
-          ]
-      , R.div_
-          [ element footerTitle { children: [ R.text "Learn Haskell" ] }
-          , R.a
-              { className: "link link-hover"
-              , href: "https://wiki.haskell.org/Type_signature"
-              , children: [ R.text "Haskell Wiki" ]
-              }
-          , R.a
-              { className: "link link-hover"
-              , href: "https://hoogle.haskell.org"
-              , children: [ R.text "Hoogle" ]
-              }
-          ]
+      [ R.div
+          { className: "items-center grid-flow-col"
+          , children:
+              [ element tbSignature { size: "48px" }
+              , R.text "Copyright © 2022"
+              ]
+          }
+      , R.div
+          { className: "grid-flow-col gap-4 md:place-self-center md:justify-self-end"
+          , children:
+              [ R.a
+                  { href: "https://github.com/andys8/type-signature-com"
+                  , children: [ element faGithub { size: "24px" } ]
+                  }
+              , R.a
+                  { href: "https://twitter.com/_andys8"
+                  , children: [ element faTwitter { size: "24px" } ]
+                  }
+
+              ]
+          }
+      -- , R.div_
+      --     [ element footerTitle { children: [ R.text "About" ] }
+      --     , R.a
+      --         { className: "link link-hover inline-block inline-center"
+      --         , href: "https://github.com/andys8/type-signature-com"
+      --         , children: [ element faGithub {}, R.text "Github" ]
+      --         }
+      --     , R.a
+      --         { className: "link link-hover"
+      --         , href: "https://twitter.com/_andys8"
+      --         , children: [ R.text "Twitter" ]
+      --         }
+      --     ]
+      -- , R.div_
+      --     [ element footerTitle { children: [ R.text "Learn Haskell" ] }
+      --     , R.a
+      --         { className: "link link-hover"
+      --         , href: "https://wiki.haskell.org/Type_signature"
+      --         , children: [ R.text "Haskell Wiki" ]
+      --         }
+      --     , R.a
+      --         { className: "link link-hover"
+      --         , href: "https://hoogle.haskell.org"
+      --         , children: [ R.text "Hoogle" ]
+      --         }
+      --     ]
       ]
   }

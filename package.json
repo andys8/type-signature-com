@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "daisyui": "^2.17.0",
-    "react-daisyui": "^2.0.4"
+    "react-daisyui": "^2.0.4",
+    "react-icons": "^4.4.0"
   }
 }
