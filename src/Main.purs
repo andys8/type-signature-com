@@ -9,7 +9,6 @@ import Effect.Class.Console (log)
 import Effect.Exception (throw)
 import Foreign.Daisyui (button, footer, hero, heroContent, navbar, navbarStart)
 import Foreign.Object as O
-import Foreign.ReactIcons (faGithub, faTwitter, tbSignature)
 import React.Basic (JSX, element)
 import React.Basic.DOM as R
 import React.Basic.DOM.Client (createRoot, renderRoot)
@@ -17,6 +16,8 @@ import React.Basic.Events (handler_)
 import React.Basic.Hooks (Component, component, useEffect)
 import React.Basic.Hooks as React
 import React.Basic.Hooks.Aff (useAff)
+import React.Icons.Fa (faGithub, faTwitter)
+import React.Icons.Gi (giPencilBrush)
 import Web.DOM.NonElementParentNode (getElementById)
 import Web.HTML (window)
 import Web.HTML.HTMLDocument (toNonElementParentNode)
@@ -76,7 +77,7 @@ startPage = element hero
               [ R.div
                   { className: "max-w-md flex flex-col items-center"
                   , children:
-                      [ tbSignature { size: "120px" }
+                      [ giPencilBrush { size: "120px", className: "m-4" }
                       , R.h1
                           { className: "text-5xl font-bold"
                           , children: [ R.text "type-signature" ]
@@ -102,22 +103,7 @@ appFooter :: JSX
 appFooter = element footer
   { className: "footer footer-center p-10 bg-base-200 text-base-content"
   , children:
-      [ R.div
-          { className: "grid grid-flow-col gap-4"
-          , children:
-              [ R.a
-                  { className: "link link-hover"
-                  , href: "https://wiki.haskell.org/Type_signature"
-                  , children: [ R.text "Haskell-Wiki" ]
-                  }
-              , R.a
-                  { className: "link link-hover"
-                  , href: "https://hoogle.haskell.org"
-                  , children: [ R.text "Hoogle" ]
-                  }
-              ]
-          }
-      , R.div_
+      [ R.div_
           [ R.div
               { className: "grid grid-flow-col gap-4"
               , children:
@@ -129,7 +115,6 @@ appFooter = element footer
                       { href: "https://twitter.com/_andys8"
                       , children: [ faTwitter { size: "24px" } ]
                       }
-
                   ]
               }
           ]

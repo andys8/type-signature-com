@@ -16,8 +16,8 @@
   , "react-basic"
   , "react-basic-dom"
   , "react-basic-hooks"
+  , "react-icons"
   , "strings"
-  , "unsafe-coerce"
   , "web-dom"
   , "web-html"
   ]
