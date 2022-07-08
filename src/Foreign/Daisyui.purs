@@ -12,8 +12,7 @@ foreign import button
 
 foreign import footer
   :: ReactComponent
-       { center :: Boolean
-       , className :: String
+       { className :: String
        , children :: Array JSX
        }
 

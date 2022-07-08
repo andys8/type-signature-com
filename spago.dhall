@@ -17,6 +17,7 @@
   , "react-basic-dom"
   , "react-basic-hooks"
   , "strings"
+  , "unsafe-coerce"
   , "web-dom"
   , "web-html"
   ]

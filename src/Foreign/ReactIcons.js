@@ -1,6 +1,5 @@
 export {
-  FaBeer as faBeer,
-  FaGithub as faGithub,
-  FaTwitter as faTwitter,
+  FaGithub as faGithub_,
+  FaTwitter as faTwitter_,
 } from "react-icons/fa";
-export { TbSignature as tbSignature } from "react-icons/tb";
+export { TbSignature as tbSignature_ } from "react-icons/tb";
