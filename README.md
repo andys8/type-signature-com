@@ -17,7 +17,3 @@ npm start
 ```shell
 npm run build
 ```
-
-## Hosting
-
-Project hosted on <https://vercel.com>
