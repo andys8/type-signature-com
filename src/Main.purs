@@ -75,7 +75,7 @@ startPage = element hero
               [ R.div
                   { className: "max-w-md flex flex-col items-center"
                   , children:
-                      [ giPencilBrush { size: "120px", className: "m-4" }
+                      [ element giPencilBrush { size: "120px", className: "m-4" }
                       , R.h1
                           { className: "text-5xl font-bold"
                           , children: [ R.text "type-signature" ]
@@ -107,11 +107,11 @@ appFooter = element footer
               , children:
                   [ R.a
                       { href: "https://github.com/andys8/type-signature-com"
-                      , children: [ faGithub { size: "24px" } ]
+                      , children: [ element faGithub { size: "24px" } ]
                       }
                   , R.a
                       { href: "https://twitter.com/_andys8"
-                      , children: [ faTwitter { size: "24px" } ]
+                      , children: [ element faTwitter { size: "24px" } ]
                       }
                   ]
               }
