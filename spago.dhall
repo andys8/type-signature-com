@@ -10,7 +10,6 @@
   , "effect"
   , "either"
   , "exceptions"
-  , "foreign-object"
   , "maybe"
   , "prelude"
   , "react-basic"

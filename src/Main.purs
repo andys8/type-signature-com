@@ -8,7 +8,6 @@ import Effect (Effect)
 import Effect.Class.Console (log)
 import Effect.Exception (throw)
 import Foreign.Daisyui (button, footer, hero, heroContent, navbar, navbarStart)
-import Foreign.Object as O
 import React.Basic (JSX, element)
 import React.Basic.DOM as R
 import React.Basic.DOM.Client (createRoot, renderRoot)
@@ -42,8 +41,7 @@ mkApp = component "App" \_ -> React.do
     log $ show functions
     pure mempty
   pure $ R.div
-    { _data: O.fromHomogeneous { theme: "dracula" }
-    , className: "flex flex-col h-screen justify-between"
+    { className: "flex flex-col h-screen justify-between"
     , children:
         [ nav
         , startPage
