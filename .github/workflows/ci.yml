@@ -1,10 +1,11 @@
-name: CI
-
+name: Build and Deploy
 on:
   push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+    branches:
+      - master
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -27,3 +28,7 @@ jobs:
 
       - run: npm ci
       - run: npm run build
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
