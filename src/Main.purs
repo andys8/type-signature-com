@@ -15,6 +15,7 @@ import React.Basic.Events (handler_)
 import React.Basic.Hooks (Component, component, useEffect)
 import React.Basic.Hooks as React
 import React.Basic.Hooks.Aff (useAff)
+import React.Icons (icon)
 import React.Icons.Fa (faGithub, faTwitter)
 import React.Icons.Gi (giPencilBrush)
 import Web.DOM.NonElementParentNode (getElementById)
@@ -75,7 +76,7 @@ startPage = element hero
               [ R.div
                   { className: "max-w-md flex flex-col items-center"
                   , children:
-                      [ element giPencilBrush { size: "120px", className: "m-4" }
+                      [ icon giPencilBrush { size: "120px", className: "m-4" }
                       , R.h1
                           { className: "text-5xl font-bold"
                           , children: [ R.text "type-signature" ]
@@ -107,11 +108,11 @@ appFooter = element footer
               , children:
                   [ R.a
                       { href: "https://github.com/andys8/type-signature-com"
-                      , children: [ element faGithub { size: "24px" } ]
+                      , children: [ icon faGithub { size: "24px", title: "Github" } ]
                       }
                   , R.a
                       { href: "https://twitter.com/_andys8"
-                      , children: [ element faTwitter { size: "24px" } ]
+                      , children: [ icon faTwitter { size: "24px", title: "Twitter" } ]
                       }
                   ]
               }
