@@ -8,7 +8,7 @@ import React.Icons.Fa (faGithub, faTwitter)
 
 appFooter :: JSX
 appFooter = element footer
-  { className: "footer footer-center p-4 gap-2 bg-base-200 text-base-content"
+  { className: "footer footer-center p-4 gap-4 bg-base-200 text-base-content"
   , children:
       [ R.div_
           [ R.div
