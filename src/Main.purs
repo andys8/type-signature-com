@@ -2,6 +2,7 @@ module Main where
 
 import Prelude
 
+import Components.AppContent (appContent)
 import Components.AppFooter (appFooter)
 import Components.AppNavbar (appNavbar)
 import Components.PageGameInProgress (pageGameInProgress)
@@ -52,7 +53,7 @@ mkApp = do
         GameInProgress inProgressState ->
           pageGameInProgress
             { inProgressState
-            , onAnswerClick: handler_ $ dispatch ActionAnswer
+            , onAnswerClick: dispatch <<< ActionAnswer
             }
         GameEnd ->
           R.text "Ended"
@@ -60,7 +61,7 @@ mkApp = do
       { className: "flex flex-col h-screen justify-between"
       , children:
           [ appNavbar
-          , page
+          , appContent page
           , appFooter
           ]
       }

@@ -2,37 +2,55 @@ module Components.PageGameInProgress (pageGameInProgress) where
 
 import Prelude
 
-import Foreign.Daisyui (button, hero, heroContent)
-import React.Basic (JSX, element)
+import Data.Functions (Fun(..))
+import Data.Maybe (Maybe(..), isJust)
+import Effect (Effect)
+import Foreign.Daisyui (badge, button)
+import React.Basic (JSX, element, fragment)
 import React.Basic.DOM as R
-import React.Basic.Events (EventHandler)
-import State (GameInProgressState)
+import React.Basic.Events (handler_)
+import State (Option(..), Answer, GameInProgressState)
 
 type Props =
-  { onAnswerClick :: EventHandler
-  , inProgressState :: GameInProgressState
+  { inProgressState :: GameInProgressState
+  , onAnswerClick :: Answer -> Effect Unit
   }
 
 pageGameInProgress :: Props -> JSX
-pageGameInProgress { onAnswerClick, inProgressState } = element hero
-  { className: "bg-base-400"
-  , children:
-      [ element heroContent
-          { className: "text-center"
-          , children:
-              [ R.div
-                  { className: "max-w-md flex flex-col items-center"
-                  , children:
-                      [ R.text (show inProgressState)
-                      , element button
-                          { color: "default"
-                          , onClick: onAnswerClick
-                          , disabled: false
-                          , children: [ R.text "Answer" ]
-                          }
-                      ]
-                  }
-              ]
-          }
-      ]
-  }
+pageGameInProgress { onAnswerClick, inProgressState } =
+  fragment
+    [ R.text $ show $ inProgressState.currentQuestion.correctOption
+    , R.div_
+        [ mkOptionButton A inProgressState.currentQuestion.optionA
+        , mkOptionButton B inProgressState.currentQuestion.optionB
+        ]
+    , R.div_
+        [ mkOptionButton C inProgressState.currentQuestion.optionC
+        , mkOptionButton D inProgressState.currentQuestion.optionD
+        ]
+    ]
+  where
+  { currentQuestion, currentAnswer } = inProgressState
+  mkOptionButton option fun =
+    element button
+      { color: case currentAnswer of
+          Just answer | answer == option ->
+            if currentQuestion.correctOption == option then "success" else "error"
+          _ -> "default"
+      , onClick: handler_ $
+          if isJust currentAnswer then pure unit
+          else onAnswerClick option
+      , disabled: false
+      , className: "focus:outline-none gap-4 m-2"
+      , children:
+          [ element badge
+              { size: "lg"
+              , responsive: false
+              , color: "primary"
+              , children: [ R.text $ renderOption option ]
+              }
+          , R.text $ renderFun fun
+          ]
+      }
+  renderOption = show
+  renderFun (Fun x) = x

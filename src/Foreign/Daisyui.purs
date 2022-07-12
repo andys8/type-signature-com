@@ -6,17 +6,13 @@ import React.Basic.Hooks (JSX, ReactComponent)
 foreign import button
   :: ReactComponent
        { color :: String
+       , className :: String
        , onClick :: EventHandler
        , disabled :: Boolean
        , children :: Array JSX
        }
 
-foreign import footer
-  :: ReactComponent
-       { className :: String
-       , children :: Array JSX
-       }
-
+foreign import footer :: ReactComponent { className :: String, children :: Array JSX }
 foreign import footerTitle :: ReactComponent { children :: Array JSX }
 
 foreign import hero :: ReactComponent { className :: String, children :: Array JSX }
@@ -27,3 +23,12 @@ foreign import navbar :: ReactComponent { className :: String, children :: Array
 foreign import navbarStart :: ReactComponent { className :: String, children :: Array JSX }
 foreign import navbarCenter :: ReactComponent { className :: String, children :: Array JSX }
 foreign import navbarEnd :: ReactComponent { className :: String, children :: Array JSX }
+
+foreign import kbd :: ReactComponent { children :: Array JSX }
+foreign import badge
+  :: ReactComponent
+       { color :: String
+       , size :: String
+       , responsive :: Boolean
+       , children :: Array JSX
+       }
