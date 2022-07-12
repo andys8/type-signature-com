@@ -2,26 +2,36 @@ module State where
 
 import Prelude
 
+import Data.Show.Generic (genericShow)
 import Effect.Aff (Aff, Milliseconds(..), delay)
 import Effect.Class.Console (log)
+import Data.Generic.Rep (class Generic)
 
-newtype State = State String
+type State = { gameState :: GameState }
 
-derive newtype instance Show State
-derive newtype instance Eq State
+data GameState
+  = GameNotYetStarted
+  | GameInProgress
 
-data Action = ActionSet String
+derive instance Generic GameState _
+derive instance Eq GameState
+instance Show GameState where
+  show = genericShow
+
+data Action =
+  ActionGameStart
 
 initState :: State
-initState = State ""
+initState = { gameState: GameNotYetStarted }
 
 reducer :: State -> Action -> { state :: State, effects :: Array (Aff (Array Action)) }
-reducer state (ActionSet x) =
-  { state: State x
+reducer state ActionGameStart =
+  { state: state { gameState = GameInProgress }
   , effects:
       [ do
           delay (Milliseconds 3000.0)
           log "delayed"
-          pure [ ActionSet "c" ]
+          pure []
       ]
   }
+

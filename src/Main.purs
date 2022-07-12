@@ -13,10 +13,11 @@ import Effect.Class.Console (log)
 import Effect.Exception (throw)
 import React.Basic.DOM as R
 import React.Basic.DOM.Client (createRoot, renderRoot)
+import React.Basic.Events (handler_)
 import React.Basic.Hooks (Component, component, useEffect)
 import React.Basic.Hooks as React
 import React.Basic.Hooks.Aff (mkAffReducer, useAff, useAffReducer)
-import State (initState, reducer)
+import State (Action(..), GameState(..), initState, reducer)
 import Web.DOM.NonElementParentNode (getElementById)
 import Web.HTML (window)
 import Web.HTML.HTMLDocument (toNonElementParentNode)
@@ -43,11 +44,17 @@ mkApp = do
       log $ show functions
       pure mempty
     state /\ dispatch <- useAffReducer initState r
+    let
+      page = case state.gameState of
+        GameNotYetStarted ->
+          pageStart { onStartClick: handler_ $ dispatch ActionGameStart }
+        GameInProgress ->
+          R.text "in progress"
     pure $ R.div
       { className: "flex flex-col h-screen justify-between"
       , children:
           [ appNavbar
-          , pageStart dispatch
+          , page
           , appFooter
           ]
       }

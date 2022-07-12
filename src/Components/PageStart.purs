@@ -1,18 +1,16 @@
 module Components.PageStart (pageStart) where
 
-import Prelude
-
-import Effect (Effect)
 import Foreign.Daisyui (button, hero, heroContent)
 import React.Basic (JSX, element)
 import React.Basic.DOM as R
-import React.Basic.Events (handler_)
+import React.Basic.Events (EventHandler)
 import React.Icons (icon)
 import React.Icons.Gi (giPencilBrush)
-import State (Action(..))
 
-pageStart :: (Action -> Effect Unit) -> JSX
-pageStart dispatch = element hero
+type Props = { onStartClick :: EventHandler }
+
+pageStart :: Props -> JSX
+pageStart { onStartClick } = element hero
   { className: "bg-base-400"
   , children:
       [ element heroContent
@@ -33,8 +31,7 @@ pageStart dispatch = element hero
                           }
                       , element button
                           { color: "default"
-                          , onClick: handler_ $ do
-                              dispatch $ ActionSet "a"
+                          , onClick: onStartClick
                           , children: [ R.text "Start" ]
                           }
                       ]
