@@ -5,7 +5,7 @@
   [ "aff"
   , "affjax"
   , "affjax-web"
-  , "bifunctors"
+  , "arrays"
   , "console"
   , "effect"
   , "either"
@@ -17,6 +17,7 @@
   , "react-basic-hooks"
   , "react-icons"
   , "strings"
+  , "tuples"
   , "web-dom"
   , "web-html"
   ]
