@@ -6,8 +6,6 @@ import Data.Functions (haskellBaseUrl, loadFunctions)
 import Data.Maybe (Maybe(..))
 import Data.Tuple.Nested ((/\))
 import Effect (Effect)
-import Effect.Aff (Milliseconds(..), delay, launchAff_)
-import Effect.Class (liftEffect)
 import Effect.Class.Console (log)
 import Effect.Exception (throw)
 import Foreign.Daisyui (button, footer, hero, heroContent, navbar, navbarStart)
@@ -15,12 +13,13 @@ import React.Basic (JSX, element)
 import React.Basic.DOM as R
 import React.Basic.DOM.Client (createRoot, renderRoot)
 import React.Basic.Events (handler_)
-import React.Basic.Hooks (type (/\), Component, component, mkReducer, useEffect, useReducer)
+import React.Basic.Hooks (Component, component, useEffect)
 import React.Basic.Hooks as React
-import React.Basic.Hooks.Aff (useAff)
+import React.Basic.Hooks.Aff (mkAffReducer, useAff, useAffReducer)
 import React.Icons (icon)
 import React.Icons.Fa (faGithub, faTwitter)
 import React.Icons.Gi (giPencilBrush)
+import State (Action(..), initState, reducer)
 import Web.DOM.NonElementParentNode (getElementById)
 import Web.HTML (window)
 import Web.HTML.HTMLDocument (toNonElementParentNode)
@@ -39,33 +38,22 @@ main = do
 
 mkApp :: Component {}
 mkApp = do
-  r <- mkReducer reducer
+  r <- mkAffReducer reducer
   component "App" \_ -> React.do
     functions <- useAff unit loadFunctions
     useEffect functions $ do
       log $ show haskellBaseUrl
       log $ show functions
       pure mempty
-    state /\ dispatch <- useReducer (State "") r
+    state /\ dispatch <- useAffReducer initState r
     pure $ R.div
       { className: "flex flex-col h-screen justify-between"
       , children:
           [ nav
           , startPage dispatch
           , appFooter
-          , R.text $ show state
           ]
       }
-
-newtype State = State String
-
-derive newtype instance Show State
-derive newtype instance Eq State
-
-data Action = ActionSet String
-
-reducer :: State -> Action -> State
-reducer state (ActionSet x) = State x
 
 nav :: JSX
 nav = element navbar
@@ -85,7 +73,7 @@ nav = element navbar
 
 startPage :: (Action -> Effect Unit) -> JSX
 startPage dispatch = element hero
-  { className: "h-80 bg-base-400"
+  { className: "bg-base-400"
   , children:
       [ element heroContent
           { className: "text-center"
@@ -106,12 +94,7 @@ startPage dispatch = element hero
                       , element button
                           { color: "default"
                           , onClick: handler_ $ do
-                              log "click"
-                              launchAff_ $ delay (Milliseconds 2000.0)
                               dispatch $ ActionSet "a"
-                              log "timeout"
-                              dispatch $ ActionSet "b"
-                              pure unit
                           , children: [ R.text "Start" ]
                           }
                       ]
@@ -123,7 +106,7 @@ startPage dispatch = element hero
 
 appFooter :: JSX
 appFooter = element footer
-  { className: "footer footer-center p-10 bg-base-200 text-base-content"
+  { className: "footer footer-center p-4 gap-2 bg-base-200 text-base-content"
   , children:
       [ R.div_
           [ R.div
