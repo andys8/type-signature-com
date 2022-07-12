@@ -7,6 +7,7 @@ foreign import button
   :: ReactComponent
        { color :: String
        , onClick :: EventHandler
+       , disabled :: Boolean
        , children :: Array JSX
        }
 

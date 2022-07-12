@@ -4,17 +4,18 @@ import Prelude
 
 import Components.AppFooter (appFooter)
 import Components.AppNavbar (appNavbar)
+import Components.PageGameInProgress (pageGameInProgress)
 import Components.PageStart (pageStart)
-import Data.Functions (haskellBaseUrl, loadFunctions)
-import Data.Maybe (Maybe(..))
+import Data.Array as A
+import Data.Functions (loadFunctions)
+import Data.Maybe (Maybe(..), fromMaybe)
 import Data.Tuple.Nested ((/\))
 import Effect (Effect)
-import Effect.Class.Console (log)
 import Effect.Exception (throw)
 import React.Basic.DOM as R
 import React.Basic.DOM.Client (createRoot, renderRoot)
 import React.Basic.Events (handler_)
-import React.Basic.Hooks (Component, component, useEffect)
+import React.Basic.Hooks (Component, component)
 import React.Basic.Hooks as React
 import React.Basic.Hooks.Aff (mkAffReducer, useAff, useAffReducer)
 import State (Action(..), GameState(..), initState, reducer)
@@ -38,18 +39,23 @@ mkApp :: Component {}
 mkApp = do
   r <- mkAffReducer reducer
   component "App" \_ -> React.do
-    functions <- useAff unit loadFunctions
-    useEffect functions $ do
-      log $ show haskellBaseUrl
-      log $ show functions
-      pure mempty
-    state /\ dispatch <- useAffReducer initState r
+    response <- useAff unit loadFunctions
+    let functions = fromMaybe [] response
+    state /\ dispatch <- useAffReducer (initState functions) r
     let
       page = case state.gameState of
-        GameNotYetStarted ->
-          pageStart { onStartClick: handler_ $ dispatch ActionGameStart }
-        GameInProgress ->
-          R.text "in progress"
+        GameBeforeStart ->
+          pageStart
+            { isLoading: A.null functions
+            , onStartClick: handler_ $ dispatch ActionGameStart
+            }
+        GameInProgress inProgressState ->
+          pageGameInProgress
+            { inProgressState
+            , onAnswerClick: handler_ $ dispatch ActionAnswer
+            }
+        GameEnd ->
+          R.text "Ended"
     pure $ R.div
       { className: "flex flex-col h-screen justify-between"
       , children:

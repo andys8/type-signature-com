@@ -7,10 +7,13 @@ import React.Basic.Events (EventHandler)
 import React.Icons (icon)
 import React.Icons.Gi (giPencilBrush)
 
-type Props = { onStartClick :: EventHandler }
+type Props =
+  { isLoading :: Boolean
+  , onStartClick :: EventHandler
+  }
 
 pageStart :: Props -> JSX
-pageStart { onStartClick } = element hero
+pageStart { onStartClick, isLoading } = element hero
   { className: "bg-base-400"
   , children:
       [ element heroContent
@@ -32,6 +35,7 @@ pageStart { onStartClick } = element hero
                       , element button
                           { color: "default"
                           , onClick: onStartClick
+                          , disabled: isLoading
                           , children: [ R.text "Start" ]
                           }
                       ]
