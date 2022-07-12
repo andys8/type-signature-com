@@ -30,7 +30,7 @@ pageStart { onStartClick, isLoading } =
         { color: "default"
         , onClick: onStartClick
         , disabled: isLoading
-        , className: "focus:outline-none"
+        , className: ""
         , children: [ R.text "Start" ]
         }
     ]

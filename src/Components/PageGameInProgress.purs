@@ -41,7 +41,7 @@ pageGameInProgress { onAnswerClick, inProgressState } =
           if isJust currentAnswer then pure unit
           else onAnswerClick option
       , disabled: false
-      , className: "focus:outline-none gap-4 m-2"
+      , className: "gap-4 m-2"
       , children:
           [ element badge
               { size: "lg"

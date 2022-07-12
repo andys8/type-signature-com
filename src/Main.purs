@@ -58,7 +58,7 @@ mkApp = do
         GameEnd ->
           R.text "Ended"
     pure $ R.div
-      { className: "flex flex-col h-screen justify-between"
+      { className: "flex flex-col justify-between absolute inset-0"
       , children:
           [ appNavbar
           , appContent page
