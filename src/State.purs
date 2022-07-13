@@ -5,13 +5,14 @@ import Prelude
 import Data.Generic.Rep (class Generic)
 import Data.Maybe (Maybe(..))
 import Data.Set (Set)
+import Data.Set.NonEmpty (NonEmptySet)
 import Data.Show.Generic (genericShow)
-import Data.Tuple.Nested (type (/\))
 import Effect.Aff (Aff, Milliseconds(..), delay)
 import Functions (Fun(..))
+import Questions (Answer, AnsweredQuestion, Option(..), Question, mkQuestions)
 
 type State =
-  { allFunctions :: Set Fun
+  { functions :: NonEmptySet Fun
   , gameState :: GameState
   }
 
@@ -32,35 +33,16 @@ type GameInProgressState =
   , nextQuestions :: Array Question
   }
 
-data Option = A | B | C | D
-
-derive instance Generic Option _
-derive instance Eq Option
-instance Show Option where
-  show = genericShow
-
-type Question =
-  { correctOption :: Option
-  , optionA :: Fun
-  , optionB :: Fun
-  , optionC :: Fun
-  , optionD :: Fun
-  }
-
-type Answer = Option
-
-newtype AnsweredQuestion = AnsweredQuestion (Question /\ Answer)
-
-derive newtype instance Eq AnsweredQuestion
-derive newtype instance Show AnsweredQuestion
-
 data Action
   = ActionGameStart
   | ActionAnswer Answer
   | ActionNextQuestion
 
-initState :: Set Fun -> State
-initState allFunctions = { allFunctions, gameState: GameBeforeStart }
+initState :: NonEmptySet Fun -> State
+initState functions =
+  { functions
+  , gameState: GameBeforeStart
+  }
 
 reducer :: State -> Action -> { state :: State, effects :: Array (Aff (Array Action)) }
 reducer state ActionGameStart =
@@ -74,6 +56,7 @@ reducer state ActionGameStart =
     , currentAnswer: Nothing
     , nextQuestions: [ question1 ]
     }
+  questions = mkQuestions 6 state.functions
   question0 =
     { correctOption: A
     , optionA: Fun { name: "a0", signature: "a -> a" }

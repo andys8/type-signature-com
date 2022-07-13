@@ -2,15 +2,16 @@ module Components.PageGameInProgress (pageGameInProgress) where
 
 import Prelude
 
-import Functions (Fun(..))
 import Data.Maybe (Maybe(..), isJust)
 import Effect (Effect)
 import Foreign.Confetti (confetti)
 import Foreign.Daisyui (badge, button)
+import Functions (Fun(..))
+import Questions (Option(..), Answer)
 import React.Basic (JSX, element, fragment)
 import React.Basic.DOM as R
 import React.Basic.Events (handler_)
-import State (Option(..), Answer, GameInProgressState)
+import State (GameInProgressState)
 
 type Props =
   { inProgressState :: GameInProgressState

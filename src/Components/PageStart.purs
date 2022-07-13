@@ -8,12 +8,11 @@ import React.Icons (icon)
 import React.Icons.Gi (giPencilBrush)
 
 type Props =
-  { isLoading :: Boolean
-  , onStartClick :: EventHandler
+  { onStartClick :: EventHandler
   }
 
 pageStart :: Props -> JSX
-pageStart { onStartClick, isLoading } =
+pageStart { onStartClick } =
   fragment
     [ icon
         giPencilBrush
@@ -29,7 +28,7 @@ pageStart { onStartClick, isLoading } =
     , element button
         { color: "default"
         , onClick: onStartClick
-        , disabled: isLoading
+        , disabled: false
         , className: ""
         , children: [ R.text "Start" ]
         }

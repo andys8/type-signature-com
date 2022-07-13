@@ -7,14 +7,14 @@ import Components.AppFooter (appFooter)
 import Components.AppNavbar (appNavbar)
 import Components.PageGameInProgress (pageGameInProgress)
 import Components.PageStart (pageStart)
-import Data.Either (fromRight)
+import Data.Either (Either(..))
 import Data.Haskell (haskellPreludeUrl, loadFunctions)
-import Data.Maybe (Maybe(..), fromMaybe)
+import Data.Maybe (Maybe(..))
+import Data.Set.NonEmpty (NonEmptySet)
 import Data.Tuple.Nested ((/\))
-import Data.Set as S
 import Effect (Effect)
 import Effect.Exception (throw)
-import Functions (parseFunctions)
+import Functions (Fun, parseFunctions)
 import React.Basic.DOM as R
 import React.Basic.DOM.Client (createRoot, renderRoot)
 import React.Basic.Events (handler_)
@@ -40,31 +40,43 @@ main = do
 
 mkApp :: Component {}
 mkApp = do
-  r <- mkAffReducer reducer
+  game <- mkGame
   component "App" \_ -> React.do
     response <- useAff unit $ loadFunctions haskellPreludeUrl
-    let functions = fromRight S.empty $ parseFunctions =<< fromMaybe (pure "") response
-    state /\ dispatch <- useAffReducer (initState functions) r
     let
-      page = case state.gameState of
-        GameBeforeStart ->
-          pageStart
-            { isLoading: S.isEmpty functions
-            , onStartClick: handler_ $ dispatch ActionGameStart
-            }
-        GameInProgress inProgressState ->
-          pageGameInProgress
-            { inProgressState
-            , onAnswerClick: dispatch <<< ActionAnswer
-            }
-        GameEnd ->
-          R.text "Ended"
+      content = case response of
+        -- TODO: Loading page
+        Nothing -> R.text $ "loading"
+        Just r ->
+          case parseFunctions =<< r of
+            -- TODO: Error
+            Left x -> R.text $ "Issue: " <> x
+            Right functions -> game { functions }
+
     pure $ R.div
       { className: "flex flex-col justify-between absolute inset-0"
       , children:
           [ appNavbar
-          , appContent page
+          , appContent content
           , appFooter
           ]
       }
+
+mkGame :: Component { functions :: NonEmptySet Fun }
+mkGame = do
+  r <- mkAffReducer reducer
+  component "App" \{ functions } -> React.do
+    state /\ dispatch <- useAffReducer (initState functions) r
+    pure case state.gameState of
+      GameBeforeStart ->
+        pageStart
+          { onStartClick: handler_ $ dispatch ActionGameStart
+          }
+      GameInProgress inProgressState ->
+        pageGameInProgress
+          { inProgressState
+          , onAnswerClick: dispatch <<< ActionAnswer
+          }
+      GameEnd ->
+        R.text "Ended"
 

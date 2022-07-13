@@ -5,6 +5,7 @@
   [ "aff"
   , "affjax"
   , "affjax-web"
+  , "arrays"
   , "bifunctors"
   , "effect"
   , "either"
