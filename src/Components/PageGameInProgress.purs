@@ -58,8 +58,9 @@ pageGameInProgress { onAnswerClick, inProgressState } =
       }
   renderOption = R.text <<< show
   renderFunName (Fun { name }) =
+    -- TODO: Title on hover
     element kbd
-      { className: "normal-case"
+      { className: "normal-case truncate"
       , children: [ R.text name ]
       }
 

@@ -5,6 +5,7 @@ import Prelude
 import Components.AppContent (appContent)
 import Components.AppFooter (appFooter)
 import Components.AppNavbar (appNavbar)
+import Components.PageGameEnd (pageGameEnd)
 import Components.PageGameInProgress (pageGameInProgress)
 import Components.PageStart (pageStart)
 import Data.Either (Either(..))
@@ -78,5 +79,7 @@ mkGame = do
           , onAnswerClick: dispatch <<< ActionAnswer
           }
       GameEnd ->
-        R.text "Ended"
+        pageGameEnd
+          { onRestart: handler_ $ dispatch ActionGameStart
+          }
 
