@@ -35,3 +35,4 @@ foreign import badge
 
 foreign import progress :: ReactComponent { className :: String }
 
+foreign import alert :: ReactComponent { status :: String, children :: Array JSX }

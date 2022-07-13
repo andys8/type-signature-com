@@ -14,7 +14,7 @@ import Data.Set.NonEmpty (NonEmptySet)
 import Data.Tuple.Nested ((/\))
 import Effect (Effect)
 import Effect.Exception (throw)
-import Foreign.Daisyui (progress)
+import Foreign.Daisyui (alert, progress)
 import Functions (Fun, parseFunctions)
 import React.Basic (element)
 import React.Basic.DOM as R
@@ -50,8 +50,7 @@ mkApp = do
         Nothing -> element progress { className: "w-56" }
         Just r ->
           case parseFunctions =<< r of
-            -- TODO: Error
-            Left x -> R.text $ "Issue: " <> x
+            Left err -> element alert { status: "error", children: [ R.text err ] }
             Right functions -> game { functions }
 
     pure $ R.div

@@ -5,6 +5,7 @@ export {
   Kbd as kbd,
   Badge as badge,
   Progress as progress,
+  Alert as alert,
 } from "react-daisyui";
 
 export const footer = Footer;
