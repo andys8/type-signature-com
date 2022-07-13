@@ -1664,11 +1664,11 @@ parseVersion :: ReadP Version
 partition :: (a -> Bool) -> NonEmpty a -> ([a], [a])
 partition :: (a -> Bool) -> [a] -> ([a], [a])
 partitionEithers :: [Either a b] -> ([a], [b])
-pattern App :: forall k2 (t :: k2). () => forall k1 (a :: k1 -> k2) (b :: k1). t ~ a b => TypeRep a -> TypeRep b -> TypeRep t
-pattern Con :: forall k (a :: k). () => IsApplication a ~ "" => TyCon -> TypeRep a
-pattern Con' :: forall k (a :: k). () => IsApplication a ~ "" => TyCon -> [SomeTypeRep] -> TypeRep a
+pattern App :: forall k2 (t :: k2). forall k1 (a :: k1 -> k2) (b :: k1). t ~ a b => TypeRep a -> TypeRep b -> TypeRep t
+pattern Con :: forall k (a :: k). IsApplication a ~ "" => TyCon -> TypeRep a
+pattern Con' :: forall k (a :: k). IsApplication a ~ "" => TyCon -> [SomeTypeRep] -> TypeRep a
 pattern ErrorCall :: String -> ErrorCall
-pattern Fun :: forall k (fun :: k). () => forall (r1 :: RuntimeRep) (r2 :: RuntimeRep) (arg :: TYPE r1) (res :: TYPE r2). (k ~ Type, fun ~~ (arg -> res)) => TypeRep arg -> TypeRep res -> TypeRep fun
+pattern Fun :: forall k (fun :: k). forall (r1 :: RuntimeRep) (r2 :: RuntimeRep) (arg :: TYPE r1) (res :: TYPE r2). (k ~ Type, fun ~~ (arg -> res)) => TypeRep arg -> TypeRep res -> TypeRep fun
 pattern KindRepTypeLit :: TypeLitSort -> String -> KindRep
 peek :: Storable a => Ptr a -> IO a
 peekArray :: Storable a => Int -> Ptr a -> IO [a]
@@ -2416,7 +2416,7 @@ withMany :: (a -> (b -> res) -> res) -> [a] -> ([b] -> res) -> res
 withPool :: (Pool -> IO b) -> IO b
 withProgName :: String -> IO a -> IO a
 withRawBuffer :: RawBuffer e -> (Ptr e -> IO a) -> IO a
-withTypeable :: forall k (a :: k) rep (r :: TYPE rep). () => TypeRep a -> (Typeable a => r) -> r
+withTypeable :: forall k (a :: k) rep (r :: TYPE rep). TypeRep a -> (Typeable a => r) -> r
 word2Double :: Word -> Double
 word2Float :: Word -> Float
 wordPtrToPtr :: WordPtr -> Ptr a
