@@ -3,13 +3,16 @@ module Components.PageGameInProgress (pageGameInProgress) where
 import Prelude
 
 import Data.Maybe (Maybe(..), isJust)
+import Data.Newtype (un)
 import Effect (Effect)
-import Foreign.Daisyui (badge, button)
+import Foreign.Daisyui (badge, button, kbd)
 import Functions (Fun(..))
 import Questions (Option(..), Answer)
 import React.Basic (JSX, element, fragment)
+import React.Basic.DOM (h1)
 import React.Basic.DOM as R
-import React.Basic.Events (handler_)
+import React.Basic.DOM.Events (stopPropagation)
+import React.Basic.Events (handler)
 import State (GameInProgressState)
 
 type Props =
@@ -20,7 +23,7 @@ type Props =
 pageGameInProgress :: Props -> JSX
 pageGameInProgress { onAnswerClick, inProgressState } =
   fragment
-    [ R.text $ show $ inProgressState.currentQuestion.correctOption
+    [ renderQuestion inProgressState.currentQuestion
     , R.div_
         [ mkOptionButton A inProgressState.currentQuestion.optionA
         , mkOptionButton B inProgressState.currentQuestion.optionB
@@ -35,23 +38,39 @@ pageGameInProgress { onAnswerClick, inProgressState } =
   mkOptionButton option fun =
     element button
       { color: case currentAnswer of
-          Just answer | answer == option ->
-            if currentQuestion.correctOption == option then "success" else "error"
+          Just answer | answer == option && option /= currentQuestion.correctOption -> "error"
+          Just _ | option == currentQuestion.correctOption -> "success"
           _ -> "default"
-      , onClick: handler_ $
+      , onClick: handler stopPropagation $ const $
           if isJust currentAnswer then pure unit
           else onAnswerClick option
       , disabled: false
-      , className: "gap-4 m-2"
+      , className: "gap-4 m-2 w-64 justify-start"
       , children:
           [ element badge
               { size: "lg"
               , responsive: false
-              , color: "primary"
+              , color: "secondary"
               , children: [ renderOption option ]
               }
-          , renderFun fun
+          , renderFunName fun
           ]
       }
   renderOption = R.text <<< show
-  renderFun (Fun { name, signature }) = R.text $ name <> " :: " <> signature
+  renderFunName (Fun { name }) =
+    element kbd
+      { className: "normal-case"
+      , children: [ R.text name ]
+      }
+
+  renderQuestion q = h1
+    { className: "font-medium font-mono text-2xl mb-12"
+    , children: [ R.text $ _.signature $ un Fun $ toQuestion q ]
+    }
+
+  toQuestion q =
+    case q.correctOption of
+      A -> q.optionA
+      B -> q.optionB
+      C -> q.optionC
+      D -> q.optionD

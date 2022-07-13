@@ -2,15 +2,19 @@ module State where
 
 import Prelude
 
+import Data.Array.NonEmpty (NonEmptyArray)
+import Data.Array.NonEmpty as NEA
+import Data.Either (Either(..))
 import Data.Generic.Rep (class Generic)
 import Data.Maybe (Maybe(..))
 import Data.Set.NonEmpty (NonEmptySet)
 import Data.Show.Generic (genericShow)
 import Effect.Aff (Aff, Milliseconds(..), delay)
 import Effect.Class (liftEffect)
+import Effect.Class.Console (error)
 import Foreign.Confetti (confetti)
-import Functions (Fun(..))
-import Questions (Answer, AnsweredQuestion, Option(..), Question, mkQuestions)
+import Functions (Fun)
+import Questions (Answer, AnsweredQuestion, Question, mkQuestions)
 
 type State =
   { functions :: NonEmptySet Fun
@@ -36,6 +40,7 @@ type GameInProgressState =
 
 data Action
   = ActionGameStart
+  | ActionNewGame (NonEmptyArray Question)
   | ActionAnswer Answer
   | ActionNextQuestion
 
@@ -47,30 +52,25 @@ initState functions =
 
 reducer :: State -> Action -> { state :: State, effects :: Array (Aff (Array Action)) }
 reducer state ActionGameStart =
+  { state, effects: [ newGame ] }
+  where
+  newGame =
+    liftEffect $ mkQuestions 6 state.functions
+      >>= case _ of
+        Left e -> error e *> pure []
+        Right qs -> pure [ ActionNewGame qs ]
+
+reducer state (ActionNewGame questions) =
   { state: state { gameState = GameInProgress gameInProgressState }
   , effects: []
   }
   where
+  { head, tail } = NEA.uncons questions
   gameInProgressState =
     { answeredQuestions: []
-    , currentQuestion: question0
+    , currentQuestion: head
     , currentAnswer: Nothing
-    , nextQuestions: [ question1 ]
-    }
-  questions = mkQuestions 6 state.functions
-  question0 =
-    { correctOption: A
-    , optionA: Fun { name: "a0", signature: "a -> a" }
-    , optionB: Fun { name: "b0", signature: "a -> a" }
-    , optionC: Fun { name: "c0", signature: "a -> a" }
-    , optionD: Fun { name: "d0", signature: "a -> a" }
-    }
-  question1 =
-    { correctOption: A
-    , optionA: Fun { name: "a1", signature: "a -> a" }
-    , optionB: Fun { name: "b1", signature: "a -> a" }
-    , optionC: Fun { name: "c1", signature: "a -> a" }
-    , optionD: Fun { name: "d1", signature: "a -> a" }
+    , nextQuestions: tail
     }
 
 reducer state@{ gameState } (ActionAnswer answer) =

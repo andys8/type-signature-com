@@ -7,7 +7,7 @@ import Data.Array as A
 import Data.Array.NonEmpty (NonEmptyArray)
 import Data.Array.NonEmpty as NEA
 import Data.Bounded.Generic (genericBottom, genericTop)
-import Data.Either (Either(..))
+import Data.Either (Either(..), note)
 import Data.Enum (class BoundedEnum, class Enum, enumFromTo, toEnum)
 import Data.Enum.Generic (genericCardinality, genericFromEnum, genericPred, genericSucc, genericToEnum)
 import Data.Generic.Rep (class Generic)
@@ -59,12 +59,13 @@ newtype AnsweredQuestion = AnsweredQuestion (Question /\ Answer)
 derive newtype instance Eq AnsweredQuestion
 derive newtype instance Show AnsweredQuestion
 
-mkQuestions :: Int -> NonEmptySet Fun -> Effect (Either String (Array Question))
+mkQuestions :: Int -> NonEmptySet Fun -> Effect (Either String (NonEmptyArray Question))
 mkQuestions numQuestions _ | numQuestions <= 0 = pure $ Left "numQuestions <= 0"
 mkQuestions numQuestions functions = do
   let arr = NES.toUnfoldable functions
   shuffles <- shuffle arr
-  mkQuestionsRec numQuestions shuffles
+  qs <- mkQuestionsRec numQuestions shuffles
+  pure $ note "No questions" <<< NEA.fromArray =<< qs
   where
   mkQuestionsRec :: Int -> Array Fun -> Effect (Either String (Array Question))
   mkQuestionsRec 0 _ = pure $ Right []

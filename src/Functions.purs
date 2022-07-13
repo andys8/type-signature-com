@@ -7,6 +7,7 @@ import Data.Either (Either(..), note)
 import Data.Set.NonEmpty (NonEmptySet)
 import Data.Set.NonEmpty as NES
 import Data.String (Pattern(..), split, trim, null)
+import Data.Newtype (class Newtype)
 import Data.Traversable (traverse)
 
 newtype Fun = Fun { name :: String, signature :: String }
@@ -14,6 +15,7 @@ newtype Fun = Fun { name :: String, signature :: String }
 derive newtype instance Show Fun
 derive newtype instance Eq Fun
 derive newtype instance Ord Fun
+derive instance Newtype Fun _
 
 parseFunctions :: String -> Either String (NonEmptySet Fun)
 parseFunctions = toNonEmpty <=< traverse (mkFun <<< lineToFunction) <<< toLines

@@ -24,7 +24,7 @@ foreign import navbarStart :: ReactComponent { className :: String, children :: 
 foreign import navbarCenter :: ReactComponent { className :: String, children :: Array JSX }
 foreign import navbarEnd :: ReactComponent { className :: String, children :: Array JSX }
 
-foreign import kbd :: ReactComponent { children :: Array JSX }
+foreign import kbd :: ReactComponent { className :: String, children :: Array JSX }
 foreign import badge
   :: ReactComponent
        { color :: String
@@ -36,3 +36,5 @@ foreign import badge
 foreign import progress :: ReactComponent { className :: String }
 
 foreign import alert :: ReactComponent { status :: String, children :: Array JSX }
+
+foreign import codeMockup :: ReactComponent { children :: Array JSX }

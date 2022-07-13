@@ -12,7 +12,7 @@ appContent content = element hero
           { className: "text-center"
           , children:
               [ R.div
-                  { className: "max-w-md flex flex-col items-center"
+                  { className: "flex flex-col items-center max-w-full"
                   , children: [ content ]
                   }
               ]

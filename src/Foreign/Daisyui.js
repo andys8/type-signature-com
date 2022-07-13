@@ -6,6 +6,7 @@ export {
   Badge as badge,
   Progress as progress,
   Alert as alert,
+  CodeMockup as codeMockup
 } from "react-daisyui";
 
 export const footer = Footer;
