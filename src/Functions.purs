@@ -5,7 +5,7 @@ import Prelude
 import Data.Array as A
 import Data.Either (Either(..), note)
 import Data.Set.NonEmpty (NonEmptySet)
-import Data.Set.NonEmpty as SNE
+import Data.Set.NonEmpty as NES
 import Data.String (Pattern(..), split, trim, null)
 import Data.Traversable (traverse)
 
@@ -22,5 +22,5 @@ parseFunctions = toNonEmpty <=< traverse (mkFun <<< lineToFunction) <<< toLines
   lineToFunction = split (Pattern " :: ")
   mkFun [ name, signature ] = Right $ Fun { name, signature }
   mkFun x = Left $ "Couldn't parse line: " <> show x
-  toNonEmpty = note "Empty" <<< SNE.fromFoldable
+  toNonEmpty = note "Empty" <<< NES.fromFoldable
 
