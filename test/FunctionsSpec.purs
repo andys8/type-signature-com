@@ -4,6 +4,7 @@ import Prelude
 
 import Data.Either (Either(..), isLeft)
 import Data.Set as S
+import Data.Set.NonEmpty as NES
 import Functions (Fun(..), parseFunctions)
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual, shouldSatisfy)
@@ -18,15 +19,15 @@ spec =
 
       it "single example" do
         parseFunctions f1Text
-          `shouldEqual` Right (S.singleton f1)
+          `shouldEqual` Right (NES.singleton f1)
 
       it "multiple examples" do
         parseFunctions (f1Text <> "\n" <> f2Text)
-          `shouldEqual` Right (S.fromFoldable [ f1, f2 ])
+          `shouldEqual` Right (NES.cons f1 $ S.fromFoldable [ f2 ])
 
       it "filters duplicates (set)" do
         parseFunctions (f1Text <> "\n" <> f1Text)
-          `shouldEqual` Right (S.singleton f1)
+          `shouldEqual` Right (NES.singleton f1)
 
       it "partially invalid data" do
         parseFunctions (f1Text <> "\nwrong")
