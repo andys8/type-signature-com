@@ -5,11 +5,11 @@ import Prelude
 import Data.Maybe (Maybe(..), isJust)
 import Data.Newtype (un)
 import Effect (Effect)
-import Foreign.Daisyui (badge, button, kbd)
+import Foreign.Daisyui (badge, button)
 import Functions (Fun(..))
 import Questions (Option(..), Answer)
 import React.Basic (JSX, element, fragment)
-import React.Basic.DOM (h1)
+import React.Basic.DOM (code, h1)
 import React.Basic.DOM as R
 import React.Basic.DOM.Events (stopPropagation)
 import React.Basic.Events (handler)
@@ -59,14 +59,18 @@ pageGameInProgress { onAnswerClick, inProgressState } =
   renderOption = R.text <<< show
   renderFunName (Fun { name }) =
     -- TODO: Title on hover
-    element kbd
-      { className: "normal-case truncate"
+    code
+      { className: "font-medium font-mono text-lg normal-case truncate"
       , children: [ R.text name ]
       }
 
+  toSignature = un Fun >>> _.signature
+
+  -- TODO: Format function (maybe different colors)
+  -- TODO: Make sure long function breaks accordingly or is prettified with line breaks
   renderQuestion q = h1
-    { className: "font-medium font-mono text-2xl mb-12"
-    , children: [ R.text $ _.signature $ un Fun $ toQuestion q ]
+    { className: "font-mono font-medium text-2xl mb-12"
+    , children: [ R.text $ toSignature $ toQuestion q ]
     }
 
   toQuestion q =
