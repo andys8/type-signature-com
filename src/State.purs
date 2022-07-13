@@ -77,12 +77,17 @@ reducer state@{ gameState } (ActionAnswer answer) =
   { state: state { gameState = newGameState }
   , effects:
       [ do
-          liftEffect confetti
+          when isAnswerCorrect $ liftEffect confetti
           delay (Milliseconds 2000.0)
           pure [ ActionNextQuestion ]
       ]
   }
   where
+  isAnswerCorrect =
+    case gameState of
+      GameInProgress s -> s.currentQuestion.correctOption == answer
+      _ -> false
+
   newGameState =
     case gameState of
       GameInProgress s -> GameInProgress $ s { currentAnswer = Just answer }
