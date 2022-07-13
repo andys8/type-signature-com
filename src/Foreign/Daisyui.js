@@ -1,5 +1,11 @@
 import { Footer, Hero, Navbar } from "react-daisyui";
-export { Button as button, Kbd as kbd, Badge as badge } from "react-daisyui";
+
+export {
+  Button as button,
+  Kbd as kbd,
+  Badge as badge,
+  Progress as progress,
+} from "react-daisyui";
 
 export const footer = Footer;
 export const footerTitle = Footer.Title;

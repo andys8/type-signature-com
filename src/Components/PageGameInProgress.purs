@@ -4,7 +4,6 @@ import Prelude
 
 import Data.Maybe (Maybe(..), isJust)
 import Effect (Effect)
-import Foreign.Confetti (confetti)
 import Foreign.Daisyui (badge, button)
 import Functions (Fun(..))
 import Questions (Option(..), Answer)
@@ -41,9 +40,7 @@ pageGameInProgress { onAnswerClick, inProgressState } =
           _ -> "default"
       , onClick: handler_ $
           if isJust currentAnswer then pure unit
-          else do
-            onAnswerClick option
-            confetti {}
+          else onAnswerClick option
       , disabled: false
       , className: "gap-4 m-2"
       , children:

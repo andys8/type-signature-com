@@ -4,10 +4,11 @@ import Prelude
 
 import Data.Generic.Rep (class Generic)
 import Data.Maybe (Maybe(..))
-import Data.Set (Set)
 import Data.Set.NonEmpty (NonEmptySet)
 import Data.Show.Generic (genericShow)
 import Effect.Aff (Aff, Milliseconds(..), delay)
+import Effect.Class (liftEffect)
+import Foreign.Confetti (confetti)
 import Functions (Fun(..))
 import Questions (Answer, AnsweredQuestion, Option(..), Question, mkQuestions)
 
@@ -76,6 +77,7 @@ reducer state@{ gameState } (ActionAnswer answer) =
   { state: state { gameState = newGameState }
   , effects:
       [ do
+          liftEffect confetti
           delay (Milliseconds 2000.0)
           pure [ ActionNextQuestion ]
       ]

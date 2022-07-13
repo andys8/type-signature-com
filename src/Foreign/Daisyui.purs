@@ -32,3 +32,6 @@ foreign import badge
        , responsive :: Boolean
        , children :: Array JSX
        }
+
+foreign import progress :: ReactComponent { className :: String }
+

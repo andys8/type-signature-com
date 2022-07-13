@@ -14,7 +14,9 @@ import Data.Set.NonEmpty (NonEmptySet)
 import Data.Tuple.Nested ((/\))
 import Effect (Effect)
 import Effect.Exception (throw)
+import Foreign.Daisyui (progress)
 import Functions (Fun, parseFunctions)
+import React.Basic (element)
 import React.Basic.DOM as R
 import React.Basic.DOM.Client (createRoot, renderRoot)
 import React.Basic.Events (handler_)
@@ -45,8 +47,7 @@ mkApp = do
     response <- useAff unit $ loadFunctions haskellPreludeUrl
     let
       content = case response of
-        -- TODO: Loading page
-        Nothing -> R.text $ "loading"
+        Nothing -> element progress { className: "w-56" }
         Just r ->
           case parseFunctions =<< r of
             -- TODO: Error
