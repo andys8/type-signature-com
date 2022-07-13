@@ -7,12 +7,14 @@ import Components.AppFooter (appFooter)
 import Components.AppNavbar (appNavbar)
 import Components.PageGameInProgress (pageGameInProgress)
 import Components.PageStart (pageStart)
-import Data.Array as A
-import Data.Functions (loadFunctions)
+import Data.Either (fromRight)
+import Data.Haskell (haskellPreludeUrl, loadFunctions)
 import Data.Maybe (Maybe(..), fromMaybe)
 import Data.Tuple.Nested ((/\))
+import Data.Set as S
 import Effect (Effect)
 import Effect.Exception (throw)
+import Functions (parseFunctions)
 import React.Basic.DOM as R
 import React.Basic.DOM.Client (createRoot, renderRoot)
 import React.Basic.Events (handler_)
@@ -40,14 +42,14 @@ mkApp :: Component {}
 mkApp = do
   r <- mkAffReducer reducer
   component "App" \_ -> React.do
-    response <- useAff unit loadFunctions
-    let functions = fromMaybe [] response
+    response <- useAff unit $ loadFunctions haskellPreludeUrl
+    let functions = fromRight S.empty $ parseFunctions =<< fromMaybe (pure "") response
     state /\ dispatch <- useAffReducer (initState functions) r
     let
       page = case state.gameState of
         GameBeforeStart ->
           pageStart
-            { isLoading: A.null functions
+            { isLoading: S.isEmpty functions
             , onStartClick: handler_ $ dispatch ActionGameStart
             }
         GameInProgress inProgressState ->

@@ -2,15 +2,16 @@ module State where
 
 import Prelude
 
-import Data.Functions (Fun(..))
 import Data.Generic.Rep (class Generic)
 import Data.Maybe (Maybe(..))
+import Data.Set (Set)
 import Data.Show.Generic (genericShow)
 import Data.Tuple.Nested (type (/\))
 import Effect.Aff (Aff, Milliseconds(..), delay)
+import Functions (Fun(..))
 
 type State =
-  { allFunctions :: Array Fun
+  { allFunctions :: Set Fun
   , gameState :: GameState
   }
 
@@ -58,7 +59,7 @@ data Action
   | ActionAnswer Answer
   | ActionNextQuestion
 
-initState :: Array Fun -> State
+initState :: Set Fun -> State
 initState allFunctions = { allFunctions, gameState: GameBeforeStart }
 
 reducer :: State -> Action -> { state :: State, effects :: Array (Aff (Array Action)) }
@@ -75,17 +76,17 @@ reducer state ActionGameStart =
     }
   question0 =
     { correctOption: A
-    , optionA: Fun "a0"
-    , optionB: Fun "b0"
-    , optionC: Fun "c0"
-    , optionD: Fun "d0"
+    , optionA: Fun { name: "a0", signature: "a -> a" }
+    , optionB: Fun { name: "b0", signature: "a -> a" }
+    , optionC: Fun { name: "c0", signature: "a -> a" }
+    , optionD: Fun { name: "d0", signature: "a -> a" }
     }
   question1 =
     { correctOption: A
-    , optionA: Fun "a1"
-    , optionB: Fun "b1"
-    , optionC: Fun "c1"
-    , optionD: Fun "d1"
+    , optionA: Fun { name: "a1", signature: "a -> a" }
+    , optionB: Fun { name: "b1", signature: "a -> a" }
+    , optionC: Fun { name: "c1", signature: "a -> a" }
+    , optionD: Fun { name: "d1", signature: "a -> a" }
     }
 
 reducer state@{ gameState } (ActionAnswer answer) =

@@ -2,7 +2,7 @@ module Components.PageGameInProgress (pageGameInProgress) where
 
 import Prelude
 
-import Data.Functions (Fun(..))
+import Functions (Fun(..))
 import Data.Maybe (Maybe(..), isJust)
 import Effect (Effect)
 import Foreign.Confetti (confetti)
@@ -50,10 +50,10 @@ pageGameInProgress { onAnswerClick, inProgressState } =
               { size: "lg"
               , responsive: false
               , color: "primary"
-              , children: [ R.text $ renderOption option ]
+              , children: [ renderOption option ]
               }
-          , R.text $ renderFun fun
+          , renderFun fun
           ]
       }
-  renderOption = show
-  renderFun (Fun x) = x
+  renderOption = R.text <<< show
+  renderFun (Fun { name, signature }) = R.text $ name <> " :: " <> signature

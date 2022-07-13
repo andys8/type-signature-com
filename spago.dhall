@@ -1,16 +1,17 @@
 { name = "type-signature-com"
 , packages = ./packages.dhall
-, sources = [ "src/**/*.purs", "test/**/*.purs" ]
+, sources = [ "src/**/*.purs" ]
 , dependencies =
   [ "aff"
   , "affjax"
   , "affjax-web"
-  , "arrays"
-  , "console"
+  , "bifunctors"
   , "effect"
   , "either"
   , "exceptions"
+  , "foldable-traversable"
   , "maybe"
+  , "ordered-collections"
   , "prelude"
   , "react-basic"
   , "react-basic-dom"
