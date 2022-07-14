@@ -108,15 +108,20 @@ reducer state ActionNextQuestion =
 
   nextQuestion :: GameInProgressState -> GameState
   nextQuestion s =
-    case A.uncons s.nextQuestions, s.currentAnswer of
-      Just { head, tail }, Just answer ->
-        GameInProgress
-          { answeredQuestions: answeredQuestion : s.answeredQuestions
-          , currentQuestion: head
-          , currentAnswer: Nothing
-          , nextQuestions: tail
-          }
-        where
-        answeredQuestion = AnsweredQuestion s.currentQuestion answer
-      _, _ -> GameEnd s.answeredQuestions
+    case s.currentAnswer of
+      Just answer ->
+        let
+          answeredQuestion = AnsweredQuestion s.currentQuestion answer
+          answeredQuestions = answeredQuestion : s.answeredQuestions
+        in
+          case A.uncons s.nextQuestions of
+            Nothing -> GameEnd answeredQuestions
+            Just { head, tail } ->
+              GameInProgress
+                { answeredQuestions
+                , currentQuestion: head
+                , currentAnswer: Nothing
+                , nextQuestions: tail
+                }
+      Nothing -> GameEnd s.answeredQuestions
 

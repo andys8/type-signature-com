@@ -25,7 +25,7 @@ pageGameInProgress :: Props -> JSX
 pageGameInProgress { onAnswerClick, inProgressState } =
   fragment
     [ appGameSteps { inProgressState }
-    , inCard
+    , renderCard
         [ renderQuestion inProgressState.currentQuestion
         , R.div_
             [ mkOptionButton A inProgressState.currentQuestion.optionA
@@ -68,16 +68,14 @@ pageGameInProgress { onAnswerClick, inProgressState } =
       , children: [ R.text name ]
       }
 
-  toSignature = un Fun >>> _.signature
-
   -- TODO: Format function (maybe different colors)
   -- TODO: Make sure long function breaks accordingly or is prettified with line breaks
   renderQuestion q = h1
     { className: "font-mono font-medium text-2xl w-full h-24 mt-10 mb-6"
-    , children: [ R.text $ toSignature $ questionFunction q ]
+    , children: [ R.text $ un Fun >>> _.signature $ questionFunction q ]
     }
 
-  inCard children =
+  renderCard children =
     -- TODO: Card could be react component
     R.div
       { className: "card bg-base-100 shadow-xl bg-base-200 max-w-2xl mx-4"
