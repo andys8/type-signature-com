@@ -1,4 +1,4 @@
-module Functions where
+module Functions (parseFunctions, Fun(..)) where
 
 import Prelude
 

@@ -1,4 +1,4 @@
-module Questions where
+module Questions (mkQuestions, abcd, Option(..), Answer(..), AnsweredQuestion, Question) where
 
 import Prelude
 
@@ -18,7 +18,7 @@ import Data.Show.Generic (genericShow)
 import Data.Traversable (traverse)
 import Data.Tuple (Tuple(..), fst, snd)
 import Data.Tuple.Nested (type (/\))
-import Effect (Effect)
+import Effect.Class (class MonadEffect, liftEffect)
 import Effect.Random as Random
 import Functions (Fun)
 
@@ -59,7 +59,7 @@ newtype AnsweredQuestion = AnsweredQuestion (Question /\ Answer)
 derive newtype instance Eq AnsweredQuestion
 derive newtype instance Show AnsweredQuestion
 
-mkQuestions :: Int -> NonEmptySet Fun -> Effect (Either String (NonEmptyArray Question))
+mkQuestions :: forall m. MonadEffect m => Int -> NonEmptySet Fun -> m (Either String (NonEmptyArray Question))
 mkQuestions numQuestions _ | numQuestions <= 0 = pure $ Left "numQuestions <= 0"
 mkQuestions numQuestions functions = do
   let arr = NES.toUnfoldable functions
@@ -67,7 +67,7 @@ mkQuestions numQuestions functions = do
   qs <- mkQuestionsRec numQuestions shuffles
   pure $ note "No questions" <<< NEA.fromArray =<< qs
   where
-  mkQuestionsRec :: Int -> Array Fun -> Effect (Either String (Array Question))
+  mkQuestionsRec :: MonadEffect m => Int -> Array Fun -> m (Either String (Array Question))
   mkQuestionsRec 0 _ = pure $ Right []
   mkQuestionsRec n fs = do
     let { before: options, after: rest } = A.splitAt 4 fs
@@ -78,20 +78,16 @@ mkQuestions numQuestions functions = do
         otherQuestions <- mkQuestionsRec (n - 1) rest
         pure $ (cons q) <$> otherQuestions
 
-  mkQuestion :: Array Fun -> Effect (Either String Question)
+  mkQuestion :: MonadEffect m => Array Fun -> m (Either String Question)
   mkQuestion [ optionA, optionB, optionC, optionD ] = do
-    o <- toEnum <$> Random.randomInt 0 3
-    pure case o :: Maybe Option of
+    o <- liftEffect $ toEnum <$> Random.randomInt 0 3
+    pure case o of
       Just correctOption -> Right $ { correctOption, optionA, optionB, optionC, optionD }
       Nothing -> Left "Could not create correctOption"
   mkQuestion _ = pure $ Left "Could not create 4 options"
 
-shuffle :: forall a. Array a -> Effect (Array a)
-shuffle xs = map fst <<< A.sortWith snd <$> traverse (\x -> Tuple x <$> Random.random) xs
-
--- TODO: Remove?
-shuffleNE :: forall a. NonEmptyArray a -> Effect (NonEmptyArray a)
-shuffleNE xs = map fst <<< NEA.sortWith snd <$> traverse (\x -> Tuple x <$> Random.random) xs
+shuffle :: forall m a. MonadEffect m => Array a -> m (Array a)
+shuffle xs = liftEffect $ map fst <<< A.sortWith snd <$> traverse (\x -> Tuple x <$> Random.random) xs
 
 abcd :: NonEmptyArray Option
 abcd = enumFromTo bottom top
