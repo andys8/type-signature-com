@@ -2,6 +2,8 @@ module State where
 
 import Prelude
 
+import Data.Array ((:))
+import Data.Array as A
 import Data.Array.NonEmpty (NonEmptyArray)
 import Data.Array.NonEmpty as NEA
 import Data.Either (Either(..))
@@ -14,7 +16,7 @@ import Effect.Class (liftEffect)
 import Effect.Class.Console (error)
 import Foreign.Confetti (confetti)
 import Functions (Fun)
-import Questions (Answer, AnsweredQuestion, Question, mkQuestions)
+import Questions (Answer, AnsweredQuestion(..), Question, mkQuestions)
 
 type State =
   { functions :: NonEmptySet Fun
@@ -95,7 +97,26 @@ reducer state@{ gameState } (ActionAnswer answer) =
       GameEnd -> gameState
 
 reducer state ActionNextQuestion =
-  { state: state { gameState = GameEnd }
+  { state: state { gameState = newGameState }
   , effects: []
   }
+  where
+  newGameState =
+    case state.gameState of
+      GameInProgress s -> nextQuestion s
+      a -> a
+
+  nextQuestion :: GameInProgressState -> GameState
+  nextQuestion s =
+    case A.uncons s.nextQuestions, s.currentAnswer of
+      Just { head, tail }, Just answer ->
+        GameInProgress
+          { answeredQuestions: answeredQuestion : s.answeredQuestions
+          , currentQuestion: head
+          , currentAnswer: Nothing
+          , nextQuestions: tail
+          }
+        where
+        answeredQuestion = AnsweredQuestion s.currentQuestion answer
+      _, _ -> GameEnd
 

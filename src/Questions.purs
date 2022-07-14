@@ -1,4 +1,4 @@
-module Questions (mkQuestions, abcd, Option(..), Answer(..), AnsweredQuestion, Question) where
+module Questions (mkQuestions, abcd, Option(..), Answer(..), AnsweredQuestion(..), Question) where
 
 import Prelude
 
@@ -17,7 +17,6 @@ import Data.Set.NonEmpty as NES
 import Data.Show.Generic (genericShow)
 import Data.Traversable (traverse)
 import Data.Tuple (Tuple(..), fst, snd)
-import Data.Tuple.Nested (type (/\))
 import Effect.Class (class MonadEffect, liftEffect)
 import Effect.Random as Random
 import Functions (Fun)
@@ -54,10 +53,12 @@ type Question =
 
 type Answer = Option
 
-newtype AnsweredQuestion = AnsweredQuestion (Question /\ Answer)
+data AnsweredQuestion = AnsweredQuestion Question Answer
 
-derive newtype instance Eq AnsweredQuestion
-derive newtype instance Show AnsweredQuestion
+derive instance Eq AnsweredQuestion
+derive instance Generic AnsweredQuestion _
+instance Show AnsweredQuestion where
+  show = genericShow
 
 mkQuestions :: forall m. MonadEffect m => Int -> NonEmptySet Fun -> m (Either String (NonEmptyArray Question))
 mkQuestions numQuestions _ | numQuestions <= 0 = pure $ Left "numQuestions <= 0"
