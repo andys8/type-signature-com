@@ -2,6 +2,7 @@ module Components.PageGameInProgress (pageGameInProgress) where
 
 import Prelude
 
+import Components.AppGameSteps (appGameSteps)
 import Data.Maybe (Maybe(..), isJust)
 import Data.Newtype (un)
 import Effect (Effect)
@@ -23,14 +24,23 @@ type Props =
 pageGameInProgress :: Props -> JSX
 pageGameInProgress { onAnswerClick, inProgressState } =
   fragment
-    [ renderQuestion inProgressState.currentQuestion
-    , R.div_
-        [ mkOptionButton A inProgressState.currentQuestion.optionA
-        , mkOptionButton B inProgressState.currentQuestion.optionB
-        ]
-    , R.div_
-        [ mkOptionButton C inProgressState.currentQuestion.optionC
-        , mkOptionButton D inProgressState.currentQuestion.optionD
+    [ appGameSteps { inProgressState }
+    , inCard
+        [ renderQuestion inProgressState.currentQuestion
+        , R.div
+            { className: ""
+            , children:
+                [ mkOptionButton A inProgressState.currentQuestion.optionA
+                , mkOptionButton B inProgressState.currentQuestion.optionB
+                ]
+            }
+        , R.div
+            { className: ""
+            , children:
+                [ mkOptionButton C inProgressState.currentQuestion.optionC
+                , mkOptionButton D inProgressState.currentQuestion.optionD
+                ]
+            }
         ]
     ]
   where
@@ -45,7 +55,7 @@ pageGameInProgress { onAnswerClick, inProgressState } =
           if isJust currentAnswer then pure unit
           else onAnswerClick option
       , disabled: false
-      , className: "gap-4 m-2 w-64 justify-start"
+      , className: "gap-4 m-2 w-64 justify-start flex-nowrap"
       , children:
           [ element badge
               { size: "lg"
@@ -69,7 +79,7 @@ pageGameInProgress { onAnswerClick, inProgressState } =
   -- TODO: Format function (maybe different colors)
   -- TODO: Make sure long function breaks accordingly or is prettified with line breaks
   renderQuestion q = h1
-    { className: "font-mono font-medium text-2xl mb-12"
+    { className: "font-mono font-medium text-2xl w-full h-24 mt-10 mb-6"
     , children: [ R.text $ toSignature $ toQuestion q ]
     }
 
@@ -79,3 +89,13 @@ pageGameInProgress { onAnswerClick, inProgressState } =
       B -> q.optionB
       C -> q.optionC
       D -> q.optionD
+
+  inCard children =
+    R.div
+      { className: "card bg-base-100 shadow-xl bg-base-200 text-neutral-content max-w-2xl mx-4"
+      , children:
+          [ R.div { className: "card-body items-center text-center gap-0", children }
+
+          ]
+      }
+
