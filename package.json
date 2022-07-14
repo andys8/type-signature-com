@@ -19,10 +19,13 @@
     "url": "git+https://github.com/andys8/type-signature-com.git"
   },
   "devDependencies": {
+    "@parcel/packager-raw-url": "^2.6.2",
+    "@parcel/packager-xml": "^2.6.2",
     "@parcel/transformer-raw": "^2.6.2",
     "concurrently": "^7.2.2",
     "esbuild": "^0.14.47",
     "parcel": "^2.6.2",
+    "parcel-config-pwa-manifest": "^0.1.2",
     "postcss": "^8.4.14",
     "purescript": "^0.15.4",
     "spago": "^0.20.9",
@@ -34,5 +37,20 @@
     "firacode": "^6.2.0",
     "react-daisyui": "^2.0.4",
     "react-icons": "^4.4.0"
+  },
+  "pwaManifest": {
+    "name": "Type Signature",
+    "shortName": "Type Signature",
+    "startURL": "/",
+    "theme": "#272935",
+    "generateIconOptions": {
+      "baseIcon": "./public/icon.png",
+      "sizes": [
+        192,
+        384,
+        512
+      ],
+      "genFavicons": true
+    }
   }
 }
