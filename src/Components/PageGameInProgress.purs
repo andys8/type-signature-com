@@ -8,7 +8,7 @@ import Data.Newtype (un)
 import Effect (Effect)
 import Foreign.Daisyui (badge, button)
 import Functions (Fun(..))
-import Questions (Option(..), Answer)
+import Questions (Answer, Option(..), questionFunction)
 import React.Basic (JSX, element, fragment)
 import React.Basic.DOM (code, h1)
 import React.Basic.DOM as R
@@ -27,20 +27,14 @@ pageGameInProgress { onAnswerClick, inProgressState } =
     [ appGameSteps { inProgressState }
     , inCard
         [ renderQuestion inProgressState.currentQuestion
-        , R.div
-            { className: ""
-            , children:
-                [ mkOptionButton A inProgressState.currentQuestion.optionA
-                , mkOptionButton B inProgressState.currentQuestion.optionB
-                ]
-            }
-        , R.div
-            { className: ""
-            , children:
-                [ mkOptionButton C inProgressState.currentQuestion.optionC
-                , mkOptionButton D inProgressState.currentQuestion.optionD
-                ]
-            }
+        , R.div_
+            [ mkOptionButton A inProgressState.currentQuestion.optionA
+            , mkOptionButton B inProgressState.currentQuestion.optionB
+            ]
+        , R.div_
+            [ mkOptionButton C inProgressState.currentQuestion.optionC
+            , mkOptionButton D inProgressState.currentQuestion.optionD
+            ]
         ]
     ]
   where
@@ -68,9 +62,9 @@ pageGameInProgress { onAnswerClick, inProgressState } =
       }
   renderOption = R.text <<< show
   renderFunName (Fun { name }) =
-    -- TODO: Title on hover
     code
       { className: "font-medium font-mono text-lg normal-case truncate"
+      , title: name
       , children: [ R.text name ]
       }
 
@@ -80,15 +74,8 @@ pageGameInProgress { onAnswerClick, inProgressState } =
   -- TODO: Make sure long function breaks accordingly or is prettified with line breaks
   renderQuestion q = h1
     { className: "font-mono font-medium text-2xl w-full h-24 mt-10 mb-6"
-    , children: [ R.text $ toSignature $ toQuestion q ]
+    , children: [ R.text $ toSignature $ questionFunction q ]
     }
-
-  toQuestion q =
-    case q.correctOption of
-      A -> q.optionA
-      B -> q.optionB
-      C -> q.optionC
-      D -> q.optionD
 
   inCard children =
     -- TODO: Card could be react component

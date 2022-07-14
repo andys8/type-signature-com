@@ -1,4 +1,13 @@
-module Questions (mkQuestions, isAnswerCorrect, abcd, Option(..), Answer(..), AnsweredQuestion(..), Question) where
+module Questions
+  ( mkQuestions
+  , questionFunction
+  , isAnswerCorrect
+  , abcd
+  , Option(..)
+  , Answer(..)
+  , AnsweredQuestion(..)
+  , Question
+  ) where
 
 import Prelude
 
@@ -95,3 +104,11 @@ abcd = enumFromTo bottom top
 
 isAnswerCorrect :: AnsweredQuestion -> Boolean
 isAnswerCorrect (AnsweredQuestion { correctOption } answer) = correctOption == answer
+
+questionFunction :: Question -> Fun
+questionFunction q =
+  case q.correctOption of
+    A -> q.optionA
+    B -> q.optionB
+    C -> q.optionC
+    D -> q.optionD
