@@ -91,11 +91,10 @@ pageGameInProgress { onAnswerClick, inProgressState } =
       D -> q.optionD
 
   inCard children =
+    -- TODO: Card could be react component
     R.div
       { className: "card bg-base-100 shadow-xl bg-base-200 max-w-2xl mx-4"
       , children:
-          [ R.div { className: "card-body items-center text-center gap-0", children }
-
-          ]
+          [ R.div { className: "card-body items-center text-center gap-0", children } ]
       }
 

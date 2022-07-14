@@ -1,4 +1,4 @@
-import { Footer, Hero, Navbar } from "react-daisyui";
+import { Footer, Hero, Navbar, Stats } from "react-daisyui";
 
 export {
   Button as button,
@@ -20,3 +20,7 @@ export const navbar = Navbar;
 export const navbarStart = Navbar.Start;
 export const navbarCenter = Navbar.Center;
 export const navbarEnd = Navbar.End;
+
+export const stats = Stats;
+export const stat = Stats.Stat;
+export const statItem = Stats.Stat.Item;

@@ -78,8 +78,9 @@ mkGame = do
           { inProgressState
           , onAnswerClick: dispatch <<< ActionAnswer
           }
-      GameEnd ->
+      GameEnd answeredQuestions ->
         pageGameEnd
           { onRestart: handler_ $ dispatch ActionGameStart
+          , answeredQuestions
           }
 

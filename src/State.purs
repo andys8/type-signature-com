@@ -26,7 +26,7 @@ type State =
 data GameState
   = GameBeforeStart
   | GameInProgress GameInProgressState
-  | GameEnd
+  | GameEnd (Array AnsweredQuestion)
 
 derive instance Generic GameState _
 derive instance Eq GameState
@@ -80,7 +80,7 @@ reducer state@{ gameState } (ActionAnswer answer) =
   , effects:
       [ do
           when isAnswerCorrect $ liftEffect confetti
-          delay (Milliseconds 2000.0)
+          delay (Milliseconds 1500.0)
           pure [ ActionNextQuestion ]
       ]
   }
@@ -94,7 +94,7 @@ reducer state@{ gameState } (ActionAnswer answer) =
     case gameState of
       GameInProgress s -> GameInProgress $ s { currentAnswer = Just answer }
       GameBeforeStart -> gameState
-      GameEnd -> gameState
+      GameEnd _ -> gameState
 
 reducer state ActionNextQuestion =
   { state: state { gameState = newGameState }
@@ -118,5 +118,5 @@ reducer state ActionNextQuestion =
           }
         where
         answeredQuestion = AnsweredQuestion s.currentQuestion answer
-      _, _ -> GameEnd
+      _, _ -> GameEnd s.answeredQuestions
 

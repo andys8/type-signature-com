@@ -4,8 +4,9 @@ import Foreign.Daisyui (button)
 import React.Basic (JSX, element, fragment)
 import React.Basic.DOM as R
 import React.Basic.Events (EventHandler)
-import React.Icons (icon)
+import React.Icons (icon, icon_)
 import React.Icons.Gi (giPencilBrush)
+import React.Icons.Vsc (vscDebugStart)
 
 type Props =
   { onStartClick :: EventHandler
@@ -29,7 +30,7 @@ pageStart { onStartClick } =
         { color: "default"
         , onClick: onStartClick
         , disabled: false
-        , className: ""
-        , children: [ R.text "Start" ]
+        , className: "gap-2"
+        , children: [ icon_ vscDebugStart, R.text "Start" ]
         }
     ]

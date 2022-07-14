@@ -38,3 +38,7 @@ foreign import progress :: ReactComponent { className :: String }
 foreign import alert :: ReactComponent { status :: String, children :: Array JSX }
 
 foreign import codeMockup :: ReactComponent { children :: Array JSX }
+
+foreign import stats :: ReactComponent { className :: String, children :: Array JSX }
+foreign import stat :: ReactComponent { children :: Array JSX }
+foreign import statItem :: ReactComponent { variant :: String, children :: Array JSX }

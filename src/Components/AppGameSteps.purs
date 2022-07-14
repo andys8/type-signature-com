@@ -17,6 +17,7 @@ type Props =
 
 appGameSteps :: Props -> JSX
 appGameSteps { inProgressState } =
+  -- TODO: Steps could be react component
   R.ul
     { className: "steps py-12 font-medium text-sm"
     , children: answered <> pure current <> next
