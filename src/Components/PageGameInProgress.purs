@@ -92,7 +92,7 @@ pageGameInProgress { onAnswerClick, inProgressState } =
 
   inCard children =
     R.div
-      { className: "card bg-base-100 shadow-xl bg-base-200 text-neutral-content max-w-2xl mx-4"
+      { className: "card bg-base-100 shadow-xl bg-base-200 max-w-2xl mx-4"
       , children:
           [ R.div { className: "card-body items-center text-center gap-0", children }
 

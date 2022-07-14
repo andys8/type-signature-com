@@ -1,4 +1,4 @@
-module Questions (mkQuestions, abcd, Option(..), Answer(..), AnsweredQuestion(..), Question) where
+module Questions (mkQuestions, isAnswerCorrect, abcd, Option(..), Answer(..), AnsweredQuestion(..), Question) where
 
 import Prelude
 
@@ -92,3 +92,6 @@ shuffle xs = liftEffect $ map fst <<< A.sortWith snd <$> traverse (\x -> Tuple x
 
 abcd :: NonEmptyArray Option
 abcd = enumFromTo bottom top
+
+isAnswerCorrect :: AnsweredQuestion -> Boolean
+isAnswerCorrect (AnsweredQuestion { correctOption } answer) = correctOption == answer
