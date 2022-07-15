@@ -2,12 +2,15 @@ module FunctionsSpec where
 
 import Prelude
 
-import Data.Either (Either(..), isLeft)
+import Data.Either (Either(..), isLeft, isRight)
 import Data.Set as S
 import Data.Set.NonEmpty as NES
 import Functions (Fun(..), parseFunctions)
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual, shouldSatisfy)
+
+foreign import haskellPrelude :: String
+foreign import elmCore :: String
 
 spec :: Spec Unit
 spec =
@@ -32,6 +35,16 @@ spec =
       it "partially invalid data" do
         parseFunctions (f1Text <> "\nwrong")
           `shouldEqual` Left "Couldn't parse line: [\"wrong\"]"
+
+      describe "Haskell" do
+
+        it "can be parsed" do
+          parseFunctions haskellPrelude `shouldSatisfy` isRight
+
+      describe "Elm" do
+
+        it "can be parsed" do
+          parseFunctions elmCore `shouldSatisfy` isRight
 
 f1Text :: String
 f1Text = "f1 :: a -> a"
