@@ -1,6 +1,4 @@
 (!!) :: [a] -> Int -> a
-($!) :: forall r a (b :: TYPE r). (a -> b) -> a -> b
-($) :: forall r a (b :: TYPE r). (a -> b) -> a -> b
 (&&) :: Bool -> Bool -> Bool
 (*) :: Num a => a -> a -> a
 (**) :: Floating a => a -> a -> a
@@ -71,8 +69,6 @@ enumFrom :: Enum a => a -> [a]
 enumFromThen :: Enum a => a -> a -> [a]
 enumFromThenTo :: Enum a => a -> a -> a -> [a]
 enumFromTo :: Enum a => a -> a -> [a]
-error :: forall (r :: RuntimeRep). forall (a :: TYPE r). HasCallStack => [Char] -> a
-errorWithoutStackTrace :: forall (r :: RuntimeRep). forall (a :: TYPE r). [Char] -> a
 even :: Integral a => a -> Bool
 exp :: Floating a => a -> a
 exponent :: RealFloat a => a -> Int
@@ -170,7 +166,6 @@ scanl :: (b -> a -> b) -> b -> [a] -> [b]
 scanl1 :: (a -> a -> a) -> [a] -> [a]
 scanr :: (a -> b -> b) -> b -> [a] -> [b]
 scanr1 :: (a -> a -> a) -> [a] -> [a]
-seq :: forall {r :: RuntimeRep} a (b :: TYPE r). a -> b -> b
 sequence :: (Traversable t, Monad m) => t (m a) -> m (t a)
 sequenceA :: (Traversable t, Applicative f) => t (f a) -> f (t a)
 sequence_ :: (Foldable t, Monad m) => t (m a) -> m ()
@@ -203,7 +198,6 @@ toRational :: Real a => a -> Rational
 traverse :: (Traversable t, Applicative f) => (a -> f b) -> t a -> f (t b)
 truncate :: (RealFrac a, Integral b) => a -> b
 uncurry :: (a -> b -> c) -> (a, b) -> c
-undefined :: forall (r :: RuntimeRep). forall (a :: TYPE r). HasCallStack => a
 unlines :: [String] -> String
 until :: (a -> Bool) -> (a -> a) -> a -> a
 unwords :: [String] -> String
