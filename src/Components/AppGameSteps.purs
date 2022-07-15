@@ -20,6 +20,7 @@ appGameSteps { inProgressState } =
   -- TODO: Steps could be react component
   R.ul
     { className: "steps py-12 font-medium text-sm"
+    , key: "game-steps"
     , children: answered <> pure current <> next
     }
   where
@@ -43,6 +44,6 @@ mkStep step = R.li { className, children: mkContent step }
 
 mkContent :: Step -> Array JSX
 mkContent StepNext = [ icon imRadioUnchecked { className: "text-neutral" } ]
-mkContent StepCurrent = [ icon imRadioChecked { className: "text-neutral" } ]
+mkContent StepCurrent = [ icon imRadioChecked { color: "white", className: "text-neutral animate-pulse" } ]
 mkContent StepSuccess = [ icon imCheckmark { className: "text-success" } ]
 mkContent StepError = [ icon imCross { className: "text-error" } ]
