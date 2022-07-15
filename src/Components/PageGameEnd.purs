@@ -86,10 +86,10 @@ renderQuestions questions = R.div
 
 renderQuestion :: AnsweredQuestion -> Array JSX
 renderQuestion aq@(AnsweredQuestion question _) =
-  [ R.th { className: "pr-4", children: [ answerIcon ] }
-  , R.td { className: "pr-4 font-bold", children: [ R.text name ] }
+  [ R.th { className: "py-0.5 pb-1", children: [ answerIcon ] }
+  , R.td { className: "py-0.5 pb-1 font-bold", children: [ R.text name ] }
   , R.td
-      { className: "hidden sm:table-cell"
+      { className: "hidden sm:table-cell py-0.5 pb-1"
       , children:
           [ R.pre
               { className: "truncate max-w-md"
