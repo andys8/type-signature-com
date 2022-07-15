@@ -2,10 +2,10 @@
 
 ## Instructions
 
-Download <https://package.elm-lang.org/packages/elm/core/1.0.5/docs.json> to `core.json`
+Download <https://package.elm-lang.org/packages/elm/core/1.0.5/docs.json> to `core_source.json`
 
 ```shell
-jq -r 'map(.values)[] | .[]|[.name,.type]|join(" :: ")' core.json > core.txt
+jq -r 'map(.values)[] | .[]|[.name,.type]|join(" :: ")' core_source.json > core.txt
 sort -o core.txt core.txt
 ```
 
