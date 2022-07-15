@@ -9,7 +9,7 @@ import Components.PageGameEnd (pageGameEnd)
 import Components.PageGameInProgress (pageGameInProgress)
 import Components.PageStart (pageStart)
 import Data.Either (Either(..))
-import FunctionsRaw (elmCoreUrl)
+import FunctionsRaw (haskellPreludeUrl)
 import Data.Maybe (Maybe(..))
 import Data.Set.NonEmpty (NonEmptySet)
 import Data.Tuple.Nested ((/\))
@@ -45,7 +45,7 @@ mkApp :: Component {}
 mkApp = do
   game <- mkGame
   component "App" \_ -> React.do
-    response <- useAff unit $ loadFunctions elmCoreUrl
+    response <- useAff unit $ loadFunctions haskellPreludeUrl
     let
       content = case response of
         Nothing -> element progress { className: "w-56" }
