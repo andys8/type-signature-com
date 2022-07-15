@@ -24,9 +24,6 @@ hasDigit :: String -> Bool
 hasSymbol :: String -> Bool
 identity :: forall t. a t t
 ifM :: forall a m. Bind m => m Boolean -> m a -> m a -> m a
-instance applyF :: Apply F where
-instance functorF :: Functor F where
-instance functorF :: Functor F where
 join :: forall a m. Bind m => m (m a) -> m a
 lcm :: forall a. Eq a => EuclideanRing a => a -> a -> a
 lift2 :: forall f a b c. Apply f => (a -> b -> c) -> f a -> f b -> f c
