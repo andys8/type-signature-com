@@ -9,8 +9,9 @@ import Functions (Fun(..), parseFunctions)
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual, shouldSatisfy)
 
-foreign import haskellPrelude :: String
 foreign import elmCore :: String
+foreign import haskellPrelude :: String
+foreign import purescriptPrelude :: String
 
 spec :: Spec Unit
 spec =
@@ -45,6 +46,11 @@ spec =
 
         it "can be parsed" do
           parseFunctions elmCore `shouldSatisfy` isRight
+
+      describe "PureScript" do
+
+        it "can be parsed" do
+          parseFunctions purescriptPrelude `shouldSatisfy` isRight
 
 f1Text :: String
 f1Text = "f1 :: a -> a"
