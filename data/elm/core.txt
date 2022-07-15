@@ -1,0 +1,244 @@
+append :: Array.Array a -> Array.Array a -> Array.Array a
+empty :: Array.Array a
+filter :: (a -> Basics.Bool) -> Array.Array a -> Array.Array a
+foldl :: (a -> b -> b) -> b -> Array.Array a -> b
+foldr :: (a -> b -> b) -> b -> Array.Array a -> b
+fromList :: List.List a -> Array.Array a
+get :: Basics.Int -> Array.Array a -> Maybe.Maybe a
+indexedMap :: (Basics.Int -> a -> b) -> Array.Array a -> Array.Array b
+initialize :: Basics.Int -> (Basics.Int -> a) -> Array.Array a
+isEmpty :: Array.Array a -> Basics.Bool
+length :: Array.Array a -> Basics.Int
+map :: (a -> b) -> Array.Array a -> Array.Array b
+push :: a -> Array.Array a -> Array.Array a
+repeat :: Basics.Int -> a -> Array.Array a
+set :: Basics.Int -> a -> Array.Array a -> Array.Array a
+slice :: Basics.Int -> Basics.Int -> Array.Array a -> Array.Array a
+toIndexedList :: Array.Array a -> List.List ( Basics.Int, a )
+toList :: Array.Array a -> List.List a
+abs :: number -> number
+acos :: Basics.Float -> Basics.Float
+always :: a -> b -> a
+asin :: Basics.Float -> Basics.Float
+atan :: Basics.Float -> Basics.Float
+atan2 :: Basics.Float -> Basics.Float -> Basics.Float
+ceiling :: Basics.Float -> Basics.Int
+clamp :: number -> number -> number -> number
+compare :: comparable -> comparable -> Basics.Order
+cos :: Basics.Float -> Basics.Float
+degrees :: Basics.Float -> Basics.Float
+e :: Basics.Float
+floor :: Basics.Float -> Basics.Int
+fromPolar :: ( Basics.Float, Basics.Float ) -> ( Basics.Float, Basics.Float )
+identity :: a -> a
+isInfinite :: Basics.Float -> Basics.Bool
+isNaN :: Basics.Float -> Basics.Bool
+logBase :: Basics.Float -> Basics.Float -> Basics.Float
+max :: comparable -> comparable -> comparable
+min :: comparable -> comparable -> comparable
+modBy :: Basics.Int -> Basics.Int -> Basics.Int
+negate :: number -> number
+never :: Basics.Never -> a
+not :: Basics.Bool -> Basics.Bool
+pi :: Basics.Float
+radians :: Basics.Float -> Basics.Float
+remainderBy :: Basics.Int -> Basics.Int -> Basics.Int
+round :: Basics.Float -> Basics.Int
+sin :: Basics.Float -> Basics.Float
+sqrt :: Basics.Float -> Basics.Float
+tan :: Basics.Float -> Basics.Float
+toFloat :: Basics.Int -> Basics.Float
+toPolar :: ( Basics.Float, Basics.Float ) -> ( Basics.Float, Basics.Float )
+truncate :: Basics.Float -> Basics.Int
+turns :: Basics.Float -> Basics.Float
+xor :: Basics.Bool -> Basics.Bool -> Basics.Bool
+and :: Basics.Int -> Basics.Int -> Basics.Int
+complement :: Basics.Int -> Basics.Int
+or :: Basics.Int -> Basics.Int -> Basics.Int
+shiftLeftBy :: Basics.Int -> Basics.Int -> Basics.Int
+shiftRightBy :: Basics.Int -> Basics.Int -> Basics.Int
+shiftRightZfBy :: Basics.Int -> Basics.Int -> Basics.Int
+xor :: Basics.Int -> Basics.Int -> Basics.Int
+fromCode :: Basics.Int -> Char.Char
+isAlpha :: Char.Char -> Basics.Bool
+isAlphaNum :: Char.Char -> Basics.Bool
+isDigit :: Char.Char -> Basics.Bool
+isHexDigit :: Char.Char -> Basics.Bool
+isLower :: Char.Char -> Basics.Bool
+isOctDigit :: Char.Char -> Basics.Bool
+isUpper :: Char.Char -> Basics.Bool
+toCode :: Char.Char -> Basics.Int
+toLocaleLower :: Char.Char -> Char.Char
+toLocaleUpper :: Char.Char -> Char.Char
+toLower :: Char.Char -> Char.Char
+toUpper :: Char.Char -> Char.Char
+log :: String.String -> a -> a
+toString :: a -> String.String
+todo :: String.String -> a
+diff :: Dict.Dict comparable a -> Dict.Dict comparable b -> Dict.Dict comparable a
+empty :: Dict.Dict k v
+filter :: (comparable -> v -> Basics.Bool) -> Dict.Dict comparable v -> Dict.Dict comparable v
+foldl :: (k -> v -> b -> b) -> b -> Dict.Dict k v -> b
+foldr :: (k -> v -> b -> b) -> b -> Dict.Dict k v -> b
+fromList :: List.List ( comparable, v ) -> Dict.Dict comparable v
+get :: comparable -> Dict.Dict comparable v -> Maybe.Maybe v
+insert :: comparable -> v -> Dict.Dict comparable v -> Dict.Dict comparable v
+intersect :: Dict.Dict comparable v -> Dict.Dict comparable v -> Dict.Dict comparable v
+isEmpty :: Dict.Dict k v -> Basics.Bool
+keys :: Dict.Dict k v -> List.List k
+map :: (k -> a -> b) -> Dict.Dict k a -> Dict.Dict k b
+member :: comparable -> Dict.Dict comparable v -> Basics.Bool
+merge :: (comparable -> a -> result -> result) -> (comparable -> a -> b -> result -> result) -> (comparable -> b -> result -> result) -> Dict.Dict comparable a -> Dict.Dict comparable b -> result -> result
+partition :: (comparable -> v -> Basics.Bool) -> Dict.Dict comparable v -> ( Dict.Dict comparable v, Dict.Dict comparable v )
+remove :: comparable -> Dict.Dict comparable v -> Dict.Dict comparable v
+singleton :: comparable -> v -> Dict.Dict comparable v
+size :: Dict.Dict k v -> Basics.Int
+toList :: Dict.Dict k v -> List.List ( k, v )
+union :: Dict.Dict comparable v -> Dict.Dict comparable v -> Dict.Dict comparable v
+update :: comparable -> (Maybe.Maybe v -> Maybe.Maybe v) -> Dict.Dict comparable v -> Dict.Dict comparable v
+values :: Dict.Dict k v -> List.List v
+all :: (a -> Basics.Bool) -> List.List a -> Basics.Bool
+any :: (a -> Basics.Bool) -> List.List a -> Basics.Bool
+append :: List.List a -> List.List a -> List.List a
+concat :: List.List (List.List a) -> List.List a
+concatMap :: (a -> List.List b) -> List.List a -> List.List b
+drop :: Basics.Int -> List.List a -> List.List a
+filter :: (a -> Basics.Bool) -> List.List a -> List.List a
+filterMap :: (a -> Maybe.Maybe b) -> List.List a -> List.List b
+foldl :: (a -> b -> b) -> b -> List.List a -> b
+foldr :: (a -> b -> b) -> b -> List.List a -> b
+head :: List.List a -> Maybe.Maybe a
+indexedMap :: (Basics.Int -> a -> b) -> List.List a -> List.List b
+intersperse :: a -> List.List a -> List.List a
+isEmpty :: List.List a -> Basics.Bool
+length :: List.List a -> Basics.Int
+map :: (a -> b) -> List.List a -> List.List b
+map2 :: (a -> b -> result) -> List.List a -> List.List b -> List.List result
+map3 :: (a -> b -> c -> result) -> List.List a -> List.List b -> List.List c -> List.List result
+map4 :: (a -> b -> c -> d -> result) -> List.List a -> List.List b -> List.List c -> List.List d -> List.List result
+map5 :: (a -> b -> c -> d -> e -> result) -> List.List a -> List.List b -> List.List c -> List.List d -> List.List e -> List.List result
+maximum :: List.List comparable -> Maybe.Maybe comparable
+member :: a -> List.List a -> Basics.Bool
+minimum :: List.List comparable -> Maybe.Maybe comparable
+partition :: (a -> Basics.Bool) -> List.List a -> ( List.List a, List.List a )
+product :: List.List number -> number
+range :: Basics.Int -> Basics.Int -> List.List Basics.Int
+repeat :: Basics.Int -> a -> List.List a
+reverse :: List.List a -> List.List a
+singleton :: a -> List.List a
+sort :: List.List comparable -> List.List comparable
+sortBy :: (a -> comparable) -> List.List a -> List.List a
+sortWith :: (a -> a -> Basics.Order) -> List.List a -> List.List a
+sum :: List.List number -> number
+tail :: List.List a -> Maybe.Maybe (List.List a)
+take :: Basics.Int -> List.List a -> List.List a
+unzip :: List.List ( a, b ) -> ( List.List a, List.List b )
+andThen :: (a -> Maybe.Maybe b) -> Maybe.Maybe a -> Maybe.Maybe b
+map :: (a -> b) -> Maybe.Maybe a -> Maybe.Maybe b
+map2 :: (a -> b -> value) -> Maybe.Maybe a -> Maybe.Maybe b -> Maybe.Maybe value
+map3 :: (a -> b -> c -> value) -> Maybe.Maybe a -> Maybe.Maybe b -> Maybe.Maybe c -> Maybe.Maybe value
+map4 :: (a -> b -> c -> d -> value) -> Maybe.Maybe a -> Maybe.Maybe b -> Maybe.Maybe c -> Maybe.Maybe d -> Maybe.Maybe value
+map5 :: (a -> b -> c -> d -> e -> value) -> Maybe.Maybe a -> Maybe.Maybe b -> Maybe.Maybe c -> Maybe.Maybe d -> Maybe.Maybe e -> Maybe.Maybe value
+withDefault :: a -> Maybe.Maybe a -> a
+sendToApp :: Platform.Router msg a -> msg -> Platform.Task x ()
+sendToSelf :: Platform.Router a msg -> msg -> Platform.Task x ()
+worker :: { init : flags -> ( model, Platform.Cmd.Cmd msg ), update : msg -> model -> ( model, Platform.Cmd.Cmd msg ), subscriptions : model -> Platform.Sub.Sub msg } -> Platform.Program flags model msg
+batch :: List.List (Platform.Cmd.Cmd msg) -> Platform.Cmd.Cmd msg
+map :: (a -> msg) -> Platform.Cmd.Cmd a -> Platform.Cmd.Cmd msg
+none :: Platform.Cmd.Cmd msg
+batch :: List.List (Platform.Sub.Sub msg) -> Platform.Sub.Sub msg
+map :: (a -> msg) -> Platform.Sub.Sub a -> Platform.Sub.Sub msg
+none :: Platform.Sub.Sub msg
+kill :: Process.Id -> Task.Task x ()
+sleep :: Basics.Float -> Task.Task x ()
+spawn :: Task.Task x a -> Task.Task y Process.Id
+andThen :: (a -> Result.Result x b) -> Result.Result x a -> Result.Result x b
+fromMaybe :: x -> Maybe.Maybe a -> Result.Result x a
+map :: (a -> value) -> Result.Result x a -> Result.Result x value
+map2 :: (a -> b -> value) -> Result.Result x a -> Result.Result x b -> Result.Result x value
+map3 :: (a -> b -> c -> value) -> Result.Result x a -> Result.Result x b -> Result.Result x c -> Result.Result x value
+map4 :: (a -> b -> c -> d -> value) -> Result.Result x a -> Result.Result x b -> Result.Result x c -> Result.Result x d -> Result.Result x value
+map5 :: (a -> b -> c -> d -> e -> value) -> Result.Result x a -> Result.Result x b -> Result.Result x c -> Result.Result x d -> Result.Result x e -> Result.Result x value
+mapError :: (x -> y) -> Result.Result x a -> Result.Result y a
+toMaybe :: Result.Result x a -> Maybe.Maybe a
+withDefault :: a -> Result.Result x a -> a
+diff :: Set.Set comparable -> Set.Set comparable -> Set.Set comparable
+empty :: Set.Set a
+filter :: (comparable -> Basics.Bool) -> Set.Set comparable -> Set.Set comparable
+foldl :: (a -> b -> b) -> b -> Set.Set a -> b
+foldr :: (a -> b -> b) -> b -> Set.Set a -> b
+fromList :: List.List comparable -> Set.Set comparable
+insert :: comparable -> Set.Set comparable -> Set.Set comparable
+intersect :: Set.Set comparable -> Set.Set comparable -> Set.Set comparable
+isEmpty :: Set.Set a -> Basics.Bool
+map :: (comparable -> comparable2) -> Set.Set comparable -> Set.Set comparable2
+member :: comparable -> Set.Set comparable -> Basics.Bool
+partition :: (comparable -> Basics.Bool) -> Set.Set comparable -> ( Set.Set comparable, Set.Set comparable )
+remove :: comparable -> Set.Set comparable -> Set.Set comparable
+singleton :: comparable -> Set.Set comparable
+size :: Set.Set a -> Basics.Int
+toList :: Set.Set a -> List.List a
+union :: Set.Set comparable -> Set.Set comparable -> Set.Set comparable
+all :: (Char.Char -> Basics.Bool) -> String.String -> Basics.Bool
+any :: (Char.Char -> Basics.Bool) -> String.String -> Basics.Bool
+append :: String.String -> String.String -> String.String
+concat :: List.List String.String -> String.String
+cons :: Char.Char -> String.String -> String.String
+contains :: String.String -> String.String -> Basics.Bool
+dropLeft :: Basics.Int -> String.String -> String.String
+dropRight :: Basics.Int -> String.String -> String.String
+endsWith :: String.String -> String.String -> Basics.Bool
+filter :: (Char.Char -> Basics.Bool) -> String.String -> String.String
+foldl :: (Char.Char -> b -> b) -> b -> String.String -> b
+foldr :: (Char.Char -> b -> b) -> b -> String.String -> b
+fromChar :: Char.Char -> String.String
+fromFloat :: Basics.Float -> String.String
+fromInt :: Basics.Int -> String.String
+fromList :: List.List Char.Char -> String.String
+indexes :: String.String -> String.String -> List.List Basics.Int
+indices :: String.String -> String.String -> List.List Basics.Int
+isEmpty :: String.String -> Basics.Bool
+join :: String.String -> List.List String.String -> String.String
+left :: Basics.Int -> String.String -> String.String
+length :: String.String -> Basics.Int
+lines :: String.String -> List.List String.String
+map :: (Char.Char -> Char.Char) -> String.String -> String.String
+pad :: Basics.Int -> Char.Char -> String.String -> String.String
+padLeft :: Basics.Int -> Char.Char -> String.String -> String.String
+padRight :: Basics.Int -> Char.Char -> String.String -> String.String
+repeat :: Basics.Int -> String.String -> String.String
+replace :: String.String -> String.String -> String.String -> String.String
+reverse :: String.String -> String.String
+right :: Basics.Int -> String.String -> String.String
+slice :: Basics.Int -> Basics.Int -> String.String -> String.String
+split :: String.String -> String.String -> List.List String.String
+startsWith :: String.String -> String.String -> Basics.Bool
+toFloat :: String.String -> Maybe.Maybe Basics.Float
+toInt :: String.String -> Maybe.Maybe Basics.Int
+toList :: String.String -> List.List Char.Char
+toLower :: String.String -> String.String
+toUpper :: String.String -> String.String
+trim :: String.String -> String.String
+trimLeft :: String.String -> String.String
+trimRight :: String.String -> String.String
+uncons :: String.String -> Maybe.Maybe ( Char.Char, String.String )
+words :: String.String -> List.List String.String
+andThen :: (a -> Task.Task x b) -> Task.Task x a -> Task.Task x b
+attempt :: (Result.Result x a -> msg) -> Task.Task x a -> Platform.Cmd.Cmd msg
+fail :: x -> Task.Task x a
+map :: (a -> b) -> Task.Task x a -> Task.Task x b
+map2 :: (a -> b -> result) -> Task.Task x a -> Task.Task x b -> Task.Task x result
+map3 :: (a -> b -> c -> result) -> Task.Task x a -> Task.Task x b -> Task.Task x c -> Task.Task x result
+map4 :: (a -> b -> c -> d -> result) -> Task.Task x a -> Task.Task x b -> Task.Task x c -> Task.Task x d -> Task.Task x result
+map5 :: (a -> b -> c -> d -> e -> result) -> Task.Task x a -> Task.Task x b -> Task.Task x c -> Task.Task x d -> Task.Task x e -> Task.Task x result
+mapError :: (x -> y) -> Task.Task x a -> Task.Task y a
+onError :: (x -> Task.Task y a) -> Task.Task x a -> Task.Task y a
+perform :: (a -> msg) -> Task.Task Basics.Never a -> Platform.Cmd.Cmd msg
+sequence :: List.List (Task.Task x a) -> Task.Task x (List.List a)
+succeed :: a -> Task.Task x a
+first :: ( a, b ) -> a
+mapBoth :: (a -> x) -> (b -> y) -> ( a, b ) -> ( x, y )
+mapFirst :: (a -> x) -> ( a, b ) -> ( x, b )
+mapSecond :: (b -> y) -> ( a, b ) -> ( a, y )
+pair :: a -> b -> ( a, b )
+second :: ( a, b ) -> b
