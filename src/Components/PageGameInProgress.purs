@@ -52,7 +52,7 @@ pageGameInProgress { onAnswerClick, inProgressState } =
   -- TODO: Format function (maybe different colors)
   -- TODO: Make sure long function breaks accordingly or is prettified with line breaks
   renderQuestion q = h1
-    { className: "font-mono font-medium text-2xl w-full h-24 mt-10 mb-6"
+    { className: "font-mono font-medium text-xl w-full mb-6 sm:text-2xl sm:h-24 sm:mt-10"
     , children: [ R.text $ un Fun >>> _.signature $ questionFunction q ]
     }
 

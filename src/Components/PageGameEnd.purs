@@ -72,26 +72,32 @@ renderQuestions questions = R.div
   }
   where
   header =
-    R.thead_
-      [ R.tr_
-          [ R.th_ []
-          , R.th_ [ R.text "Name" ]
-          , R.th_ [ R.text "Signature" ]
+    R.thead
+      { className: "hidden sm:table-header-group"
+      , children:
+          [ R.tr_
+              [ R.th_ []
+              , R.th_ [ R.text "Name" ]
+              , R.th_ [ R.text "Signature" ]
+              ]
           ]
-      ]
-  body = R.tbody_ (R.tr_ <<< renderQuestion <$> questions)
+      }
+  body = R.tbody_ (R.tr_ <<< renderQuestion <$> A.reverse questions)
 
 renderQuestion :: AnsweredQuestion -> Array JSX
 renderQuestion aq@(AnsweredQuestion question _) =
   [ R.th { className: "pr-4", children: [ answerIcon ] }
   , R.td { className: "pr-4 font-bold", children: [ R.text name ] }
-  , R.td_
-      [ R.pre
-          { className: "truncate max-w-md"
-          , title: signature
-          , children: [ R.text signature ]
-          }
-      ]
+  , R.td
+      { className: "hidden sm:table-cell"
+      , children:
+          [ R.pre
+              { className: "truncate max-w-md"
+              , title: signature
+              , children: [ R.text signature ]
+              }
+          ]
+      }
   ]
   where
   Fun { name, signature } = questionFunction question
