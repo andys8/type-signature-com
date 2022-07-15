@@ -27,4 +27,5 @@ sort -o core.txt core.txt
 - `:%s/Sub\.//g`
 - `:%s/Task\.//g`
 - `:%s/Cmd\.//g`
-
+- `%s/( /(/g`
+- `%s/ )/)/g`
