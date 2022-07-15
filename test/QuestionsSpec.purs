@@ -18,7 +18,7 @@ import Test.Spec.Assertions (shouldEqual)
 
 spec :: Spec Unit
 spec =
-  describe "Functions" do
+  describe "Questions" do
     describe "mkQuestions" do
 
       it "can't create questions if not enough functions for all options (q*4)" do
