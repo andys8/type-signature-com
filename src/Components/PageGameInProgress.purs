@@ -28,18 +28,35 @@ pageGameInProgress { onAnswerClick, inProgressState } =
     , renderCard
         [ renderQuestion inProgressState.currentQuestion
         , R.div_
-            [ mkOptionButton A inProgressState.currentQuestion.optionA
-            , mkOptionButton B inProgressState.currentQuestion.optionB
+            [ renderAnswerButton A inProgressState.currentQuestion.optionA
+            , renderAnswerButton B inProgressState.currentQuestion.optionB
             ]
         , R.div_
-            [ mkOptionButton C inProgressState.currentQuestion.optionC
-            , mkOptionButton D inProgressState.currentQuestion.optionD
+            [ renderAnswerButton C inProgressState.currentQuestion.optionC
+            , renderAnswerButton D inProgressState.currentQuestion.optionD
             ]
         ]
     ]
   where
   { currentQuestion, currentAnswer } = inProgressState
-  mkOptionButton option fun =
+
+  renderCard children =
+    -- TODO: Card could be react component
+    R.div
+      { className: "card bg-base-100 shadow-xl bg-base-200 max-w-2xl mx-4"
+      , key: show $ _.name $ un Fun $ currentQuestion.optionA
+      , children:
+          [ R.div { className: "card-body items-center text-center gap-0", children } ]
+      }
+
+  -- TODO: Format function (maybe different colors)
+  -- TODO: Make sure long function breaks accordingly or is prettified with line breaks
+  renderQuestion q = h1
+    { className: "font-mono font-medium text-2xl w-full h-24 mt-10 mb-6"
+    , children: [ R.text $ un Fun >>> _.signature $ questionFunction q ]
+    }
+
+  renderAnswerButton option fun =
     element button
       { color: case currentAnswer of
           Just answer | answer == option && option /= currentQuestion.correctOption -> "error"
@@ -54,32 +71,19 @@ pageGameInProgress { onAnswerClick, inProgressState } =
           [ element badge
               { size: "lg"
               , responsive: false
-              , color: "secondary"
-              , children: [ renderOption option ]
+              , color: case currentAnswer of
+                  Just answer | answer == option || option == currentQuestion.correctOption -> "neutral"
+                  _ -> "secondary"
+              , children: [ R.text $ show option ]
               }
-          , renderFunName fun
+          , let
+              name = _.name $ un Fun fun
+            in
+              code
+                { className: "font-medium font-mono text-lg normal-case truncate"
+                , title: name
+                , children: [ R.text name ]
+                }
           ]
-      }
-  renderOption = R.text <<< show
-  renderFunName (Fun { name }) =
-    code
-      { className: "font-medium font-mono text-lg normal-case truncate"
-      , title: name
-      , children: [ R.text name ]
-      }
-
-  -- TODO: Format function (maybe different colors)
-  -- TODO: Make sure long function breaks accordingly or is prettified with line breaks
-  renderQuestion q = h1
-    { className: "font-mono font-medium text-2xl w-full h-24 mt-10 mb-6"
-    , children: [ R.text $ un Fun >>> _.signature $ questionFunction q ]
-    }
-
-  renderCard children =
-    -- TODO: Card could be react component
-    R.div
-      { className: "card bg-base-100 shadow-xl bg-base-200 max-w-2xl mx-4"
-      , children:
-          [ R.div { className: "card-body items-center text-center gap-0", children } ]
       }
 
