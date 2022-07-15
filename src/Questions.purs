@@ -3,6 +3,7 @@ module Questions
   , questionFunction
   , isAnswerCorrect
   , abcd
+  , toOptions
   , Option(..)
   , Answer(..)
   , AnsweredQuestion(..)
@@ -73,7 +74,7 @@ mkQuestions :: forall m. MonadEffect m => Int -> NonEmptySet Fun -> m (Either St
 mkQuestions numQuestions _ | numQuestions <= 0 = pure $ Left "numQuestions <= 0"
 mkQuestions numQuestions functions = do
   let arr = NES.toUnfoldable functions
-  shuffles <- A.nubByEq hasNamingConflict <$> shuffle arr
+  shuffles <- shuffle arr
   qs <- mkQuestionsRec numQuestions shuffles
   pure $ note "No questions" <<< NEA.fromArray =<< qs
   where
@@ -84,9 +85,13 @@ mkQuestions numQuestions functions = do
     x <- mkQuestion options
     case x of
       Left e -> pure $ Left e
+      Right q | not (questionIsValid q) ->
+        mkQuestionsRec n =<< shuffle fs
       Right q -> do
         otherQuestions <- mkQuestionsRec (n - 1) rest
         pure $ (cons q) <$> otherQuestions
+
+  questionIsValid q = toOptions q == A.nubByEq hasNamingConflict (toOptions q)
 
   mkQuestion :: MonadEffect m => Array Fun -> m (Either String Question)
   mkQuestion [ optionA, optionB, optionC, optionD ] = do
@@ -105,6 +110,12 @@ abcd = enumFromTo bottom top
 isAnswerCorrect :: AnsweredQuestion -> Boolean
 isAnswerCorrect (AnsweredQuestion { correctOption } answer) = correctOption == answer
 
+hasNamingConflict :: Fun -> Fun -> Boolean
+hasNamingConflict (Fun f1) (Fun f2) = f1.name == f2.name || f1.signature == f2.signature
+
+toOptions :: Question -> Array Fun
+toOptions q = [ q.optionA, q.optionB, q.optionC, q.optionD ]
+
 questionFunction :: Question -> Fun
 questionFunction q =
   case q.correctOption of
@@ -113,5 +124,3 @@ questionFunction q =
     C -> q.optionC
     D -> q.optionD
 
-hasNamingConflict :: Fun -> Fun -> Boolean
-hasNamingConflict (Fun f1) (Fun f2) = f1.name == f2.name || f1.signature == f2.signature

@@ -14,7 +14,7 @@ import Data.Set.NonEmpty as NES
 import Data.Traversable (sequence)
 import Effect.Class (class MonadEffect, liftEffect)
 import Functions (Fun(..))
-import Questions (Question, mkQuestions)
+import Questions (Question, mkQuestions, toOptions)
 import Test.Spec (Spec, before, describe, it)
 import Test.Spec.Assertions (shouldEqual, shouldSatisfy)
 
@@ -94,14 +94,6 @@ functionsDupl =
 
 mkFun :: String -> String -> Fun
 mkFun name signature = Fun { name, signature }
-
-toOptions :: Question -> Array Fun
-toOptions q =
-  [ q.optionA
-  , q.optionB
-  , q.optionC
-  , q.optionD
-  ]
 
 hasUniqueNames :: Question -> Boolean
 hasUniqueNames q = A.nub names == names
