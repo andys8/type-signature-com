@@ -28,7 +28,7 @@ import Data.Traversable (traverse)
 import Data.Tuple (Tuple(..), fst, snd)
 import Effect.Class (class MonadEffect, liftEffect)
 import Effect.Random as Random
-import Functions (Fun)
+import Functions (Fun(..))
 
 data Option = A | B | C | D
 
@@ -73,7 +73,7 @@ mkQuestions :: forall m. MonadEffect m => Int -> NonEmptySet Fun -> m (Either St
 mkQuestions numQuestions _ | numQuestions <= 0 = pure $ Left "numQuestions <= 0"
 mkQuestions numQuestions functions = do
   let arr = NES.toUnfoldable functions
-  shuffles <- shuffle arr
+  shuffles <- A.nubByEq hasNamingConflict <$> shuffle arr
   qs <- mkQuestionsRec numQuestions shuffles
   pure $ note "No questions" <<< NEA.fromArray =<< qs
   where
@@ -112,3 +112,6 @@ questionFunction q =
     B -> q.optionB
     C -> q.optionC
     D -> q.optionD
+
+hasNamingConflict :: Fun -> Fun -> Boolean
+hasNamingConflict (Fun f1) (Fun f2) = f1.name == f2.name || f1.signature == f2.signature

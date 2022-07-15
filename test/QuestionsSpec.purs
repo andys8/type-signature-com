@@ -2,19 +2,21 @@ module QuestionsSpec where
 
 import Prelude
 
-import Data.Array (intersect)
+import Data.Array (all, intersect, replicate)
 import Data.Array as A
 import Data.Array.NonEmpty as NEA
-import Data.Either (Either(..))
+import Data.Either (Either(..), fromRight)
 import Data.Function (on)
+import Data.Newtype (un)
 import Data.Set as S
 import Data.Set.NonEmpty (NonEmptySet)
 import Data.Set.NonEmpty as NES
-import Effect.Class (liftEffect)
+import Data.Traversable (sequence)
+import Effect.Class (class MonadEffect, liftEffect)
 import Functions (Fun(..))
 import Questions (Question, mkQuestions)
 import Test.Spec (Spec, before, describe, it)
-import Test.Spec.Assertions (shouldEqual)
+import Test.Spec.Assertions (shouldEqual, shouldSatisfy)
 
 spec :: Spec Unit
 spec =
@@ -28,6 +30,21 @@ spec =
       it "number of questions can't be 0" do
         questions <- liftEffect $ mkQuestions 0 functions
         questions `shouldEqual` Left "numQuestions <= 0"
+
+      before (mkSingleQuestions 100) do
+        describe "uniqueness" do
+
+          it "correct amount" \qs -> do
+            A.length qs `shouldEqual` 100
+
+          it "names are unique" \qs -> do
+            all hasUniqueNames qs `shouldEqual` true
+
+          it "signatures are unique" \qs -> do
+            all hasUniqueSignatures qs `shouldEqual` true
+
+          it "not all games are the same" \qs -> do
+            A.length (A.nub qs) `shouldSatisfy` (_ > 1)
 
       before (mkQuestions 2 functions) do
         describe "2 valid questions" do
@@ -50,19 +67,33 @@ spec =
 
 functions :: NonEmptySet Fun
 functions =
-  NES.cons (mkFun "f1") $ S.fromFoldable
-    [ mkFun "f2"
-    , mkFun "f3"
-    , mkFun "f4"
-    , mkFun "f5"
-    , mkFun "f6"
-    , mkFun "f7"
-    , mkFun "f8"
-    , mkFun "f9"
-    ]
+  NES.cons (mkFun "f1" "a1 -> b")
+    $ S.fromFoldable
+        [ mkFun "f2" "a2 -> b"
+        , mkFun "f3" "a3 -> b"
+        , mkFun "f4" "a4 -> b"
+        , mkFun "f5" "a5 -> b"
+        , mkFun "f6" "a6 -> b"
+        , mkFun "f7" "a7 -> b"
+        , mkFun "f8" "a8 -> b"
+        , mkFun "f9" "a9 -> b"
+        ]
 
-mkFun :: String -> Fun
-mkFun name = Fun { name, signature: "a -> a" }
+functionsDupl :: NonEmptySet Fun
+functionsDupl =
+  NES.cons (mkFun "f1" "a1 -> b")
+    $ S.fromFoldable
+        [ mkFun "f2" "a2 -> b"
+        , mkFun "f3" "a3 -> b"
+        , mkFun "f4" "a4 -> b"
+        -- Same name as f4, but different signature
+        , mkFun "f4" "a4dupl -> b"
+        -- Same name as f1, but different same
+        , mkFun "f1dupl" "a1 -> b"
+        ]
+
+mkFun :: String -> String -> Fun
+mkFun name signature = Fun { name, signature }
 
 toOptions :: Question -> Array Fun
 toOptions q =
@@ -71,3 +102,19 @@ toOptions q =
   , q.optionC
   , q.optionD
   ]
+
+hasUniqueNames :: Question -> Boolean
+hasUniqueNames q = A.nub names == names
+  where
+  names = (_.name <<< un Fun) <$> toOptions q
+
+hasUniqueSignatures :: Question -> Boolean
+hasUniqueSignatures q = A.nub signatures == signatures
+  where
+  signatures = (_.signature <<< un Fun) <$> toOptions q
+
+mkSingleQuestions :: forall m. MonadEffect m => Int -> m (Array Question)
+mkSingleQuestions n = do
+  let mkSingleQuestion = liftEffect $ mkQuestions 1 functionsDupl
+  questions <- sequence $ replicate n mkSingleQuestion
+  pure $ fromRight [] (A.concatMap NEA.toArray <$> sequence questions)
