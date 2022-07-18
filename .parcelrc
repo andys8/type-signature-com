@@ -2,5 +2,11 @@
   "extends": [
     "@parcel/config-default",
     "parcel-config-pwa-manifest"
-  ]
+  ],
+  "transformers": {
+    "*.html": [
+      "...",
+      "parcel-transformer-ogimage"
+    ]
+  }
 }

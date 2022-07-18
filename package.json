@@ -26,6 +26,7 @@
     "esbuild": "^0.14.47",
     "parcel": "^2.6.2",
     "parcel-config-pwa-manifest": "^0.1.2",
+    "parcel-transformer-ogimage": "^1.0.3",
     "postcss": "^8.4.14",
     "purescript": "^0.15.4",
     "spago": "^0.20.9",
