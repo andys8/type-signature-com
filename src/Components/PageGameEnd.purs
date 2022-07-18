@@ -32,16 +32,13 @@ type Props =
 pageGameEnd :: Props -> JSX
 pageGameEnd { answeredQuestions, onRestart, language } =
   fragment
-    [ icon (languageIcon language)
-        { size: "64px"
-        , className: "text-base-300 mb-4"
-        }
-    , resultStat
+    [ resultStat
     , renderQuestions answeredQuestions
     , R.div
         { className: "flex flex-row gap-4"
         , children: restartButton : guard (score > 0.5) [ twitterButton ]
         }
+    , icon (languageIcon language) { size: "32px", className: "text-base-300 mt-6" }
     ]
   where
   restartButton =
@@ -112,7 +109,7 @@ pageGameEnd { answeredQuestions, onRestart, language } =
 
 renderQuestions :: Array AnsweredQuestion -> JSX
 renderQuestions questions = R.div
-  { className: "overflow-x-auto my-10"
+  { className: "overflow-x-auto my-6"
   , children:
       [ R.table
           { className: "table w-full"
