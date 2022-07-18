@@ -1,7 +1,7 @@
 module FunctionsRaw where
 
 import Affjax.Web (URL)
-import State (AllLanguages)
+import Languages (AllLanguages)
 
 foreign import elmCoreUrl :: URL
 foreign import haskellBaseUrl :: URL

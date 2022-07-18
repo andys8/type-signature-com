@@ -5,6 +5,7 @@ import Prelude
 import Data.Array as A
 import Foreign.Daisyui (button_, stat, statItem, stats)
 import Functions (Fun(..))
+import Languages (Language, languageIcon)
 import Questions (AnsweredQuestion(..), isAnswerCorrect, questionFunction)
 import React.Basic (JSX, element, fragment)
 import React.Basic.DOM as R
@@ -17,12 +18,17 @@ import React.Icons.Vsc (vscDebugRestart)
 type Props =
   { answeredQuestions :: Array AnsweredQuestion
   , onRestart :: EventHandler
+  , language :: Language
   }
 
 pageGameEnd :: Props -> JSX
-pageGameEnd { answeredQuestions, onRestart } =
+pageGameEnd { answeredQuestions, onRestart, language } =
   fragment
-    [ resultStat
+    [ icon (languageIcon language)
+        { size: "64px"
+        , className: "text-base-300 my-6"
+        }
+    , resultStat
     , renderQuestions answeredQuestions
     , button_
         { color: "default"
@@ -37,7 +43,10 @@ pageGameEnd { answeredQuestions, onRestart } =
     , children:
         [ element stat
             { children:
-                [ element statItem { variant: "title", children: [ R.text "Result" ] }
+                [ element statItem
+                    { variant: "title"
+                    , children: [ R.text "Result" ]
+                    }
                 , element statItem
                     { variant: "value"
                     , children:

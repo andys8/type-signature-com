@@ -69,22 +69,25 @@ mkGame = do
   r <- mkAffReducer reducer
   component "App" \{ functions } -> React.do
     state /\ dispatch <- useAffReducer (initState functions) r
+    let { language } = state
     pure case state.gameState of
       GameBeforeStart ->
         pageStart
           { onStartClick: dispatch ActionGameStart
           , onLanguageSet: dispatch <<< ActionLanguageSet
-          , language: state.language
+          , language
           }
       GameInProgress inProgressState ->
         pageGameInProgress
-          { inProgressState
-          , onAnswerClick: dispatch <<< ActionAnswer
+          { onAnswerClick: dispatch <<< ActionAnswer
+          , inProgressState
+          , language
           }
       GameEnd answeredQuestions ->
         pageGameEnd
           { onRestart: handler_ $ dispatch ActionGameStart
           , answeredQuestions
+          , language
           }
 
 loadAllFunctions :: Aff (Either String Functions)

@@ -6,14 +6,13 @@ import Data.Array.NonEmpty as NEA
 import Data.String (joinWith)
 import Effect (Effect)
 import Foreign.Daisyui (button_, buttonGroup)
+import Languages (Language, languageIcon, languages)
 import React.Basic (JSX, element, fragment)
 import React.Basic.DOM as R
 import React.Basic.Events (handler_)
 import React.Icons (icon, icon_)
 import React.Icons.Gi (giPencilBrush)
-import React.Icons.Si (siElm, siHaskell, siPurescript)
 import React.Icons.Vsc (vscDebugStart)
-import State (Language(..), languages)
 
 type Props =
   { onStartClick :: Effect Unit
@@ -63,6 +62,3 @@ languageSelection { language, onLanguageSet } =
           , R.text $ show l
           ]
       }
-  languageIcon Haskell = siHaskell
-  languageIcon PureScript = siPurescript
-  languageIcon Elm = siElm

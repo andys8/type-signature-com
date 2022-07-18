@@ -8,25 +8,29 @@ import Data.Newtype (un)
 import Effect (Effect)
 import Foreign.Daisyui (badge, button_)
 import Functions (Fun(..))
+import Languages (Language, languageIcon)
 import Questions (Answer, Option(..), questionFunction)
 import React.Basic (JSX, element, fragment)
 import React.Basic.DOM (code, h1)
 import React.Basic.DOM as R
 import React.Basic.DOM.Events (stopPropagation)
 import React.Basic.Events (handler)
+import React.Icons (icon)
 import State (GameInProgressState)
 
 type Props =
-  { inProgressState :: GameInProgressState
+  { language :: Language
+  , inProgressState :: GameInProgressState
   , onAnswerClick :: Answer -> Effect Unit
   }
 
 pageGameInProgress :: Props -> JSX
-pageGameInProgress { onAnswerClick, inProgressState } =
+pageGameInProgress { language, onAnswerClick, inProgressState } =
   fragment
     [ appGameSteps { inProgressState }
     , renderCard
-        [ renderQuestion inProgressState.currentQuestion
+        [ R.h2 { className: "card-title text-secondary", children: [ R.text "What is the type?" ] }
+        , renderQuestion inProgressState.currentQuestion
         , R.div_
             [ renderAnswerButton A inProgressState.currentQuestion.optionA
             , renderAnswerButton B inProgressState.currentQuestion.optionB
@@ -46,7 +50,12 @@ pageGameInProgress { onAnswerClick, inProgressState } =
       { className: "card bg-base-100 shadow-xl bg-base-200 max-w-2xl mx-4"
       , key: show $ _.name $ un Fun $ currentQuestion.optionA
       , children:
-          [ R.div { className: "card-body items-center text-center gap-0", children } ]
+          [ R.div
+              { className: "card-body items-center text-center gap-0 z-10", children }
+          , icon
+              (languageIcon language)
+              { size: "96px", className: "absolute m-6 text-base-300 z-0" }
+          ]
       }
 
   -- TODO: Format function (maybe different colors)
