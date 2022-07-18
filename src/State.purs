@@ -6,7 +6,10 @@ import Data.Array ((:))
 import Data.Array as A
 import Data.Array.NonEmpty (NonEmptyArray)
 import Data.Array.NonEmpty as NEA
+import Data.Bounded.Generic (genericBottom, genericTop)
 import Data.Either (Either(..))
+import Data.Enum (class BoundedEnum, class Enum, enumFromTo)
+import Data.Enum.Generic (genericCardinality, genericFromEnum, genericPred, genericSucc, genericToEnum)
 import Data.Generic.Rep (class Generic)
 import Data.Maybe (Maybe(..))
 import Data.Set.NonEmpty (NonEmptySet)
@@ -25,11 +28,13 @@ type State =
   , gameState :: GameState
   }
 
-type Functions =
-  { haskell :: NonEmptySet Fun
-  , purescript :: NonEmptySet Fun
-  , elm :: NonEmptySet Fun
+type AllLanguages a =
+  { haskell :: a
+  , purescript :: a
+  , elm :: a
   }
+
+type Functions = AllLanguages (NonEmptySet Fun)
 
 data Language = Haskell | PureScript | Elm
 
@@ -37,6 +42,21 @@ derive instance Generic Language _
 derive instance Eq Language
 instance Show Language where
   show = genericShow
+
+derive instance Ord Language
+
+instance Bounded Language where
+  bottom = genericBottom
+  top = genericTop
+
+instance BoundedEnum Language where
+  cardinality = genericCardinality
+  toEnum = genericToEnum
+  fromEnum = genericFromEnum
+
+instance Enum Language where
+  succ = genericSucc
+  pred = genericPred
 
 data GameState
   = GameBeforeStart
@@ -149,3 +169,6 @@ toFunctions state = case state.language of
   Haskell -> state.functions.haskell
   PureScript -> state.functions.purescript
   Elm -> state.functions.elm
+
+languages :: NonEmptyArray Language
+languages = enumFromTo bottom top

@@ -3,7 +3,7 @@ module Components.PageGameEnd (pageGameEnd) where
 import Prelude
 
 import Data.Array as A
-import Foreign.Daisyui (button, stat, statItem, stats)
+import Foreign.Daisyui (button_, stat, statItem, stats)
 import Functions (Fun(..))
 import Questions (AnsweredQuestion(..), isAnswerCorrect, questionFunction)
 import React.Basic (JSX, element, fragment)
@@ -24,10 +24,9 @@ pageGameEnd { answeredQuestions, onRestart } =
   fragment
     [ resultStat
     , renderQuestions answeredQuestions
-    , element button
+    , button_
         { color: "default"
         , onClick: onRestart
-        , disabled: false
         , className: "gap-2"
         , children: [ icon_ vscDebugRestart, R.text "Try again" ]
         }

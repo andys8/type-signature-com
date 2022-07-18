@@ -1,17 +1,24 @@
 module Foreign.Daisyui where
 
+import Prim.Row (class Union)
 import React.Basic.Events (EventHandler)
-import React.Basic.Hooks (JSX, ReactComponent)
+import React.Basic.Hooks (JSX, ReactComponent, element)
+import Unsafe.Coerce (unsafeCoerce)
 
-foreign import button
-  :: ReactComponent
-       { color :: String
-       , className :: String
-       , key :: String
-       , onClick :: EventHandler
-       , disabled :: Boolean
-       , children :: Array JSX
-       }
+foreign import button :: ReactComponent (Record PropsButton)
+
+type PropsButton =
+  ( color :: String
+  , className :: String
+  , key :: String
+  , animation :: Boolean
+  , onClick :: EventHandler
+  , disabled :: Boolean
+  , children :: Array JSX
+  )
+
+button_ :: forall a b. Union a b PropsButton => Record a -> JSX
+button_ = element (unsafeCoerce button)
 
 foreign import footer :: ReactComponent { className :: String, children :: Array JSX }
 foreign import footerTitle :: ReactComponent { children :: Array JSX }

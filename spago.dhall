@@ -16,6 +16,7 @@
   , "maybe"
   , "newtype"
   , "ordered-collections"
+  , "parallel"
   , "prelude"
   , "random"
   , "react-basic"
@@ -24,6 +25,7 @@
   , "react-icons"
   , "strings"
   , "tuples"
+  , "unsafe-coerce"
   , "web-dom"
   , "web-html"
   ]

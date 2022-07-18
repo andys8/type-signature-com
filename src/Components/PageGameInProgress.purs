@@ -6,7 +6,7 @@ import Components.AppGameSteps (appGameSteps)
 import Data.Maybe (Maybe(..), isJust)
 import Data.Newtype (un)
 import Effect (Effect)
-import Foreign.Daisyui (badge, button)
+import Foreign.Daisyui (badge, button_)
 import Functions (Fun(..))
 import Questions (Answer, Option(..), questionFunction)
 import React.Basic (JSX, element, fragment)
@@ -57,7 +57,7 @@ pageGameInProgress { onAnswerClick, inProgressState } =
     }
 
   renderAnswerButton option fun =
-    element button
+    button_
       { color: case currentAnswer of
           Just answer | answer == option && option /= currentQuestion.correctOption -> "error"
           Just _ | option == currentQuestion.correctOption -> "success"
@@ -65,7 +65,6 @@ pageGameInProgress { onAnswerClick, inProgressState } =
       , onClick: handler stopPropagation $ const $
           if isJust currentAnswer then pure unit
           else onAnswerClick option
-      , disabled: false
       , className: "gap-4 m-2 w-64 justify-start flex-nowrap"
       , children:
           [ element badge

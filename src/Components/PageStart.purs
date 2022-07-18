@@ -2,9 +2,10 @@ module Components.PageStart (pageStart) where
 
 import Prelude
 
+import Data.Array.NonEmpty as NEA
 import Data.String (joinWith)
 import Effect (Effect)
-import Foreign.Daisyui (button, buttonGroup)
+import Foreign.Daisyui (button_, buttonGroup)
 import React.Basic (JSX, element, fragment)
 import React.Basic.DOM as R
 import React.Basic.Events (handler_)
@@ -12,7 +13,7 @@ import React.Icons (icon, icon_)
 import React.Icons.Gi (giPencilBrush)
 import React.Icons.Si (siElm, siHaskell, siPurescript)
 import React.Icons.Vsc (vscDebugStart)
-import State (Language(..))
+import State (Language(..), languages)
 
 type Props =
   { onStartClick :: Effect Unit
@@ -35,10 +36,9 @@ pageStart { onStartClick, onLanguageSet, language } =
         , children: [ R.text "Who Wants to Be a Millionaire - but with types" ]
         }
     , languageSelection { language, onLanguageSet }
-    , element button
+    , button_
         { color: "primary"
         , onClick: handler_ onStartClick
-        , disabled: false
         , key: "start"
         , className: "mt-8 gap-2"
         , children: [ icon_ vscDebugStart, R.text "Start" ]
@@ -47,34 +47,22 @@ pageStart { onStartClick, onLanguageSet, language } =
 
 languageSelection :: { language :: Language, onLanguageSet :: Language -> Effect Unit } -> JSX
 languageSelection { language, onLanguageSet } =
-  element buttonGroup
-    { children:
-        [ element button
-            { color: "default"
-            , onClick: handler_ $ onLanguageSet Haskell
-            , disabled: false
-            , key: "Haskell" <> show (Haskell == language)
-            , className: classes Haskell
-            , children: [ icon siHaskell { size: "24px" }, R.text "Haskell" ]
-            }
-        , element button
-            { color: "default"
-            , onClick: handler_ $ onLanguageSet PureScript
-            , disabled: false
-            , key: "PureScript" <> show (PureScript == language)
-            , className: classes PureScript
-            , children: [ icon siPurescript { size: "24px" }, R.text "PureScript" ]
-            }
-        , element button
-            { color: "default"
-            , onClick: handler_ $ onLanguageSet Elm
-            , disabled: false
-            , key: "Elm" <> show (Elm == language)
-            , className: classes Elm
-            , children: [ icon siElm { size: "24px" }, R.text "Elm" ]
-            }
-        ]
-    }
+  element buttonGroup { children: NEA.toArray $ languageButton <$> languages }
   where
   classes l = joinWith " " [ "flex-col gap-2 w-28 h-20", opactiy l ]
   opactiy l = if l == language then "opacity-100" else "opacity-50"
+  languageButton l =
+    button_
+      { color: if l == language then "secondary" else "default"
+      , onClick: handler_ $ onLanguageSet l
+      , key: joinWith "-" [ show l, show (l == language) ]
+      , className: classes l
+      , animation: false
+      , children:
+          [ icon (languageIcon l) { size: "24px" }
+          , R.text $ show l
+          ]
+      }
+  languageIcon Haskell = siHaskell
+  languageIcon PureScript = siPurescript
+  languageIcon Elm = siElm

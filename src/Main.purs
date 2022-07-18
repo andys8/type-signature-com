@@ -11,14 +11,14 @@ import Components.PageStart (pageStart)
 import Control.Parallel (parSequence)
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
-import Data.Traversable (sequence)
+import Data.Traversable (traverse)
 import Data.Tuple.Nested ((/\))
 import Effect (Effect)
 import Effect.Aff (Aff)
 import Effect.Exception (throw)
 import Foreign.Daisyui (alert, progress)
 import Functions (loadFunctions, parseFunctions)
-import FunctionsRaw (elmCoreUrl, haskellPreludeUrl, purescriptPreludeUrl)
+import FunctionsRaw (urls)
 import React.Basic (element)
 import React.Basic.DOM as R
 import React.Basic.DOM.Client (createRoot, renderRoot)
@@ -89,14 +89,12 @@ mkGame = do
 
 loadAllFunctions :: Aff (Either String Functions)
 loadAllFunctions = do
-  fs <- parSequence
-    [ loadFunctions haskellPreludeUrl
-    , loadFunctions purescriptPreludeUrl
-    , loadFunctions elmCoreUrl
+  functions <- parSequence $ loadFunctions <$>
+    [ urls.haskell
+    , urls.purescript
+    , urls.elm
     ]
-  let fs2 = (\x -> parseFunctions =<< x) <$> fs
-  let res = sequence fs2
-  pure $ toAllFunctions =<< res
+  pure $ toAllFunctions =<< traverse ((=<<) parseFunctions) functions
   where
   toAllFunctions [ haskell, purescript, elm ] = Right { haskell, purescript, elm }
   toAllFunctions _ = Left "Can't create AllFunctions"
