@@ -20,9 +20,15 @@ import Questions (Answer, AnsweredQuestion(..), Question, mkQuestions)
 import React.Basic.Hooks.Aff (noEffects)
 
 type State =
-  { functions :: NonEmptySet Fun
+  { functions :: Functions
   , language :: Language
   , gameState :: GameState
+  }
+
+type Functions =
+  { haskell :: NonEmptySet Fun
+  , purescript :: NonEmptySet Fun
+  , elm :: NonEmptySet Fun
   }
 
 data Language = Haskell | PureScript | Elm
@@ -56,7 +62,7 @@ data Action
   | ActionAnswer Answer
   | ActionNextQuestion
 
-initState :: NonEmptySet Fun -> State
+initState :: Functions -> State
 initState functions =
   { functions
   , language: Haskell
@@ -68,7 +74,7 @@ reducer state ActionGameStart =
   { state, effects: [ newGame ] }
   where
   newGame =
-    liftEffect $ mkQuestions 3 state.functions
+    liftEffect (mkQuestions 3 $ toFunctions state)
       >>= case _ of
         Left e -> error e *> pure []
         Right qs -> pure [ ActionNewGame qs ]
@@ -138,3 +144,8 @@ reducer state ActionNextQuestion =
                 }
       Nothing -> GameEnd s.answeredQuestions
 
+toFunctions :: State -> NonEmptySet Fun
+toFunctions state = case state.language of
+  Haskell -> state.functions.haskell
+  PureScript -> state.functions.purescript
+  Elm -> state.functions.elm

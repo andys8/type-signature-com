@@ -8,15 +8,17 @@ import Components.AppNavbar (appNavbar)
 import Components.PageGameEnd (pageGameEnd)
 import Components.PageGameInProgress (pageGameInProgress)
 import Components.PageStart (pageStart)
+import Control.Parallel (parSequence)
 import Data.Either (Either(..))
-import FunctionsRaw (haskellPreludeUrl)
 import Data.Maybe (Maybe(..))
-import Data.Set.NonEmpty (NonEmptySet)
+import Data.Traversable (sequence)
 import Data.Tuple.Nested ((/\))
 import Effect (Effect)
+import Effect.Aff (Aff)
 import Effect.Exception (throw)
 import Foreign.Daisyui (alert, progress)
-import Functions (Fun, parseFunctions, loadFunctions)
+import Functions (loadFunctions, parseFunctions)
+import FunctionsRaw (elmCoreUrl, haskellPreludeUrl, purescriptPreludeUrl)
 import React.Basic (element)
 import React.Basic.DOM as R
 import React.Basic.DOM.Client (createRoot, renderRoot)
@@ -24,7 +26,7 @@ import React.Basic.Events (handler_)
 import React.Basic.Hooks (Component, component)
 import React.Basic.Hooks as React
 import React.Basic.Hooks.Aff (mkAffReducer, useAff, useAffReducer)
-import State (Action(..), GameState(..), initState, reducer)
+import State (Action(..), GameState(..), Functions, initState, reducer)
 import Web.DOM.NonElementParentNode (getElementById)
 import Web.HTML (window)
 import Web.HTML.HTMLDocument (toNonElementParentNode)
@@ -45,14 +47,13 @@ mkApp :: Component {}
 mkApp = do
   game <- mkGame
   component "App" \_ -> React.do
-    response <- useAff unit $ loadFunctions haskellPreludeUrl
+    response <- useAff unit loadAllFunctions
     let
       content = case response of
         Nothing -> element progress { className: "w-56" }
-        Just r ->
-          case parseFunctions =<< r of
-            Left err -> element alert { status: "error", children: [ R.text err ] }
-            Right functions -> game { functions }
+        Just r -> case r of
+          Left err -> element alert { status: "error", children: [ R.text err ] }
+          Right functions -> game { functions }
 
     pure $ R.div
       { className: "flex flex-col justify-between absolute inset-0"
@@ -63,7 +64,7 @@ mkApp = do
           ]
       }
 
-mkGame :: Component { functions :: NonEmptySet Fun }
+mkGame :: Component { functions :: Functions }
 mkGame = do
   r <- mkAffReducer reducer
   component "App" \{ functions } -> React.do
@@ -86,3 +87,16 @@ mkGame = do
           , answeredQuestions
           }
 
+loadAllFunctions :: Aff (Either String Functions)
+loadAllFunctions = do
+  fs <- parSequence
+    [ loadFunctions haskellPreludeUrl
+    , loadFunctions purescriptPreludeUrl
+    , loadFunctions elmCoreUrl
+    ]
+  let fs2 = (\x -> parseFunctions =<< x) <$> fs
+  let res = sequence fs2
+  pure $ toAllFunctions =<< res
+  where
+  toAllFunctions [ haskell, purescript, elm ] = Right { haskell, purescript, elm }
+  toAllFunctions _ = Left "Can't create AllFunctions"
