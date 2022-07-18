@@ -66,7 +66,7 @@ pageGameEnd { answeredQuestions, onRestart, language } =
     [ "Hey there, I scored"
     , show countCorrect <> "/" <> show countTotal
     , "with " <> show language
-    , "on type-signature.com."
+    , "on https://type-signature.com."
     , "Give it a shot yourself!"
     ]
 
