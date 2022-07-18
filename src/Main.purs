@@ -71,7 +71,9 @@ mkGame = do
     pure case state.gameState of
       GameBeforeStart ->
         pageStart
-          { onStartClick: handler_ $ dispatch ActionGameStart
+          { onStartClick: dispatch ActionGameStart
+          , onLanguageSet: dispatch <<< ActionLanguageSet
+          , language: state.language
           }
       GameInProgress inProgressState ->
         pageGameInProgress

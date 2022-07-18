@@ -7,6 +7,7 @@ foreign import button
   :: ReactComponent
        { color :: String
        , className :: String
+       , key :: String
        , onClick :: EventHandler
        , disabled :: Boolean
        , children :: Array JSX
@@ -42,3 +43,8 @@ foreign import codeMockup :: ReactComponent { children :: Array JSX }
 foreign import stats :: ReactComponent { className :: String, children :: Array JSX }
 foreign import stat :: ReactComponent { children :: Array JSX }
 foreign import statItem :: ReactComponent { variant :: String, children :: Array JSX }
+
+foreign import select :: ReactComponent { initialValue :: String, className :: String, children :: Array JSX }
+foreign import selectOption :: ReactComponent { value :: String, children :: Array JSX }
+
+foreign import buttonGroup :: ReactComponent { children :: Array JSX }

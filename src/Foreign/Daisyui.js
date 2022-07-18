@@ -1,4 +1,4 @@
-import { Footer, Hero, Navbar, Stats } from "react-daisyui";
+import { Footer, Hero, Navbar, Stats, Select } from "react-daisyui";
 
 export {
   Button as button,
@@ -6,7 +6,8 @@ export {
   Badge as badge,
   Progress as progress,
   Alert as alert,
-  CodeMockup as codeMockup
+  CodeMockup as codeMockup,
+  ButtonGroup as buttonGroup,
 } from "react-daisyui";
 
 export const footer = Footer;
@@ -24,3 +25,6 @@ export const navbarEnd = Navbar.End;
 export const stats = Stats;
 export const stat = Stats.Stat;
 export const statItem = Stats.Stat.Item;
+
+export const select = Select;
+export const selectOption = Select.Option;

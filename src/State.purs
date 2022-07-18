@@ -17,11 +17,20 @@ import Effect.Class.Console (error)
 import Foreign.Confetti (confetti)
 import Functions (Fun)
 import Questions (Answer, AnsweredQuestion(..), Question, mkQuestions)
+import React.Basic.Hooks.Aff (noEffects)
 
 type State =
   { functions :: NonEmptySet Fun
+  , language :: Language
   , gameState :: GameState
   }
+
+data Language = Haskell | PureScript | Elm
+
+derive instance Generic Language _
+derive instance Eq Language
+instance Show Language where
+  show = genericShow
 
 data GameState
   = GameBeforeStart
@@ -42,6 +51,7 @@ type GameInProgressState =
 
 data Action
   = ActionGameStart
+  | ActionLanguageSet Language
   | ActionNewGame (NonEmptyArray Question)
   | ActionAnswer Answer
   | ActionNextQuestion
@@ -49,6 +59,7 @@ data Action
 initState :: NonEmptySet Fun -> State
 initState functions =
   { functions
+  , language: Haskell
   , gameState: GameBeforeStart
   }
 
@@ -57,10 +68,12 @@ reducer state ActionGameStart =
   { state, effects: [ newGame ] }
   where
   newGame =
-    liftEffect $ mkQuestions 6 state.functions
+    liftEffect $ mkQuestions 3 state.functions
       >>= case _ of
         Left e -> error e *> pure []
         Right qs -> pure [ ActionNewGame qs ]
+
+reducer state (ActionLanguageSet language) = noEffects $ state { language = language }
 
 reducer state (ActionNewGame questions) =
   { state: state { gameState = GameInProgress gameInProgressState }
