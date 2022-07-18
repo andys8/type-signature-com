@@ -10,7 +10,7 @@ import Foreign.Daisyui (badge, button_)
 import Functions (Fun(..))
 import Languages (Language, languageIcon)
 import Questions (Answer, Option(..), questionFunction)
-import React.Basic (JSX, element, fragment)
+import React.Basic (JSX, element)
 import React.Basic.DOM (code, h1)
 import React.Basic.DOM as R
 import React.Basic.DOM.Events (stopPropagation)
@@ -26,35 +26,36 @@ type Props =
 
 pageGameInProgress :: Props -> JSX
 pageGameInProgress { language, onAnswerClick, inProgressState } =
-  fragment
-    [ appGameSteps { inProgressState }
-    , renderCard
-        [ R.h2
-            { className: "card-title text-secondary"
-            , children: [ R.text "Which function has this type?" ]
-            }
-        , renderQuestion inProgressState.currentQuestion
-        , R.div_
-            [ renderAnswerButton A inProgressState.currentQuestion.optionA
-            , renderAnswerButton B inProgressState.currentQuestion.optionB
-            ]
-        , R.div_
-            [ renderAnswerButton C inProgressState.currentQuestion.optionC
-            , renderAnswerButton D inProgressState.currentQuestion.optionD
+  R.div
+    { className: "flex flex-col h-full gap-8 items-center justify-start sm:justify-center"
+    , children:
+        [ appGameSteps { inProgressState }
+        , renderCard
+            [ R.h2
+                { className: "card-title text-secondary"
+                , children: [ R.text "Which function has this type?" ]
+                }
+            , renderQuestion inProgressState.currentQuestion
+            , R.div_
+                [ renderAnswerButton A inProgressState.currentQuestion.optionA
+                , renderAnswerButton B inProgressState.currentQuestion.optionB
+                , renderAnswerButton C inProgressState.currentQuestion.optionC
+                , renderAnswerButton D inProgressState.currentQuestion.optionD
+                ]
             ]
         ]
-    ]
+    }
   where
   { currentQuestion, currentAnswer } = inProgressState
 
   renderCard children =
     -- TODO: Card could be react component
     R.div
-      { className: "card bg-base-100 shadow-xl bg-base-200 max-w-2xl mx-4"
+      { className: "card flex-1 shadow-xl bg-base-200 mx-2 max-w-2xl"
       , key: show $ _.name $ un Fun $ currentQuestion.optionA
       , children:
           [ R.div
-              { className: "card-body items-center text-center gap-0 z-10", children }
+              { className: "card-body justify-between items-center text-center gap-4 z-10", children }
           , icon
               (languageIcon language)
               { size: "80px", className: "absolute m-6 text-base-300 z-0" }
@@ -63,9 +64,14 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
 
   -- TODO: Format function (maybe different colors)
   -- TODO: Make sure long function breaks accordingly or is prettified with line breaks
-  renderQuestion q = h1
-    { className: "font-mono font-medium text-xl w-full mb-6 sm:text-2xl sm:h-24 sm:mt-10"
-    , children: [ R.text $ un Fun >>> _.signature $ questionFunction q ]
+  renderQuestion q = R.div
+    { className: "flex flex-col justify-center items-center w-full"
+    , children:
+        [ h1
+            { className: "font-mono font-medium text-xl sm:text-2xl sm:h-24 sm:mt-10"
+            , children: [ R.text $ un Fun >>> _.signature $ questionFunction q ]
+            }
+        ]
     }
 
   renderAnswerButton option fun =

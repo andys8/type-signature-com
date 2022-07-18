@@ -11,8 +11,9 @@ appNavbar = element navbar
       [ element navbarStart
           { className: "px-2 mx-2"
           , children:
-              [ R.span
+              [ R.a
                   { className: "text-lg font-bold"
+                  , href: "/"
                   , children: [ R.text "type-signature.com" ]
                   }
               ]

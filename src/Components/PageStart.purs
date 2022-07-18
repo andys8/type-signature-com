@@ -25,13 +25,13 @@ pageStart { onStartClick, onLanguageSet, language } =
   fragment
     [ icon
         giPencilBrush
-        { size: "120px", className: "m-4" }
+        { size: "120px", className: "mb-4" }
     , R.h1
-        { className: "text-5xl font-bold"
+        { className: "text-5xl font-bold whitespace-nowrap"
         , children: [ R.text "type-signature" ]
         }
     , R.p
-        { className: "py-6"
+        { className: "pt-6 pb-10"
         , children: [ R.text "Who Wants to Be a Millionaire - but with types" ]
         }
     , languageSelection { language, onLanguageSet }
@@ -48,7 +48,7 @@ languageSelection :: { language :: Language, onLanguageSet :: Language -> Effect
 languageSelection { language, onLanguageSet } =
   element buttonGroup { children: NEA.toArray $ languageButton <$> languages }
   where
-  classes l = joinWith " " [ "flex-col gap-2 w-28 h-20", opactiy l ]
+  classes l = joinWith " " [ "flex-col gap-2 min-w-fit w-24 h-20", opactiy l ]
   opactiy l = if l == language then "opacity-100" else "opacity-50"
   languageButton l =
     button_

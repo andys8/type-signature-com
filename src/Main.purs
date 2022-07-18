@@ -2,7 +2,6 @@ module Main where
 
 import Prelude
 
-import Components.AppContent (appContent)
 import Components.AppFooter (appFooter)
 import Components.AppNavbar (appNavbar)
 import Components.PageGameEnd (pageGameEnd)
@@ -55,11 +54,16 @@ mkApp = do
           Left err -> element alert { status: "error", children: [ R.text err ] }
           Right functions -> game { functions }
 
+      appContent = R.main
+        { className: "flex flex-col flex-1 overflow-none p-5 h-full items-center justify-center"
+        , children: [ content ]
+        }
+
     pure $ R.div
-      { className: "flex flex-col justify-between absolute inset-0"
+      { className: "flex flex-col justify-between absolute inset-0 font-sans"
       , children:
           [ appNavbar
-          , appContent content
+          , appContent
           , appFooter
           ]
       }
