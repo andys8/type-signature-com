@@ -39,7 +39,7 @@
     "react-icons": "^4.4.0"
   },
   "pwaManifest": {
-    "name": "Type Signature",
+    "name": "type-signature.com - Type Signature Game",
     "shortName": "Type Signature",
     "startURL": "/",
     "theme": "#272935",
