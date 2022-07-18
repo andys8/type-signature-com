@@ -34,7 +34,7 @@ pageGameEnd { answeredQuestions, onRestart, language } =
   fragment
     [ icon (languageIcon language)
         { size: "64px"
-        , className: "text-base-300 my-6"
+        , className: "text-base-300 mb-4"
         }
     , resultStat
     , renderQuestions answeredQuestions
@@ -67,7 +67,7 @@ pageGameEnd { answeredQuestions, onRestart, language } =
     , show countCorrect <> "/" <> show countTotal
     , "with " <> show language
     , "on https://type-signature.com."
-    , "Give it a shot yourself!"
+    , "Try it too!"
     ]
 
   resultStat = element stats

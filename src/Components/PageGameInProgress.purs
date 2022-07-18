@@ -29,7 +29,7 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
   fragment
     [ appGameSteps { inProgressState }
     , renderCard
-        [ R.h2 { className: "card-title text-secondary", children: [ R.text "What is the type?" ] }
+        [ R.h2 { className: "card-title text-secondary", children: [ R.text "What function has this type?" ] }
         , renderQuestion inProgressState.currentQuestion
         , R.div_
             [ renderAnswerButton A inProgressState.currentQuestion.optionA
