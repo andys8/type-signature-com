@@ -12,6 +12,8 @@ type PropsButton =
   , className :: String
   , key :: String
   , animation :: Boolean
+  , target :: String
+  , href :: String
   , onClick :: EventHandler
   , disabled :: Boolean
   , children :: Array JSX

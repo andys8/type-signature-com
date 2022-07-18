@@ -54,7 +54,7 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
               { className: "card-body items-center text-center gap-0 z-10", children }
           , icon
               (languageIcon language)
-              { size: "96px", className: "absolute m-6 text-base-300 z-0" }
+              { size: "80px", className: "absolute m-6 text-base-300 z-0" }
           ]
       }
 
