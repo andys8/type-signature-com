@@ -25,6 +25,7 @@ import Data.Maybe (Maybe(..))
 import Data.Set.NonEmpty (NonEmptySet)
 import Data.Set.NonEmpty as NES
 import Data.Show.Generic (genericShow)
+import Data.String as S
 import Data.Traversable (traverse)
 import Data.Tuple (Tuple(..), fst, snd)
 import Effect.Class (class MonadEffect, liftEffect)
@@ -73,7 +74,7 @@ instance Show AnsweredQuestion where
 mkQuestions :: forall m. MonadEffect m => Int -> NonEmptySet Fun -> m (Either String (NonEmptyArray Question))
 mkQuestions numQuestions _ | numQuestions <= 0 = pure $ Left "numQuestions <= 0"
 mkQuestions numQuestions functions = do
-  let arr = NES.toUnfoldable functions
+  let arr = A.filter hasAllowedLength $ NES.toUnfoldable functions
   shuffles <- shuffle arr
   qs <- mkQuestionsRec numQuestions shuffles
   pure $ note "No questions" <<< NEA.fromArray =<< qs
@@ -112,6 +113,9 @@ isAnswerCorrect (AnsweredQuestion { correctOption } answer) = correctOption == a
 
 hasNamingConflict :: Fun -> Fun -> Boolean
 hasNamingConflict (Fun f1) (Fun f2) = f1.name == f2.name || f1.signature == f2.signature
+
+hasAllowedLength :: Fun -> Boolean
+hasAllowedLength (Fun f) = S.length f.signature < 100
 
 toOptions :: Question -> Array Fun
 toOptions q = [ q.optionA, q.optionB, q.optionC, q.optionD ]
