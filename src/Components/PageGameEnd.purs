@@ -40,7 +40,7 @@ pageGameEnd { answeredQuestions, onRestart, language } =
     , renderQuestions answeredQuestions
     , R.div
         { className: "flex flex-row gap-4"
-        , children: restartButton : guard (score > 0.8) [ twitterButton ]
+        , children: restartButton : guard (score > 0.5) [ twitterButton ]
         }
     ]
   where
@@ -65,7 +65,8 @@ pageGameEnd { answeredQuestions, onRestart, language } =
   tweet = joinWith " "
     [ "Hey there, I scored"
     , show countCorrect <> "/" <> show countTotal
-    , "on https://type-signature.com."
+    , "with " <> show language
+    , "on type-signature.com."
     , "Give it a shot yourself!"
     ]
 

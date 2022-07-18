@@ -13,6 +13,7 @@
   , "enums"
   , "exceptions"
   , "foldable-traversable"
+  , "integers"
   , "maybe"
   , "newtype"
   , "ordered-collections"
