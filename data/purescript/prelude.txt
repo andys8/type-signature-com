@@ -1,58 +1,58 @@
-absurd :: forall a. Void -> a
+absurd :: Void -> a
 add :: a -> a -> a
-ap :: forall m a b. Monad m => m (a -> b) -> m a -> m b
+ap :: Monad m => m (a -> b) -> m a -> m b
 append :: a -> a -> a
-apply :: forall a b. f (a -> b) -> f a -> f b
-between :: forall a. Ord a => a -> a -> a -> Boolean
-bind :: forall a b. m a -> (a -> m b) -> m b
+apply :: f (a -> b) -> f a -> f b
+between :: Ord a => a -> a -> a -> Boolean
+bind :: m a -> (a -> m b) -> m b
 bottom :: a
-clamp :: forall a. Ord a => a -> a -> a -> a
+clamp :: Ord a => a -> a -> a -> a
 compare :: a -> a -> Ordering
-comparing :: forall a b. Ord b => (a -> b) -> (a -> a -> Ordering)
-compose :: forall b c d. a c d -> a b c -> a b d
+comparing :: Ord b => (a -> b) -> (a -> a -> Ordering)
+compose :: a c d -> a b c -> a b d
 conj :: a -> a -> a
-const :: forall a b. a -> b -> a
+const :: a -> b -> a
 degree :: a -> Int
-discard :: forall f b. Bind f => f a -> (a -> f b) -> f b
+discard :: Bind f => f a -> (a -> f b) -> f b
 disj :: a -> a -> a
 div :: a -> a -> a
 eq :: a -> a -> Boolean
-flap :: forall f a b. Functor f => f (a -> b) -> a -> f b
-flip :: forall a b c. (a -> b -> c) -> b -> a -> c
-gcd :: forall a. Eq a => EuclideanRing a => a -> a -> a
+flap :: Functor f => f (a -> b) -> a -> f b
+flip :: (a -> b -> c) -> b -> a -> c
+gcd :: Eq a => EuclideanRing a => a -> a -> a
 hasDigit :: String -> Bool
 hasSymbol :: String -> Bool
-identity :: forall t. a t t
-ifM :: forall a m. Bind m => m Boolean -> m a -> m a -> m a
-join :: forall a m. Bind m => m (m a) -> m a
-lcm :: forall a. Eq a => EuclideanRing a => a -> a -> a
-lift2 :: forall f a b c. Apply f => (a -> b -> c) -> f a -> f b -> f c
-liftA1 :: forall f a b. Applicative f => (a -> b) -> f a -> f b
-liftM1 :: forall m a b. Monad m => (a -> b) -> m a -> m b
+identity :: a t t
+ifM :: Bind m => m Boolean -> m a -> m a -> m a
+join :: Bind m => m (m a) -> m a
+lcm :: Eq a => EuclideanRing a => a -> a -> a
+lift2 :: Apply f => (a -> b -> c) -> f a -> f b -> f c
+liftA1 :: Applicative f => (a -> b) -> f a -> f b
+liftM1 :: Monad m => (a -> b) -> m a -> m b
 longEnough :: String -> Bool
-map :: forall a b. (a -> b) -> f a -> f b
-max :: forall a. Ord a => a -> a -> a
+map :: (a -> b) -> f a -> f b
+max :: Ord a => a -> a -> a
 mempty :: m
-min :: forall a. Ord a => a -> a -> a
+min :: Ord a => a -> a -> a
 mod :: a -> a -> a
 mul :: a -> a -> a
-negate :: forall a. Ring a => a -> a
+negate :: Ring a => a -> a
 not :: a -> a
-notEq :: forall a. Eq a => a -> a -> Boolean
+notEq :: Eq a => a -> a -> Boolean
 one :: a
 otherwise :: Boolean
 password :: String
-pure :: forall a. a -> f a
+pure :: a -> f a
 recip :: a -> a
-rightOnly :: forall t . Either Void t -> t
+rightOnly :: Either Void t -> t
 show :: a -> String
 sub :: a -> a -> a
 top :: a
 unit :: Unit
-unless :: forall m. Applicative m => Boolean -> m Unit -> m Unit
-unlessM :: forall m. Monad m => m Boolean -> m Unit -> m Unit
+unless :: Applicative m => Boolean -> m Unit -> m Unit
+unlessM :: Monad m => m Boolean -> m Unit -> m Unit
 validate :: String -> Array Bool
-void :: forall f a. Functor f => f a -> f Unit
-when :: forall m. Applicative m => Boolean -> m Unit -> m Unit
-whenM :: forall m. Monad m => m Boolean -> m Unit -> m Unit
+void :: Functor f => f a -> f Unit
+when :: Applicative m => Boolean -> m Unit -> m Unit
+whenM :: Monad m => m Boolean -> m Unit -> m Unit
 zero :: a
