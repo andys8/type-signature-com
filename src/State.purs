@@ -63,7 +63,7 @@ reducer :: State -> Action -> { state :: State, effects :: Array (Aff (Array Act
 reducer state ActionGameStart =
   { state, effects: [ newGame ] }
   where
-  numQuestions = 1
+  numQuestions = 6
   newGame =
     liftEffect (mkQuestions numQuestions $ toFunctions state)
       >>= case _ of

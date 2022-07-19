@@ -5,12 +5,13 @@ import Prelude
 import Components.AppGameSteps (appGameSteps)
 import Data.Maybe (Maybe(..), isJust)
 import Data.Newtype (un)
+import Data.String (Pattern(..), split)
 import Effect (Effect)
 import Foreign.Daisyui (badge, button_)
 import Functions (Fun(..))
 import Languages (Language, languageIcon)
 import Questions (Answer, Option(..), questionFunction)
-import React.Basic (JSX, element)
+import React.Basic (JSX, element, fragment)
 import React.Basic.DOM (code, h1)
 import React.Basic.DOM as R
 import React.Basic.DOM.Events (stopPropagation)
@@ -68,11 +69,21 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
     { className: "flex flex-col justify-center items-center w-full"
     , children:
         [ h1
-            { className: "font-mono font-medium text-xl sm:text-2xl sm:h-24 sm:mt-10"
-            , children: [ R.text $ un Fun >>> _.signature $ questionFunction q ]
+            { className: "flex flex-col gap-2 font-mono font-medium text-xl sm:text-2xl"
+            , children: [ renderSignature $ questionFunction q ]
             }
         ]
     }
+
+  renderSignature (Fun { signature }) =
+    case split (Pattern "=>") signature of
+      [ a, b ] -> fragment
+        [ renderConstraint (a <> "=>"), R.text b ]
+      [ a, b, c ] -> fragment
+        [ renderConstraint (a <> "=>"), renderConstraint (b <> "=>"), R.text c ]
+      _ -> R.text signature
+
+  renderConstraint a = R.span { className: "opacity-50", children: [ R.text a ] }
 
   renderAnswerButton option fun =
     button_
