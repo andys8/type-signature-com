@@ -11,7 +11,7 @@ import Data.Set.NonEmpty as NES
 import Data.String (contains) as S
 import Data.String.Pattern (Pattern(..))
 import Data.String.Regex (regex, test)
-import Data.String.Regex.Flags (global, noFlags)
+import Data.String.Regex.Flags (noFlags)
 import Effect.Class (liftEffect)
 import Effect.Exception (throw)
 import Functions (Fun(..), parseFunctions)
@@ -20,7 +20,7 @@ import Test.Spec.Assertions (shouldEqual, shouldNotEqual, shouldNotSatisfy, shou
 
 foreign import elmCore :: String
 foreign import haskellPrelude :: String
-foreign import purescriptPrelude :: String
+foreign import purescriptFunctions :: String
 
 spec :: Spec Unit
 spec =
@@ -58,7 +58,13 @@ spec =
             let signatures = (_.signature <<< un Fun) <$> functions
             for_ signatures (_ `shouldNotSatisfy` hasForall)
 
-      before (pure $ parseToList purescriptPrelude) do
+          it "name should be valid" \functions -> do
+            let names = (_.name <<< un Fun) <$> functions
+            case regex "^[a-zA-Z0-9'_]+|\\(.*\\)$" noFlags of
+              Left e -> liftEffect $ throw e
+              Right reg -> for_ names (_ `shouldSatisfy` test reg)
+
+      before (pure $ parseToList purescriptFunctions) do
         describe "PureScript" do
 
           it "can be parsed" \functions -> do
@@ -75,6 +81,12 @@ spec =
             let signatures = (_.signature <<< un Fun) <$> functions
             for_ signatures (_ `shouldNotEqual` "a")
 
+          it "name should be valid" \functions -> do
+            let names = (_.name <<< un Fun) <$> functions
+            case regex "^[a-zA-Z0-9'_]+|\\(.*\\)$" noFlags of
+              Left e -> liftEffect $ throw e
+              Right reg -> for_ names (_ `shouldSatisfy` test reg)
+
       before (pure $ parseToList elmCore) do
         describe "Elm" do
 
@@ -86,6 +98,12 @@ spec =
             case regex "[A-Z].*\\.[A-Z]" noFlags of
               Left e -> liftEffect $ throw e
               Right reg -> for_ signatures (_ `shouldNotSatisfy` test reg)
+
+          it "name should be valid" \functions -> do
+            let names = (_.name <<< un Fun) <$> functions
+            case regex "^[a-zA-Z0-9'_]+|\\(.*\\)$" noFlags of
+              Left e -> liftEffect $ throw e
+              Right reg -> for_ names (_ `shouldSatisfy` test reg)
 
 parseToList :: String -> Array Fun
 parseToList = either (pure []) NES.toUnfoldable <<< parseFunctions

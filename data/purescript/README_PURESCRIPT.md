@@ -1,8 +1,14 @@
 # PureScript
 
-- Generate with `spago docs -f markdown`
-- Delete lines with `sed '/ :: /!d' prelude_source.md > prelude.txt`
-- Delete `instance`
-- Delete spaces
-- Delete explicit forall: `s/forall .*\. //g`
+- Generate with `spago docs --deps-only -f markdown`
+- Select some files and copy in `source`
+- `cat source/*.md > functions.txt`
+- Delete lines with `sed -i '/ :: /!d' functions.txt`
+- Delete all functions from instances `:g/^ /d` because missing constraint
+- Delete instance: `g/^instance /d`
+- Delete lines beginning with asterisk: `:g/^\*/d`
+- Delete lines with multiple `::`: `:g/::.*::/d`
+- Delete explicit forall: `:%s/forall .*\. //g`
+- Delete derives: `g/^derive /d`
+- Drop examples like splitAt that are failing tests
 - Sort
