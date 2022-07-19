@@ -29,12 +29,12 @@ type Props =
 pageGameInProgress :: Props -> JSX
 pageGameInProgress { language, onAnswerClick, inProgressState } =
   R.div
-    { className: "flex flex-col h-full gap-8 items-center justify-start sm:justify-center"
+    { className: "flex flex-col h-full w-full gap-8 items-center justify-start sm:justify-center"
     , children:
         [ appGameSteps { inProgressState }
         , renderCard
             [ R.h2
-                { className: "card-title text-secondary"
+                { className: "card-title text-secondary whitespace-nowrap"
                 , children: [ R.text "Which function has this type?" ]
                 }
             , renderQuestion inProgressState.currentQuestion
@@ -52,7 +52,7 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
 
   renderCard children =
     R.div
-      { className: "card flex-1 sm:flex-initial	h-1/2 shadow-xl bg-base-200 mx-2 max-w-2xl"
+      { className: "card flex-1 sm:flex-initial	h-1/2 shadow-xl bg-base-200 mx-2 w-full max-w-2xl"
       , key: show $ _.name $ un Fun $ currentQuestion.optionA
       , children:
           [ R.div

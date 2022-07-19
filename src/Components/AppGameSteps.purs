@@ -4,6 +4,7 @@ import Prelude
 
 import Data.Array as A
 import Data.Maybe (Maybe(..))
+import Data.String (joinWith)
 import Questions (isAnswerCorrect)
 import React.Basic (JSX)
 import React.Basic.DOM as R
@@ -18,7 +19,10 @@ type Props =
 appGameSteps :: Props -> JSX
 appGameSteps { inProgressState } =
   R.ul
-    { className: "steps font-medium text-sm pt-4 sm:pt-0"
+    { className: joinWith " "
+        [ "steps max-w-full overflow-hidden font-medium text-sm pt-4 sm:pt-0"
+        , if A.length answered > 2 then "justify-end" else "justify-start"
+        ]
     , key: "game-steps"
     , children: answered <> pure current <> next
     }
