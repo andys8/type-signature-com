@@ -1,0 +1,264 @@
+(|>) :: a -> (a -> b) -> b
+(/=) :: a -> a -> Bool
+(==) :: a -> a -> Bool
+(<|) :: (a -> b) -> a -> b
+(>>) :: (a -> b) -> (b -> c) -> a -> c
+abs :: number -> number
+acos :: Float -> Float
+(::) :: a -> List a -> List a
+all :: (a -> Bool) -> List a -> Bool
+all :: (Char -> Bool) -> String -> Bool
+always :: a -> b -> a
+and :: Int -> Int -> Int
+andThen :: (a -> Maybe b) -> Maybe a -> Maybe b
+andThen :: (a -> Result x b) -> Result x a -> Result x b
+andThen :: (a -> Task x b) -> Task x a -> Task x b
+any :: (a -> Bool) -> List a -> Bool
+any :: (Char -> Bool) -> String -> Bool
+(++) :: appendable -> appendable -> appendable
+append :: Array a -> Array a -> Array a
+append :: List a -> List a -> List a
+append :: String -> String -> String
+asin :: Float -> Float
+atan2 :: Float -> Float -> Float
+atan :: Float -> Float
+attempt :: (Result x a -> msg) -> Task x a -> Cmd msg
+batch :: List (Cmd msg) -> Cmd msg
+batch :: List (Sub msg) -> Sub msg
+(<<) :: (b -> c) -> (a -> b) -> a -> c
+(&&) :: Bool -> Bool -> Bool
+(||) :: Bool -> Bool -> Bool
+ceiling :: Float -> Int
+clamp :: number -> number -> number -> number
+(<) :: comparable -> comparable -> Bool
+(<=) :: comparable -> comparable -> Bool
+(>) :: comparable -> comparable -> Bool
+(>=) :: comparable -> comparable -> Bool
+compare :: comparable -> comparable -> Order
+complement :: Int -> Int
+concat :: List (List a) -> List a
+concat :: List String -> String
+concatMap :: (a -> List b) -> List a -> List b
+cons :: Char -> String -> String
+contains :: String -> String -> Bool
+cos :: Float -> Float
+degrees :: Float -> Float
+diff :: Dict comparable a -> Dict comparable b -> Dict comparable a
+diff :: Set comparable -> Set comparable -> Set comparable
+drop :: Int -> List a -> List a
+dropLeft :: Int -> String -> String
+dropRight :: Int -> String -> String
+e :: Float
+empty :: Array a
+empty :: Dict k v
+empty :: Set a
+endsWith :: String -> String -> Bool
+fail :: x -> Task x a
+filter :: (a -> Bool) -> Array a -> Array a
+filter :: (a -> Bool) -> List a -> List a
+filter :: (Char -> Bool) -> String -> String
+filter :: (comparable -> Bool) -> Set comparable -> Set comparable
+filter :: (comparable -> v -> Bool) -> Dict comparable v -> Dict comparable v
+filterMap :: (a -> Maybe b) -> List a -> List b
+first :: (a, b) -> a
+(/) :: Float -> Float -> Float
+floor :: Float -> Int
+foldl :: (a -> b -> b) -> b -> Array a -> b
+foldl :: (a -> b -> b) -> b -> List a -> b
+foldl :: (a -> b -> b) -> b -> Set a -> b
+foldl :: (Char -> b -> b) -> b -> String -> b
+foldl :: (k -> v -> b -> b) -> b -> Dict k v -> b
+foldr :: (a -> b -> b) -> b -> Array a -> b
+foldr :: (a -> b -> b) -> b -> List a -> b
+foldr :: (a -> b -> b) -> b -> Set a -> b
+foldr :: (Char -> b -> b) -> b -> String -> b
+foldr :: (k -> v -> b -> b) -> b -> Dict k v -> b
+fromChar :: Char -> String
+fromCode :: Int -> Char
+fromFloat :: Float -> String
+fromInt :: Int -> String
+fromList :: List a -> Array a
+fromList :: List Char -> String
+fromList :: List comparable -> Set comparable
+fromList :: List (comparable, v) -> Dict comparable v
+fromMaybe :: x -> Maybe a -> Result x a
+fromPolar :: (Float, Float) -> (Float, Float)
+get :: comparable -> Dict comparable v -> Maybe v
+get :: Int -> Array a -> Maybe a
+head :: List a -> Maybe a
+identity :: a -> a
+indexedMap :: (Int -> a -> b) -> Array a -> Array b
+indexedMap :: (Int -> a -> b) -> List a -> List b
+indexes :: String -> String -> List Int
+indices :: String -> String -> List Int
+initialize :: Int -> (Int -> a) -> Array a
+insert :: comparable -> Set comparable -> Set comparable
+insert :: comparable -> v -> Dict comparable v -> Dict comparable v
+intersect :: Dict comparable v -> Dict comparable v -> Dict comparable v
+intersect :: Set comparable -> Set comparable -> Set comparable
+intersperse :: a -> List a -> List a
+(//) :: Int -> Int -> Int
+isAlpha :: Char -> Bool
+isAlphaNum :: Char -> Bool
+isDigit :: Char -> Bool
+isEmpty :: Array a -> Bool
+isEmpty :: Dict k v -> Bool
+isEmpty :: List a -> Bool
+isEmpty :: Set a -> Bool
+isEmpty :: String -> Bool
+isHexDigit :: Char -> Bool
+isInfinite :: Float -> Bool
+isLower :: Char -> Bool
+isNaN :: Float -> Bool
+isOctDigit :: Char -> Bool
+isUpper :: Char -> Bool
+join :: String -> List String -> String
+keys :: Dict k v -> List k
+kill :: Id -> Task x ()
+left :: Int -> String -> String
+length :: Array a -> Int
+length :: List a -> Int
+length :: String -> Int
+lines :: String -> List String
+logBase :: Float -> Float -> Float
+log :: String -> a -> a
+map2 :: (a -> b -> result) -> List a -> List b -> List result
+map2 :: (a -> b -> result) -> Task x a -> Task x b -> Task x result
+map2 :: (a -> b -> value) -> Maybe a -> Maybe b -> Maybe value
+map2 :: (a -> b -> value) -> Result x a -> Result x b -> Result x value
+map3 :: (a -> b -> c -> result) -> List a -> List b -> List c -> List result
+map3 :: (a -> b -> c -> result) -> Task x a -> Task x b -> Task x c -> Task x result
+map3 :: (a -> b -> c -> value) -> Maybe a -> Maybe b -> Maybe c -> Maybe value
+map3 :: (a -> b -> c -> value) -> Result x a -> Result x b -> Result x c -> Result x value
+map4 :: (a -> b -> c -> d -> result) -> List a -> List b -> List c -> List d -> List result
+map4 :: (a -> b -> c -> d -> result) -> Task x a -> Task x b -> Task x c -> Task x d -> Task x result
+map4 :: (a -> b -> c -> d -> value) -> Maybe a -> Maybe b -> Maybe c -> Maybe d -> Maybe value
+map4 :: (a -> b -> c -> d -> value) -> Result x a -> Result x b -> Result x c -> Result x d -> Result x value
+map5 :: (a -> b -> c -> d -> e -> result) -> List a -> List b -> List c -> List d -> List e -> List result
+map5 :: (a -> b -> c -> d -> e -> result) -> Task x a -> Task x b -> Task x c -> Task x d -> Task x e -> Task x result
+map5 :: (a -> b -> c -> d -> e -> value) -> Maybe a -> Maybe b -> Maybe c -> Maybe d -> Maybe e -> Maybe value
+map5 :: (a -> b -> c -> d -> e -> value) -> Result x a -> Result x b -> Result x c -> Result x d -> Result x e -> Result x value
+map :: (a -> b) -> Array a -> Array b
+map :: (a -> b) -> List a -> List b
+map :: (a -> b) -> Maybe a -> Maybe b
+map :: (a -> b) -> Task x a -> Task x b
+map :: (a -> msg) -> Cmd a -> Cmd msg
+map :: (a -> msg) -> Sub a -> Sub msg
+map :: (a -> value) -> Result x a -> Result x value
+mapBoth :: (a -> x) -> (b -> y) -> (a, b) -> (x, y)
+map :: (Char -> Char) -> String -> String
+map :: (comparable -> comparable2) -> Set comparable -> Set comparable2
+mapError :: (x -> y) -> Result x a -> Result y a
+mapError :: (x -> y) -> Task x a -> Task y a
+mapFirst :: (a -> x) -> (a, b) -> (x, b)
+map :: (k -> a -> b) -> Dict k a -> Dict k b
+mapSecond :: (b -> y) -> (a, b) -> (a, y)
+max :: comparable -> comparable -> comparable
+maximum :: List comparable -> Maybe comparable
+member :: a -> List a -> Bool
+member :: comparable -> Dict comparable v -> Bool
+member :: comparable -> Set comparable -> Bool
+merge :: (comparable -> a -> result -> result) -> (comparable -> a -> b -> result -> result) -> (comparable -> b -> result -> result) -> Dict comparable a -> Dict comparable b -> result -> result
+min :: comparable -> comparable -> comparable
+minimum :: List comparable -> Maybe comparable
+modBy :: Int -> Int -> Int
+negate :: number -> number
+never :: Never -> a
+none :: Cmd msg
+none :: Sub msg
+not :: Bool -> Bool
+(*) :: number -> number -> number
+(+) :: number -> number -> number
+(-) :: number -> number -> number
+(^) :: number -> number -> number
+onError :: (x -> Task y a) -> Task x a -> Task y a
+or :: Int -> Int -> Int
+pad :: Int -> Char -> String -> String
+padLeft :: Int -> Char -> String -> String
+padRight :: Int -> Char -> String -> String
+pair :: a -> b -> (a, b)
+partition :: (a -> Bool) -> List a -> (List a, List a)
+partition :: (comparable -> Bool) -> Set comparable -> (Set comparable, Set comparable)
+partition :: (comparable -> v -> Bool) -> Dict comparable v -> (Dict comparable v, Dict comparable v)
+perform :: (a -> msg) -> Task Never a -> Cmd msg
+pi :: Float
+product :: List number -> number
+push :: a -> Array a -> Array a
+radians :: Float -> Float
+range :: Int -> Int -> List Int
+remainderBy :: Int -> Int -> Int
+remove :: comparable -> Dict comparable v -> Dict comparable v
+remove :: comparable -> Set comparable -> Set comparable
+repeat :: Int -> a -> Array a
+repeat :: Int -> a -> List a
+repeat :: Int -> String -> String
+replace :: String -> String -> String -> String
+reverse :: List a -> List a
+reverse :: String -> String
+right :: Int -> String -> String
+round :: Float -> Int
+second :: (a, b) -> b
+sendToApp :: Router msg a -> msg -> Task x ()
+sendToSelf :: Router a msg -> msg -> Task x ()
+sequence :: List (Task x a) -> Task x (List a)
+set :: Int -> a -> Array a -> Array a
+shiftLeftBy :: Int -> Int -> Int
+shiftRightBy :: Int -> Int -> Int
+shiftRightZfBy :: Int -> Int -> Int
+sin :: Float -> Float
+singleton :: a -> List a
+singleton :: comparable -> Set comparable
+singleton :: comparable -> v -> Dict comparable v
+size :: Dict k v -> Int
+size :: Set a -> Int
+sleep :: Float -> Task x ()
+slice :: Int -> Int -> Array a -> Array a
+slice :: Int -> Int -> String -> String
+sortBy :: (a -> comparable) -> List a -> List a
+sort :: List comparable -> List comparable
+sortWith :: (a -> a -> Order) -> List a -> List a
+spawn :: Task x a -> Task y Id
+split :: String -> String -> List String
+sqrt :: Float -> Float
+startsWith :: String -> String -> Bool
+succeed :: a -> Task x a
+sum :: List number -> number
+tail :: List a -> Maybe (List a)
+take :: Int -> List a -> List a
+tan :: Float -> Float
+toCode :: Char -> Int
+todo :: String -> a
+toFloat :: Int -> Float
+toFloat :: String -> Maybe Float
+toIndexedList :: Array a -> List (Int, a)
+toInt :: String -> Maybe Int
+toList :: Array a -> List a
+toList :: Dict k v -> List (k, v)
+toList :: Set a -> List a
+toList :: String -> List Char
+toLocaleLower :: Char -> Char
+toLocaleUpper :: Char -> Char
+toLower :: Char -> Char
+toLower :: String -> String
+toMaybe :: Result x a -> Maybe a
+toPolar :: (Float, Float) -> (Float, Float)
+toString :: a -> String
+toUpper :: Char -> Char
+toUpper :: String -> String
+trimLeft :: String -> String
+trimRight :: String -> String
+trim :: String -> String
+truncate :: Float -> Int
+turns :: Float -> Float
+uncons :: String -> Maybe (Char, String)
+union :: Dict comparable v -> Dict comparable v -> Dict comparable v
+union :: Set comparable -> Set comparable -> Set comparable
+unzip :: List (a, b) -> (List a, List b)
+update :: comparable -> (Maybe v -> Maybe v) -> Dict comparable v -> Dict comparable v
+values :: Dict k v -> List v
+withDefault :: a -> Maybe a -> a
+withDefault :: a -> Result x a -> a
+words :: String -> List String
+worker :: { init : flags -> (model, Cmd msg), update : msg -> model -> (model, Cmd msg), subscriptions : model -> Sub msg } -> Program flags model msg
+xor :: Bool -> Bool -> Bool
+xor :: Int -> Int -> Int
