@@ -52,7 +52,7 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
   renderCard children =
     -- TODO: Card could be react component
     R.div
-      { className: "card flex-1 shadow-xl bg-base-200 mx-2 max-w-2xl"
+      { className: "card flex-1 sm:flex-initial	h-2/5 shadow-xl bg-base-200 mx-2 max-w-2xl"
       , key: show $ _.name $ un Fun $ currentQuestion.optionA
       , children:
           [ R.div
