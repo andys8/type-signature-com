@@ -68,7 +68,12 @@ pageGameEnd { answeredQuestions, onRestart, language } =
     ]
 
   resultStat = element stats
-    { className: "bg-primary text-primary-content shadow px-4"
+    { className: joinWith " "
+        [ "shadow px-4 select-none"
+        , if score > 0.8 then "bg-success text-success-content"
+          else "bg-primary text-primary-content"
+        ]
+
     , children:
         [ element stat
             { children:
