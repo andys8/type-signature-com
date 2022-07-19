@@ -5,11 +5,11 @@ import Languages (AllLanguages)
 
 foreign import elmCoreUrl :: URL
 foreign import haskellPreludeUrl :: URL
-foreign import purescriptPreludeUrl :: URL
+foreign import purescriptFunctionsUrl :: URL
 
 urls :: AllLanguages URL
 urls =
   { haskell: haskellPreludeUrl
-  , purescript: purescriptPreludeUrl
+  , purescript: purescriptFunctionsUrl
   , elm: elmCoreUrl
   }
