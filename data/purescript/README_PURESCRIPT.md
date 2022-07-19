@@ -11,4 +11,4 @@
 - Delete explicit forall: `:%s/forall .*\. //g`
 - Delete derives: `g/^derive /d`
 - Drop examples like splitAt that are failing tests
-- Sort
+- Make unique and sort `sort -u -o prelude.txt prelude.txt`
