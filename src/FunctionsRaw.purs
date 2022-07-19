@@ -4,7 +4,6 @@ import Affjax.Web (URL)
 import Languages (AllLanguages)
 
 foreign import elmCoreUrl :: URL
-foreign import haskellBaseUrl :: URL
 foreign import haskellPreludeUrl :: URL
 foreign import purescriptPreludeUrl :: URL
 
