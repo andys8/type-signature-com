@@ -3,6 +3,8 @@ module Components.AppNavbar where
 import Foreign.Daisyui (navbar, navbarStart)
 import React.Basic (JSX, element)
 import React.Basic.DOM as R
+import React.Icons (icon)
+import React.Icons.Gi (giPencilBrush)
 
 appNavbar :: JSX
 appNavbar = element navbar
@@ -12,9 +14,12 @@ appNavbar = element navbar
           { className: "px-2 mx-2"
           , children:
               [ R.a
-                  { className: "text-lg font-bold"
+                  { className: "text-lg font-bold gap-4 flex flex-row items-center"
                   , href: "/"
-                  , children: [ R.text "type-signature.com" ]
+                  , children:
+                      [ icon giPencilBrush { size: "24px" }
+                      , R.text "type-signature.com"
+                      ]
                   }
               ]
           }
