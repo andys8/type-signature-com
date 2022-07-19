@@ -50,7 +50,6 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
   { currentQuestion, currentAnswer } = inProgressState
 
   renderCard children =
-    -- TODO: Card could be react component
     R.div
       { className: "card flex-1 sm:flex-initial	h-1/2 shadow-xl bg-base-200 mx-2 max-w-2xl"
       , key: show $ _.name $ un Fun $ currentQuestion.optionA
@@ -63,8 +62,6 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
           ]
       }
 
-  -- TODO: Format function (maybe different colors)
-  -- TODO: Make sure long function breaks accordingly or is prettified with line breaks
   renderQuestion q = R.div
     { className: "flex flex-col justify-center items-center w-full"
     , children:
