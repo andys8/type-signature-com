@@ -22,21 +22,21 @@
     "@parcel/packager-raw-url": "^2.6.2",
     "@parcel/packager-xml": "^2.6.2",
     "@parcel/transformer-raw": "^2.6.2",
-    "concurrently": "^7.2.2",
-    "esbuild": "^0.14.47",
+    "concurrently": "^7.3.0",
+    "esbuild": "^0.14.49",
     "parcel": "^2.6.2",
     "parcel-config-pwa-manifest": "^0.1.2",
     "parcel-transformer-ogimage": "^1.0.3",
     "postcss": "^8.4.14",
     "purescript": "^0.15.4",
     "spago": "^0.20.9",
-    "tailwindcss": "^3.1.4"
+    "tailwindcss": "^3.1.6"
   },
   "dependencies": {
     "canvas-confetti": "^1.5.1",
-    "daisyui": "^2.17.0",
+    "daisyui": "^2.19.0",
     "firacode": "^6.2.0",
-    "react-daisyui": "^2.0.4",
+    "react-daisyui": "^2.0.6",
     "react-icons": "^4.4.0"
   },
   "pwaManifest": {
