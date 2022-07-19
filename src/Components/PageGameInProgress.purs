@@ -3,9 +3,10 @@ module Components.PageGameInProgress (pageGameInProgress) where
 import Prelude
 
 import Components.AppGameSteps (appGameSteps)
-import Data.Maybe (Maybe(..), isJust)
+import Data.Maybe (Maybe(..), fromMaybe, isJust)
 import Data.Newtype (un)
 import Data.String (Pattern(..), split)
+import Data.String as S
 import Effect (Effect)
 import Foreign.Daisyui (badge, button_)
 import Functions (Fun(..))
@@ -103,11 +104,12 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
               }
           , let
               name = _.name $ un Fun fun
+              noParens x = fromMaybe x (S.stripPrefix (Pattern "(") =<< (S.stripSuffix (Pattern ")") x))
             in
               code
                 { className: "font-medium font-mono text-lg normal-case truncate"
                 , title: name
-                , children: [ R.text name ]
+                , children: [ R.text $ noParens name ]
                 }
           ]
       }
