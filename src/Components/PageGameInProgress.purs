@@ -32,23 +32,26 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
     { className: "flex flex-col h-full w-full gap-8 items-center justify-start sm:justify-center"
     , children:
         [ appGameSteps { inProgressState }
-        , renderCard
-            [ R.h2
-                { className: "card-title text-secondary whitespace-nowrap"
-                , children: [ R.text "Which function has this type?" ]
-                }
-            , renderQuestion inProgressState.currentQuestion
-            , R.div_
-                [ renderAnswerButton A inProgressState.currentQuestion.optionA
-                , renderAnswerButton B inProgressState.currentQuestion.optionB
-                , renderAnswerButton C inProgressState.currentQuestion.optionC
-                , renderAnswerButton D inProgressState.currentQuestion.optionD
-                ]
-            ]
+        , renderCard cardContent
         ]
     }
   where
   { currentQuestion, currentAnswer } = inProgressState
+  { correctOption } = currentQuestion
+
+  cardContent =
+    [ R.h2
+        { className: "card-title text-secondary whitespace-nowrap"
+        , children: [ R.text "Which function has this type?" ]
+        }
+    , renderQuestion currentQuestion
+    , R.div_
+        [ renderAnswerButton A currentQuestion.optionA
+        , renderAnswerButton B currentQuestion.optionB
+        , renderAnswerButton C currentQuestion.optionC
+        , renderAnswerButton D currentQuestion.optionD
+        ]
+    ]
 
   renderCard children =
     R.div
@@ -86,8 +89,8 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
   renderAnswerButton option fun =
     button_
       { color: case currentAnswer of
-          Just answer | answer == option && option /= currentQuestion.correctOption -> "error"
-          Just _ | option == currentQuestion.correctOption -> "success"
+          Just answer | answer == option && option /= correctOption -> "error"
+          Just _ | option == correctOption -> "success"
           _ -> "default"
       , onClick: handler stopPropagation $ const $
           if isJust currentAnswer then pure unit
@@ -98,19 +101,20 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
               { size: "lg"
               , responsive: false
               , color: case currentAnswer of
-                  Just answer | answer == option || option == currentQuestion.correctOption -> "neutral"
+                  Just answer | answer == option || option == correctOption -> "neutral"
                   _ -> "secondary"
               , children: [ R.text $ show option ]
               }
-          , let
-              name = _.name $ un Fun fun
-              noParens x = fromMaybe x (S.stripPrefix (Pattern "(") =<< (S.stripSuffix (Pattern ")") x))
-            in
-              code
-                { className: "font-medium font-mono text-lg normal-case truncate"
-                , title: name
-                , children: [ R.text $ noParens name ]
-                }
+          , code
+              { className: "font-medium font-mono text-lg normal-case truncate"
+              , title: functionName fun
+              , children: [ R.text $ noParens $ functionName fun ]
+              }
           ]
       }
 
+functionName :: Fun -> String
+functionName = _.name <<< un Fun
+
+noParens :: String -> String
+noParens x = fromMaybe x (S.stripPrefix (Pattern "(") =<< (S.stripSuffix (Pattern ")") x))

@@ -136,8 +136,8 @@ reducer state ActionNextQuestion =
       Nothing -> GameEnd s.answeredQuestions
 
 toFunctions :: State -> NonEmptySet Fun
-toFunctions state = case state.language of
-  Haskell -> state.functions.haskell
-  PureScript -> state.functions.purescript
-  Elm -> state.functions.elm
+toFunctions { functions, language } = case language of
+  Haskell -> functions.haskell
+  PureScript -> functions.purescript
+  Elm -> functions.elm
 

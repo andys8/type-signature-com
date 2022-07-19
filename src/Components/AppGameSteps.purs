@@ -4,6 +4,7 @@ import Prelude
 
 import Data.Array as A
 import Data.Maybe (Maybe(..))
+import Data.Monoid (guard)
 import Data.String (joinWith)
 import Questions (isAnswerCorrect)
 import React.Basic (JSX)
@@ -16,6 +17,10 @@ type Props =
   { inProgressState :: GameInProgressState
   }
 
+data Step = StepSuccess | StepError | StepCurrent | StepNext
+
+derive instance Eq Step
+
 appGameSteps :: Props -> JSX
 appGameSteps { inProgressState } =
   R.ul
@@ -27,26 +32,23 @@ appGameSteps { inProgressState } =
     , children: answered <> pure current <> next
     }
   where
-  answered = (\x -> mkStep if isAnswerCorrect x then StepSuccess else StepError)
-    <$> A.reverse inProgressState.answeredQuestions
+  { answeredQuestions, currentQuestion, nextQuestions, currentAnswer } = inProgressState
 
-  current = mkStep $
-    if inProgressState.currentAnswer == Just inProgressState.currentQuestion.correctOption then StepSuccess
-    else StepCurrent
+  answered = answeredStep <$> A.reverse answeredQuestions
+  answeredStep x = mkStep if isAnswerCorrect x then StepSuccess else StepError
 
-  next = (const $ mkStep StepNext) <$> inProgressState.nextQuestions
+  current | currentAnswer == Just currentQuestion.correctOption = mkStep StepSuccess
+  current = mkStep StepCurrent
 
-data Step = StepSuccess | StepError | StepCurrent | StepNext
+  next = (const $ mkStep StepNext) <$> nextQuestions
 
 mkStep :: Step -> JSX
-mkStep step = R.li { className, children: mkContent step }
+mkStep step = R.li { className, children: [ mkContent step ] }
   where
-  className = case step of
-    StepNext -> "step gap-2"
-    _ -> "step gap-2 step-neutral"
+  className = "step gap-2" <> guard (step /= StepNext) " step-neutral"
 
-mkContent :: Step -> Array JSX
-mkContent StepNext = [ icon imRadioUnchecked { className: "text-neutral" } ]
-mkContent StepCurrent = [ icon imRadioChecked { color: "white", className: "text-neutral animate-pulse" } ]
-mkContent StepSuccess = [ icon imCheckmark { className: "text-success" } ]
-mkContent StepError = [ icon imCross { className: "text-error" } ]
+mkContent :: Step -> JSX
+mkContent StepNext = icon imRadioUnchecked { className: "text-neutral" }
+mkContent StepCurrent = icon imRadioChecked { color: "white", className: "text-neutral animate-pulse" }
+mkContent StepSuccess = icon imCheckmark { className: "text-success" }
+mkContent StepError = icon imCross { className: "text-error" }

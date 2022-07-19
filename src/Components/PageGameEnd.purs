@@ -33,14 +33,16 @@ pageGameEnd :: Props -> JSX
 pageGameEnd { answeredQuestions, onRestart, language } =
   fragment
     [ resultStat
-    , renderQuestions answeredQuestions
-    , R.div
-        { className: "flex flex-row gap-4"
-        , children: restartButton : guard (score > 0.5) [ twitterButton ]
-        }
+    , renderTable answeredQuestions
+    , buttons
     , icon (languageIcon language) { size: "32px", className: "text-base-300 mt-6" }
     ]
   where
+  buttons = R.div
+    { className: "flex flex-row gap-4"
+    , children: restartButton : guard (score > 0.5) [ twitterButton ]
+    }
+
   restartButton =
     button_
       { color: "default"
@@ -73,7 +75,6 @@ pageGameEnd { answeredQuestions, onRestart, language } =
         , if score > 0.8 then "bg-success text-success-content"
           else "bg-primary text-primary-content"
         ]
-
     , children:
         [ element stat
             { children:
@@ -112,15 +113,10 @@ pageGameEnd { answeredQuestions, onRestart, language } =
   countCorrect = A.length $ A.filter isAnswerCorrect answeredQuestions
   score = toNumber countCorrect / toNumber countTotal
 
-renderQuestions :: Array AnsweredQuestion -> JSX
-renderQuestions questions = R.div
+renderTable :: Array AnsweredQuestion -> JSX
+renderTable questions = R.div
   { className: "overflow-x-auto my-6"
-  , children:
-      [ R.table
-          { className: "table w-full"
-          , children: [ header, body ]
-          }
-      ]
+  , children: [ R.table { className: "table w-full", children: [ header, body ] } ]
   }
   where
   header =
@@ -134,10 +130,10 @@ renderQuestions questions = R.div
               ]
           ]
       }
-  body = R.tbody_ (R.tr_ <<< renderQuestion <$> A.reverse questions)
+  body = R.tbody_ (R.tr_ <<< renderTableRow <$> A.reverse questions)
 
-renderQuestion :: AnsweredQuestion -> Array JSX
-renderQuestion aq@(AnsweredQuestion question _) =
+renderTableRow :: AnsweredQuestion -> Array JSX
+renderTableRow aq@(AnsweredQuestion question _) =
   [ R.th { className: "py-0.5 pr-1 sm:pr-3", children: [ answerIcon ] }
   , R.td { className: "py-0.5 pr-1 font-bold sm:pr-3", children: [ R.text name ] }
   , R.td
@@ -156,4 +152,3 @@ renderQuestion aq@(AnsweredQuestion question _) =
   answerIcon =
     if isAnswerCorrect aq then icon imCheckmark { className: "text-success" }
     else icon imCross { className: "text-error" }
-
