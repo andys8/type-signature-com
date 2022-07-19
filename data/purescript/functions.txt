@@ -1,5 +1,7 @@
+abs :: Number -> Number
 abs :: Ord a => Ring a => a -> a
 absurd :: Void -> a
+acos :: Number -> Number
 ala :: Coercible (f t) (f a) => Newtype t a => Newtype s b => (a -> t) -> ((b -> s) -> f t) -> f a
 alaF :: Coercible (f t) (f a) => Coercible (g s) (g b) => Newtype t a => Newtype s b => (a -> t) -> (f t -> g s) -> f a -> g b
 all :: (a -> Boolean) -> Array a -> Boolean
@@ -13,6 +15,9 @@ ap :: Monad m => m (a -> b) -> m a -> m b
 ap :: Monad m => m (a -> b) -> m a -> m b
 area :: Meter -> Meter -> SquareMeter
 asNormalDegrees :: Number -> Number
+asin :: Number -> Number
+atan :: Number -> Number
+atan2 :: Number -> Number -> Number
 base36 :: Radix
 between :: Ord a => a -> a -> a -> Boolean
 between :: Ord a => a -> a -> a -> Boolean
@@ -20,6 +25,7 @@ binary :: Radix
 catMaybes :: Array (Maybe a) -> Array a
 catMaybes :: Ord k => Map k (Maybe v) -> Map k v
 ceil :: Number -> Int
+ceil :: Number -> Number
 checkValid :: Map k v -> Boolean
 clamp :: Ord a => a -> a -> a -> a
 clamp :: Ord a => a -> a -> a -> a
@@ -33,6 +39,7 @@ concatMap :: (a -> Array b) -> Array a -> Array b
 cons :: a -> Array a -> Array a
 const :: a -> b -> a
 contains :: Pattern -> String -> Boolean
+cos :: Number -> Number
 countPrefix :: (CodePoint -> Boolean) -> String -> Int
 curry :: (Tuple a b -> c) -> a -> b -> c
 decimal :: Radix
@@ -47,12 +54,14 @@ drop :: Int -> String -> String
 dropEnd :: Int -> Array a -> Array a
 dropWhile :: (CodePoint -> Boolean) -> String -> String
 dropWhile :: (a -> Boolean) -> Array a -> Array a
+e :: Number
 elem :: Eq a => a -> Array a -> Boolean
 elem :: Foldable f => Eq a => a -> f a -> Boolean
 elemIndex :: Eq a => a -> Array a -> Maybe Int
 elemLastIndex :: Eq a => a -> Array a -> Maybe Int
 empty :: Map k v
 even :: Int -> Boolean
+exp :: Number -> Number
 fail :: Monad m => ForeignError -> ExceptT (NonEmptyList ForeignError) m a
 filter :: (a -> Boolean) -> Array a -> Array a
 filter :: Ord k => (v -> Boolean) -> Map k v -> Map k v
@@ -71,6 +80,7 @@ flap :: Functor f => f (a -> b) -> a -> f b
 flap :: Functor f => f (a -> b) -> a -> f b
 flip :: (a -> b -> c) -> b -> a -> c
 floor :: Number -> Int
+floor :: Number -> Number
 fold :: Foldable f => Monoid m => f m -> m
 fold :: Monoid m => Array m -> m
 foldM :: Foldable f => Monad m => (b -> a -> m b) -> b -> f a -> m b
@@ -98,6 +108,7 @@ fromMaybe :: a -> Maybe a -> a
 fromMaybe' :: (Unit -> a) -> Maybe a -> a
 fromNumber :: Number -> Maybe Int
 fromString :: String -> Maybe Int
+fromString :: String -> Maybe Number
 fromStringAs :: Radix -> String -> Maybe Int
 fst :: Tuple a b -> a
 gcd :: Eq a => EuclideanRing a => a -> a -> a
@@ -120,6 +131,7 @@ indexOf :: Pattern -> String -> Maybe Int
 indexOf' :: Pattern -> Int -> String -> Maybe Int
 indexl :: Foldable f => Int -> f a -> Maybe a
 indexr :: Foldable f => Int -> f a -> Maybe a
+infinity :: Number
 init :: Array a -> Maybe (Array a)
 insert :: Ord a => a -> Array a -> Array a
 insert :: Ord k => k -> v -> Map k v -> Map k v
@@ -135,7 +147,9 @@ intersectionWith :: Ord k => (a -> b -> c) -> Map k a -> Map k b -> Map k c
 intersperse :: a -> Array a -> Array a
 isArray :: Foreign -> Boolean
 isEmpty :: Map k v -> Boolean
+isFinite :: Number -> Boolean
 isJust :: Maybe a -> Boolean
+isNaN :: Number -> Boolean
 isNothing :: Maybe a -> Boolean
 isNull :: Foreign -> Boolean
 isSubmap :: Ord k => Eq v => Map k v -> Map k v -> Boolean
@@ -160,7 +174,12 @@ liftA1 :: Applicative f => (a -> b) -> f a -> f b
 liftA1 :: Applicative f => (a -> b) -> f a -> f b
 liftM1 :: Monad m => (a -> b) -> m a -> m b
 liftM1 :: Monad m => (a -> b) -> m a -> m b
+ln10 :: Number
+ln2 :: Number
 localeCompare :: String -> String -> Ordering
+log :: Number -> Number
+log10e :: Number
+log2e :: Number
 longEnough :: String -> Bool
 longEnough :: String -> Bool
 lookup :: Foldable f => Eq a => a -> f (Tuple a b) -> Maybe b
@@ -171,6 +190,7 @@ mapMaybe :: (a -> Maybe b) -> Array a -> Array b
 mapMaybe :: Ord k => (a -> Maybe b) -> Map k a -> Map k b
 mapMaybeWithKey :: Ord k => (k -> a -> Maybe b) -> Map k a -> Map k b
 mapWithIndex :: (Int -> a -> b) -> Array a -> Array b
+max :: Number -> Number -> Number
 max :: Ord a => a -> a -> a
 max :: Ord a => a -> a -> a
 maximum :: Ord a => Foldable f => f a -> Maybe a
@@ -178,6 +198,7 @@ maximumBy :: Foldable f => (a -> a -> Ordering) -> f a -> Maybe a
 maybe :: b -> (a -> b) -> Maybe a -> b
 maybe' :: (Unit -> b) -> (a -> b) -> Maybe a -> b
 member :: Ord k => k -> Map k v -> Boolean
+min :: Number -> Number -> Number
 min :: Ord a => a -> a -> a
 min :: Ord a => a -> a -> a
 minimum :: Ord a => Foldable f => f a -> Maybe a
@@ -185,6 +206,7 @@ minimumBy :: Foldable f => (a -> a -> Ordering) -> f a -> Maybe a
 modify :: Newtype t a => (a -> a) -> t -> t
 modifyAt :: Int -> (a -> a) -> Array a -> Maybe (Array a)
 modifyAtIndices :: Foldable t => t Int -> (a -> a) -> Array a -> Array a
+nan :: Number
 negate :: Ring a => a -> a
 normaliseDegrees :: Degrees -> NormalDegrees
 notElem :: Eq a => a -> Array a -> Boolean
@@ -215,8 +237,10 @@ parity :: Int -> Parity
 parseEmail :: String -> Maybe Email
 password :: String
 password :: String
+pi :: Number
 pop :: Ord k => k -> Map k v -> Maybe (Tuple v (Map k v))
 pow :: Int -> Int -> Int
+pow :: Number -> Number -> Number
 powerSet :: Array a -> Array (Array a)
 product :: Foldable f => Semiring a => f a -> a
 quot :: Int -> Int -> Int
@@ -232,6 +256,7 @@ readNumber :: Monad m => Foreign -> ExceptT (NonEmptyList ForeignError) m Number
 readString :: Monad m => Foreign -> ExceptT (NonEmptyList ForeignError) m String
 readUndefined :: Monad m => Foreign -> ExceptT (NonEmptyList ForeignError) m (Maybe Foreign)
 rem :: Int -> Int -> Int
+remainder :: Number -> Number -> Number
 renderForeignError :: ForeignError -> String
 replace :: Pattern -> Replacement -> String -> String
 replaceAll :: Pattern -> Replacement -> String -> String
@@ -239,11 +264,14 @@ replicate :: Int -> a -> Array a
 reverse :: Array a -> Array a
 rightOnly :: Either Void t -> t
 round :: Number -> Int
+round :: Number -> Number
 scanl :: (b -> a -> b) -> b -> Array a -> Array b
 scanr :: (a -> b -> b) -> b -> Array a -> Array b
 sequence_ :: Applicative m => Foldable f => f (m a) -> m Unit
 showTree :: Show k => Show v => Map k v -> String
+sign :: Number -> Number
 signum :: Ord a => Ring a => a -> a
+sin :: Number -> Number
 singleton :: CodePoint -> String
 singleton :: a -> Array a
 singleton :: k -> v -> Map k v
@@ -256,6 +284,9 @@ sort :: Ord a => Array a -> Array a
 sortBy :: (a -> a -> Ordering) -> Array a -> Array a
 sortWith :: Ord b => (a -> b) -> Array a -> Array a
 split :: Pattern -> String -> Array String
+sqrt :: Number -> Number
+sqrt1_2 :: Number
+sqrt2 :: Number
 stripPrefix :: Pattern -> String -> Maybe String
 stripSuffix :: Pattern -> String -> Maybe String
 submap :: Ord k => Maybe k -> Maybe k -> Map k v -> Map k v
@@ -270,6 +301,8 @@ take :: Int -> String -> String
 takeEnd :: Int -> Array a -> Array a
 takeWhile :: (CodePoint -> Boolean) -> String -> String
 takeWhile :: (a -> Boolean) -> Array a -> Array a
+tan :: Number -> Number
+tau :: Number
 toCharCode :: Char -> Int
 toCodePointArray :: String -> Array CodePoint
 toLower :: String -> String
@@ -285,6 +318,7 @@ traverse :: Coercible (f a) (f t) => Newtype t a => (a -> t) -> (a -> f a) -> t 
 traverse_ :: Applicative m => Foldable f => (a -> m b) -> f a -> m Unit
 trim :: String -> String
 trunc :: Number -> Int
+trunc :: Number -> Number
 typeOf :: Foreign -> String
 un :: Newtype t a => (a -> t) -> t -> a
 uncurry :: (a -> b -> c) -> Tuple a b -> c
