@@ -28,7 +28,7 @@ parseFunctions :: String -> Either String (NonEmptySet Fun)
 parseFunctions = toNonEmpty <=< traverse (mkFun <<< lineToFunction) <<< toLines
   where
   toLines = A.filter (not <<< null <<< trim) <<< split (Pattern "\n")
-  lineToFunction = split (Pattern " :: ")
+  lineToFunction = map trim <<< split (Pattern " :: ")
   mkFun [ name, signature ] = Right $ Fun { name, signature }
   mkFun x = Left $ "Couldn't parse line: " <> show x
   toNonEmpty = note "Empty" <<< NES.fromFoldable

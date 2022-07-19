@@ -98,7 +98,7 @@ isOctDigit :: Char -> Bool
 isUpper :: Char -> Bool
 join :: String -> List String -> String
 keys :: Dict k v -> List k
-kill :: Process.Id -> Task x ()
+kill :: Id -> Task x ()
 left :: Int -> String -> String
 length :: Array a -> Int
 length :: List a -> Int
@@ -197,7 +197,7 @@ slice :: Int -> Int -> String -> String
 sort :: List comparable -> List comparable
 sortBy :: (a -> comparable) -> List a -> List a
 sortWith :: (a -> a -> Order) -> List a -> List a
-spawn :: Task x a -> Task y Process.Id
+spawn :: Task x a -> Task y Id
 split :: String -> String -> List String
 sqrt :: Float -> Float
 startsWith :: String -> String -> Bool

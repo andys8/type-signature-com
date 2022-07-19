@@ -22,6 +22,7 @@ sort -o core.txt core.txt
 - `:%s/String\.//g`
 - `:%s/Task\.//g`
 - `:%s/Platform\.//g`
+- `:%s/Process\.//g`
 - `:%s/Program\.//g`
 - `:%s/Set\.//g`
 - `:%s/Sub\.//g`
