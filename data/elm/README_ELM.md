@@ -12,4 +12,4 @@ jq -r 'map(.binops)[] | .[]|[.name,.type]|join(" :: ")' core_source.json >> core
 - Manually append parens to operators
 - Vim remove prefix in types: `%s/[A-Z][a-z]*\.//`
 - Vim remove parens `%s/( /(/g` and `%s/ )/)/g`
-- Make unique and sort `sort -u -o prelude.txt prelude.txt`
+- Make unique and sort `sort -u -o core.txt core.txt`

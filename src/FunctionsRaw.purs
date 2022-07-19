@@ -4,12 +4,12 @@ import Affjax.Web (URL)
 import Languages (AllLanguages)
 
 foreign import elmCoreUrl :: URL
-foreign import haskellPreludeUrl :: URL
+foreign import haskellFunctionsUrl :: URL
 foreign import purescriptFunctionsUrl :: URL
 
 urls :: AllLanguages URL
 urls =
-  { haskell: haskellPreludeUrl
+  { haskell: haskellFunctionsUrl
   , purescript: purescriptFunctionsUrl
   , elm: elmCoreUrl
   }

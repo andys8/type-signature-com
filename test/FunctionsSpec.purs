@@ -19,7 +19,7 @@ import Test.Spec (Spec, before, describe, it)
 import Test.Spec.Assertions (shouldEqual, shouldNotEqual, shouldNotSatisfy, shouldSatisfy)
 
 foreign import elmCore :: String
-foreign import haskellPrelude :: String
+foreign import haskellFunctions :: String
 foreign import purescriptFunctions :: String
 
 spec :: Spec Unit
@@ -46,7 +46,7 @@ spec =
         parseFunctions (f1Text <> "\nwrong")
           `shouldEqual` Left "Couldn't parse line: [\"wrong\"]"
 
-      before (pure $ parseToList haskellPrelude) do
+      before (pure $ parseToList haskellFunctions) do
         describe "Haskell" do
 
           it "can be parsed" \functions -> do

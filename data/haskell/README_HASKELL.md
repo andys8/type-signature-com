@@ -10,4 +10,4 @@
 - Delete explicit forall: `%s/forall .*\. //g`
 - Delete constructors: `g/^[A-Z]/d`
 - Delete in brackets: `g/^\[/d`
-- Make unique and sort `sort -u -o prelude.txt prelude.txt`
+- Make unique and sort `sort -u -o functions.txt functions.txt`
