@@ -140,7 +140,7 @@ renderTableRow aq@(AnsweredQuestion question _) =
       { className: "hidden py-0.5 pr-1 sm:table-cell sm:pr-3"
       , children:
           [ R.pre
-              { className: "max-w-lg truncate"
+              { className: "max-w-lg font-mono font-medium truncate"
               , title: signature
               , children: [ R.text signature ]
               }
