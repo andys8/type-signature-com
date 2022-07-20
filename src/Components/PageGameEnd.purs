@@ -56,18 +56,19 @@ pageGameEnd { answeredQuestions, onRestart, language } =
       { color: "info"
       , className: "gap-2"
       , onClick: handler stopPropagation $ const $ do
-          let url = "https://twitter.com/intent/tweet?text=" <> tweet
+          let
+            url = "https://twitter.com/intent/tweet"
+              <> ("?hashtags=" <> show language)
+              <> ("&text=" <> tweet)
           void $ Window.open url "_blank" "" =<< window
-      , children: [ icon_ faTwitter, R.text "Tweet about it" ]
+      , children: [ icon_ faTwitter, R.text "Share on Twitter" ]
       }
 
   tweet = joinWith " "
     [ "Hey there, I scored"
     , show countCorrect <> "/" <> show countTotal
-    , "with"
-    , "#" <> show language
     , "on https://type-signature.com."
-    , "Try it too!"
+    , "Give it a shot!"
     ]
 
   resultStat = element stats
