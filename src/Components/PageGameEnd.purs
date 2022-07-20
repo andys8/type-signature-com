@@ -64,7 +64,8 @@ pageGameEnd { answeredQuestions, onRestart, language } =
   tweet = joinWith " "
     [ "Hey there, I scored"
     , show countCorrect <> "/" <> show countTotal
-    , "with " <> show language
+    , "with"
+    , "#" <> show language
     , "on https://type-signature.com."
     , "Try it too!"
     ]
