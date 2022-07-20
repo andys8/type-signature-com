@@ -29,7 +29,7 @@ type Props =
 pageGameInProgress :: Props -> JSX
 pageGameInProgress { language, onAnswerClick, inProgressState } =
   R.div
-    { className: "flex flex-col h-full w-full gap-8 items-center justify-start sm:justify-center"
+    { className: "flex flex-col items-center justify-start w-full h-full gap-8 sm:justify-center"
     , children:
         [ appGameSteps { inProgressState }
         , renderCard cardContent
@@ -55,22 +55,22 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
 
   renderCard children =
     R.div
-      { className: "card flex-1 sm:flex-initial	h-1/2 shadow-xl bg-base-200 mx-2 w-full max-w-2xl"
+      { className: "flex-1 w-full max-w-2xl mx-2 shadow-xl card sm:flex-initial h-1/2 bg-base-200"
       , key: show $ _.name $ un Fun $ currentQuestion.optionA
       , children:
           [ R.div
-              { className: "card-body justify-between items-center text-center gap-4 z-10", children }
+              { className: "z-10 items-center justify-between text-center card-body gap-4", children }
           , icon
               (languageIcon language)
-              { size: "80px", className: "absolute m-6 text-base-300 z-0" }
+              { size: "80px", className: "absolute z-0 m-6 text-base-300" }
           ]
       }
 
   renderQuestion q = R.div
-    { className: "flex flex-col justify-center items-center w-full"
+    { className: "flex flex-col items-center justify-center w-full"
     , children:
         [ h1
-            { className: "flex flex-col gap-2 font-mono font-medium text-xl sm:text-2xl"
+            { className: "flex flex-col font-mono text-xl font-medium gap-2 sm:text-2xl"
             , children: [ renderSignature $ questionFunction q ]
             }
         ]
@@ -95,7 +95,7 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
       , onClick: handler stopPropagation $ const $
           if isJust currentAnswer then pure unit
           else onAnswerClick option
-      , className: "gap-4 m-2 w-64 justify-start flex-nowrap"
+      , className: "justify-start w-64 m-2 gap-4 flex-nowrap"
       , children:
           [ element badge
               { size: "lg"
@@ -106,7 +106,7 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
               , children: [ R.text $ show option ]
               }
           , code
-              { className: "font-medium font-mono text-lg normal-case truncate"
+              { className: "font-mono text-lg font-medium normal-case truncate"
               , title: functionName fun
               , children: [ R.text $ noParens $ functionName fun ]
               }

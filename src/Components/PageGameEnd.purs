@@ -35,7 +35,7 @@ pageGameEnd { answeredQuestions, onRestart, language } =
     [ resultStat
     , renderTable answeredQuestions
     , buttons
-    , icon (languageIcon language) { size: "32px", className: "text-base-300 mt-6" }
+    , icon (languageIcon language) { size: "32px", className: "mt-6 text-base-300" }
     ]
   where
   buttons = R.div
@@ -85,7 +85,7 @@ pageGameEnd { answeredQuestions, onRestart, language } =
                 , element statItem
                     { variant: "value"
                     , children:
-                        [ R.span { className: "text-9xl font-bold", children: [ R.text $ show countCorrect ] }
+                        [ R.span { className: "font-bold text-9xl", children: [ R.text $ show countCorrect ] }
                         , R.span { className: "text-5xl", children: [ R.text "/" ] }
                         , R.span { className: "text-3xl", children: [ R.text $ show countTotal ] }
                         ]
@@ -115,7 +115,7 @@ pageGameEnd { answeredQuestions, onRestart, language } =
 
 renderTable :: Array AnsweredQuestion -> JSX
 renderTable questions = R.div
-  { className: "overflow-x-auto my-6"
+  { className: "my-6 overflow-x-auto"
   , children: [ R.table { className: "table w-full", children: [ header, body ] } ]
   }
   where
@@ -140,7 +140,7 @@ renderTableRow aq@(AnsweredQuestion question _) =
       { className: "hidden py-0.5 pr-1 sm:table-cell sm:pr-3"
       , children:
           [ R.pre
-              { className: "truncate max-w-lg"
+              { className: "max-w-lg truncate"
               , title: signature
               , children: [ R.text signature ]
               }

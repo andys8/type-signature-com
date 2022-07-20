@@ -14,7 +14,7 @@ appNavbar = element navbar
           { className: "px-2 mx-2"
           , children:
               [ R.a
-                  { className: "text-lg font-bold gap-4 flex flex-row items-center"
+                  { className: "flex flex-row items-center text-lg font-bold gap-4"
                   , href: "/"
                   , children:
                       [ icon giPencilBrush { size: "24px" }

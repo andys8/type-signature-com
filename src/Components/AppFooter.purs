@@ -9,7 +9,7 @@ import React.Icons.Types (ReactIcon)
 
 appFooter :: JSX
 appFooter = element footer
-  { className: "footer footer-center p-6 gap-4 bg-base-200 text-base-content"
+  { className: "p-6 footer footer-center gap-4 bg-base-200 text-base-content"
   , children:
       [ R.div
           { className: "grid grid-flow-col gap-4"

@@ -55,12 +55,12 @@ mkApp = do
           Right functions -> game { functions }
 
       appContent = R.main
-        { className: "flex flex-col flex-1 p-5 h-full items-center justify-center text-center"
+        { className: "flex flex-col items-center justify-center flex-1 h-full p-5 text-center"
         , children: [ content ]
         }
 
     pure $ R.div
-      { className: "flex flex-col justify-between absolute inset-0 font-sans"
+      { className: "absolute inset-0 flex flex-col justify-between font-sans"
       , children:
           [ appNavbar
           , appContent
