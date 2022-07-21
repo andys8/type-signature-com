@@ -32,7 +32,7 @@ pageStart { onStartClick, onLanguageSet, language } =
         }
     , R.p
         { className: "pt-6 pb-10"
-        , children: [ R.text "Who Wants to Be a Millionaire - but with types" ]
+        , children: [ R.text "Who Wants to Be a Millionaire - but with Types" ]
         }
     , languageSelection { language, onLanguageSet }
     , button_

@@ -1,6 +1,6 @@
 # [type-signature.com](https://type-signature.com) [![Build and Deploy](https://github.com/andys8/type-signature-com/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/andys8/type-signature-com/actions/workflows/ci.yml)
 
-Who Wants to Be a Millionaire - but with types
+Who Wants to Be a Millionaire - but with Types
 
 ![Icon](https://raw.githubusercontent.com/andys8/type-signature-com/master/public/icon.png)
 
