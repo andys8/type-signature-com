@@ -46,7 +46,7 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
 
   cardContent =
     [ R.h2
-        { className: "card-title text-secondary whitespace-nowrap"
+        { className: "select-none card-title text-secondary whitespace-nowrap"
         , children: [ R.text "Which function has this type?" ]
         }
     , renderQuestion currentQuestion
@@ -106,8 +106,9 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
       , onClick: handler stopPropagation $ const $
           if isJust currentAnswer then pure unit
           else onAnswerClick option
-      , className: "justify-start w-64 m-2 gap-4 flex-nowrap" <>
-          guard (optionResult option == OptionError) " animate-wiggle"
+      , className: "justify-start w-64 m-2 gap-4 flex-nowrap"
+          <> guard (isJust currentAnswer) " pointer-events-none"
+          <> guard (optionResult option == OptionError) " animate-wiggle"
       , children:
           [ element badge
               { size: "lg"

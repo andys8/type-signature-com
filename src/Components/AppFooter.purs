@@ -18,7 +18,10 @@ appFooter = element footer
               , linkIcon "Twitter" faTwitter "https://twitter.com/_andys8"
               ]
           }
-      , R.p_ [ R.text "Copyright © 2022 - type-signature.com" ]
+      , R.p
+          { className: "select-none"
+          , children: [ R.text "Copyright © 2022 - type-signature.com" ]
+          }
       ]
   }
 
