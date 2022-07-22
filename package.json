@@ -34,9 +34,9 @@
   },
   "dependencies": {
     "canvas-confetti": "^1.5.1",
-    "daisyui": "^2.19.0",
+    "daisyui": "^2.19.1",
     "firacode": "^6.2.0",
-    "react-daisyui": "^2.0.6",
+    "react-daisyui": "^2.1.0",
     "react-icons": "^4.4.0"
   },
   "pwaManifest": {
