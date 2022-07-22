@@ -3,7 +3,7 @@ import _confetti from "canvas-confetti";
 export const confetti = _confetti;
 
 export const schoolPride = () => {
-  const end = Date.now() + 2 * 1000;
+  const end = Date.now() + 1000;
   const particleCount = 2;
   const colors = ["#ff5555", "#f8f8f2"];
 
