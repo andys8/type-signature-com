@@ -14,10 +14,10 @@ import Data.Show.Generic (genericShow)
 import Effect.Aff (Aff, Milliseconds(..), delay)
 import Effect.Class (liftEffect)
 import Effect.Class.Console (error)
-import Foreign.Confetti (confetti)
+import Foreign.Confetti (confetti, schoolPride)
 import Functions (Fun)
 import Languages (AllLanguages, Language(..))
-import Questions (Answer, AnsweredQuestion(..), Question, mkQuestions)
+import Questions (Answer, AnsweredQuestion(..), Question, mkQuestions, toStat)
 import React.Basic.Hooks.Aff (noEffects)
 
 type State =
@@ -108,9 +108,13 @@ reducer state@{ gameState } (ActionAnswer answer) =
 
 reducer state ActionNextQuestion =
   { state: state { gameState = newGameState }
-  , effects: []
+  , effects: [ liftEffect winAnimation ]
   }
   where
+  winAnimation = case newGameState of
+    GameEnd qs | (toStat qs).score > 0.8 -> schoolPride *> pure []
+    _ -> pure []
+
   newGameState =
     case state.gameState of
       GameInProgress s -> nextQuestion s

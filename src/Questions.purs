@@ -4,6 +4,7 @@ module Questions
   , isAnswerCorrect
   , abcd
   , toOptions
+  , toStat
   , Option(..)
   , Answer(..)
   , AnsweredQuestion(..)
@@ -21,6 +22,7 @@ import Data.Either (Either(..), note)
 import Data.Enum (class BoundedEnum, class Enum, enumFromTo, toEnum)
 import Data.Enum.Generic (genericCardinality, genericFromEnum, genericPred, genericSucc, genericToEnum)
 import Data.Generic.Rep (class Generic)
+import Data.Int (toNumber)
 import Data.Maybe (Maybe(..))
 import Data.Set.NonEmpty (NonEmptySet)
 import Data.Set.NonEmpty as NES
@@ -70,6 +72,12 @@ derive instance Eq AnsweredQuestion
 derive instance Generic AnsweredQuestion _
 instance Show AnsweredQuestion where
   show = genericShow
+
+type Stat =
+  { countCorrect :: Int
+  , countTotal :: Int
+  , score :: Number
+  }
 
 mkQuestions :: forall m. MonadEffect m => Int -> NonEmptySet Fun -> m (Either String (NonEmptyArray Question))
 mkQuestions numQuestions _ | numQuestions <= 0 = pure $ Left "numQuestions <= 0"
@@ -128,3 +136,9 @@ questionFunction q =
     C -> q.optionC
     D -> q.optionD
 
+toStat :: Array AnsweredQuestion -> Stat
+toStat questions = { countTotal, countCorrect, score }
+  where
+  countTotal = A.length questions
+  countCorrect = A.length $ A.filter isAnswerCorrect questions
+  score = toNumber countCorrect / toNumber countTotal

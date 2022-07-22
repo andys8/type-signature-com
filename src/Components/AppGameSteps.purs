@@ -49,6 +49,6 @@ mkStep step = R.li { className, children: [ mkContent step ] }
 
 mkContent :: Step -> JSX
 mkContent StepNext = icon imRadioUnchecked { className: "text-neutral" }
-mkContent StepCurrent = icon imRadioChecked { color: "white", className: "text-neutral animate-pulse" }
+mkContent StepCurrent = icon imRadioChecked { color: "white", className: "text-neutral" }
 mkContent StepSuccess = icon imCheckmark { className: "text-success" }
 mkContent StepError = icon imCross { className: "text-error" }

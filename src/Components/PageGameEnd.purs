@@ -4,13 +4,12 @@ import Prelude
 
 import Data.Array ((:))
 import Data.Array as A
-import Data.Int (toNumber)
 import Data.Monoid (guard)
 import Data.String (joinWith)
 import Foreign.Daisyui (button_, stat, statItem, stats)
 import Functions (Fun(..))
 import Languages (Language, languageIcon)
-import Questions (AnsweredQuestion(..), isAnswerCorrect, questionFunction)
+import Questions (AnsweredQuestion(..), isAnswerCorrect, questionFunction, toStat)
 import React.Basic (JSX, element, fragment)
 import React.Basic.DOM as R
 import React.Basic.DOM.Events (stopPropagation)
@@ -38,6 +37,13 @@ pageGameEnd { answeredQuestions, onRestart, language } =
     , icon (languageIcon language) { size: "32px", className: "mt-6 text-base-300" }
     ]
   where
+  { countTotal, countCorrect, score } = toStat answeredQuestions
+
+  statText | score > 0.8 = "Impressive"
+  statText | score > 0.5 = "Well done"
+  statText | score > 0.0 = "Good start"
+  statText = "Don't give up!"
+
   buttons = R.div
     { className: "flex flex-row gap-4"
     , children: restartButton : guard (score > 0.5) [ twitterButton ]
@@ -105,15 +111,6 @@ pageGameEnd { answeredQuestions, onRestart, language } =
             }
         ]
     }
-
-  statText | score > 0.8 = "Impressive"
-  statText | score > 0.5 = "Well done"
-  statText | score > 0.0 = "Good start"
-  statText = "Don't give up!"
-
-  countTotal = A.length answeredQuestions
-  countCorrect = A.length $ A.filter isAnswerCorrect answeredQuestions
-  score = toNumber countCorrect / toNumber countTotal
 
 renderTable :: Array AnsweredQuestion -> JSX
 renderTable questions = R.div
