@@ -4,6 +4,7 @@ import Prelude
 
 import Components.AppGameSteps (appGameSteps)
 import Data.Maybe (Maybe(..), fromMaybe, isJust)
+import Data.Monoid (guard)
 import Data.Newtype (un)
 import Data.String (Pattern(..), split)
 import Data.String as S
@@ -25,6 +26,10 @@ type Props =
   , inProgressState :: GameInProgressState
   , onAnswerClick :: Answer -> Effect Unit
   }
+
+data OptionResult = OptionError | OptionCorrect | OptionDefault
+
+derive instance Eq OptionResult
 
 pageGameInProgress :: Props -> JSX
 pageGameInProgress { language, onAnswerClick, inProgressState } =
@@ -86,23 +91,30 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
 
   renderConstraint a = R.span { className: "opacity-50", children: [ R.text a ] }
 
+  optionResult option =
+    case currentAnswer of
+      Just answer | answer == option && option /= correctOption -> OptionError
+      Just _ | option == correctOption -> OptionCorrect
+      _ -> OptionDefault
+
   renderAnswerButton option fun =
     button_
-      { color: case currentAnswer of
-          Just answer | answer == option && option /= correctOption -> "error"
-          Just _ | option == correctOption -> "success"
-          _ -> "default"
+      { color: case optionResult option of
+          OptionError -> "error"
+          OptionCorrect -> "success"
+          OptionDefault -> "default"
       , onClick: handler stopPropagation $ const $
           if isJust currentAnswer then pure unit
           else onAnswerClick option
-      , className: "justify-start w-64 m-2 gap-4 flex-nowrap"
+      , className: "justify-start w-64 m-2 gap-4 flex-nowrap" <>
+          guard (optionResult option == OptionError) " animate-wiggle"
       , children:
           [ element badge
               { size: "lg"
               , responsive: false
-              , color: case currentAnswer of
-                  Just answer | answer == option || option == correctOption -> "neutral"
-                  _ -> "secondary"
+              , color: case optionResult option of
+                  OptionDefault -> "secondary"
+                  _ -> "neutral"
               , children: [ R.text $ show option ]
               }
           , code
