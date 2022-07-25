@@ -101,7 +101,7 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
         [ renderConstraint (a <> "=>"), renderConstraint (b <> "=>"), R.text c ]
       _ -> R.text signature
 
-  renderConstraint a = R.span { className: "opacity-50", children: [ R.text a ] }
+  renderConstraint a = R.span { className: "opacity-70", children: [ R.text a ] }
 
   optionResult option =
     case currentAnswer of
