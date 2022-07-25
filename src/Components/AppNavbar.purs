@@ -7,7 +7,7 @@ import React.Basic.DOM as R
 
 appNavbar :: JSX
 appNavbar = element navbar
-  { className: "shadow-md bg-neutral text-neutral-content"
+  { className: "shadow-md bg-neutral text-neutral-content z-50"
   , children:
       [ element navbarStart
           { className: "px-2 mx-2"
