@@ -5,11 +5,11 @@ import Prelude
 import Data.Array.NonEmpty as NEA
 import Data.String (joinWith)
 import Effect (Effect)
-import Foreign.Daisyui (button_, buttonGroup)
+import Foreign.Daisyui (button_)
 import Foreign.Logo (logoLarge)
 import Foreign.ReactHotkeysHook (useHotkeys)
 import Languages (Language(..), languageIcon, languages)
-import React.Basic (JSX, element, fragment)
+import React.Basic (JSX, fragment)
 import React.Basic.DOM as R
 import React.Basic.Events (handler_)
 import React.Basic.Hooks (Component, component)
@@ -48,7 +48,10 @@ pageStart { onStartClick, onLanguageSet, language } =
 
 languageSelection :: { language :: Language, onLanguageSet :: Language -> Effect Unit } -> JSX
 languageSelection { language, onLanguageSet } =
-  element buttonGroup { children: NEA.toArray $ languageButton <$> languages }
+  R.div
+    { className: "flex flex-row flex-nowrap btn-group"
+    , children: NEA.toArray $ languageButton <$> languages
+    }
   where
   classes l = joinWith " " [ "flex-col gap-2 min-w-fit w-24 h-20", opactiy l ]
   opactiy l = if l == language then "opacity-100" else "opacity-50"
