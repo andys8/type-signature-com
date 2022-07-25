@@ -6,12 +6,12 @@ import Data.Array.NonEmpty as NEA
 import Data.String (joinWith)
 import Effect (Effect)
 import Foreign.Daisyui (button_, buttonGroup)
+import Foreign.Logo (logoLarge)
 import Languages (Language, languageIcon, languages)
 import React.Basic (JSX, element, fragment)
 import React.Basic.DOM as R
 import React.Basic.Events (handler_)
 import React.Icons (icon, icon_)
-import React.Icons.Gi (giPencilBrush)
 import React.Icons.Vsc (vscDebugStart)
 
 type Props =
@@ -23,17 +23,7 @@ type Props =
 pageStart :: Props -> JSX
 pageStart { onStartClick, onLanguageSet, language } =
   fragment
-    [ icon
-        giPencilBrush
-        { size: "120px", className: "mb-4" }
-    , R.h1
-        { className: "text-5xl font-bold whitespace-nowrap"
-        , children: [ R.text "type-signature" ]
-        }
-    , R.p
-        { className: "pt-6 pb-10"
-        , children: [ R.text "Who Wants to Be a Millionaire - but with Types" ]
-        }
+    [ R.img { src: logoLarge, width: "400px", height: "400px", className: "pb-8" }
     , languageSelection { language, onLanguageSet }
     , button_
         { color: "primary"

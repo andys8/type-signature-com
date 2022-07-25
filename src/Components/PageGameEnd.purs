@@ -114,7 +114,7 @@ pageGameEnd { answeredQuestions, onRestart, language } =
 
 renderTable :: Array AnsweredQuestion -> JSX
 renderTable questions = R.div
-  { className: "my-6 overflow-x-auto"
+  { className: "my-6 overflow-x-auto shadow"
   , children: [ R.table { className: "table w-full", children: [ header, body ] } ]
   }
   where

@@ -20,6 +20,9 @@ module.exports = {
           },
         },
       },
+      backgroundImage: {
+        "logo-alt": "url('/public/logo-alt-bg.png')",
+      },
     },
     fontFamily: {
       mono: ["Fira Code", "monospace"],

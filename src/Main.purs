@@ -55,7 +55,7 @@ mkApp = do
           Right functions -> game { functions }
 
       appContent = R.main
-        { className: "flex flex-col items-center justify-center flex-1 h-full p-5 text-center"
+        { className: "flex flex-col items-center justify-center flex-1 h-full p-5 text-center sm:bg-logo-alt"
         , children: [ content ]
         }
 
