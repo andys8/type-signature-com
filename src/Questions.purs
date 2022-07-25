@@ -100,7 +100,7 @@ mkQuestions numQuestions functions = do
         otherQuestions <- mkQuestionsRec (n - 1) rest
         pure $ (cons q) <$> otherQuestions
 
-  questionIsValid q = toOptions q == A.nubByEq hasNamingConflict (toOptions q)
+  questionIsValid q = toOptions q == A.nubByEq hasAnswerConflict (toOptions q)
 
   mkQuestion :: MonadEffect m => Array Fun -> m (Either String Question)
   mkQuestion [ optionA, optionB, optionC, optionD ] = do
@@ -118,9 +118,6 @@ abcd = enumFromTo bottom top
 
 isAnswerCorrect :: AnsweredQuestion -> Boolean
 isAnswerCorrect (AnsweredQuestion { correctOption } answer) = correctOption == answer
-
-hasNamingConflict :: Fun -> Fun -> Boolean
-hasNamingConflict (Fun f1) (Fun f2) = f1.name == f2.name || f1.signature == f2.signature
 
 hasAllowedLength :: Fun -> Boolean
 hasAllowedLength (Fun f) = S.length f.signature < 100
@@ -142,3 +139,38 @@ toStat questions = { countTotal, countCorrect, score }
   countTotal = A.length questions
   countCorrect = A.length $ A.filter isAnswerCorrect questions
   score = toNumber countCorrect / toNumber countTotal
+
+hasAnswerConflict :: Fun -> Fun -> Boolean
+hasAnswerConflict (Fun f1) (Fun f2) =
+  f1.name == f2.name
+    || hasSignatureConflict f1.signature f2.signature
+  where
+  hasSignatureConflict s1 s2 =
+    s1 == s2
+      || (isMathFn1 s1 && isMathFn1 s2)
+      || (isMathFn2 s1 && isMathFn2 s2)
+
+  isMathFn1 = case _ of
+    "Ord a => a -> a" -> true
+    "Integral a => a -> a" -> true
+    "Floating a => a -> a" -> true
+    "RealFloat a => a -> a" -> true
+    "Number -> Number" -> true
+    "Integer -> Integer" -> true
+    "Int -> Int" -> true
+    "Float -> Float" -> true
+    "number -> number" -> true
+    "Number -> Int" -> true
+    _ -> false
+
+  isMathFn2 = case _ of
+    "Ord a => a -> a -> a" -> true
+    "Integral a => a -> a -> a" -> true
+    "Floating a => a -> a -> a" -> true
+    "RealFloat a => a -> a -> a" -> true
+    "Number -> Number -> Number" -> true
+    "Integer -> Integer -> Integer" -> true
+    "Int -> Int -> Int" -> true
+    "Float -> Float -> Float" -> true
+    "number -> number -> number" -> true
+    _ -> false

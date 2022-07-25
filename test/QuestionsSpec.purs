@@ -31,7 +31,7 @@ spec =
         questions <- liftEffect $ mkQuestions 0 functions
         questions `shouldEqual` Left "numQuestions <= 0"
 
-      before (mkSingleQuestions 100) do
+      before (mkSingleQuestions 100 functionsDupl) do
         describe "uniqueness" do
 
           it "correct amount" \qs -> do
@@ -63,6 +63,21 @@ spec =
           it "creates 2 questions" \questions -> do
             (NEA.length <$> questions) `shouldEqual` Right 2
 
+      before (mkSingleQuestions 1000 functionsMath) do
+        describe "Number vs. Ord vs. Int" do
+
+          it "names are unique" \qs -> do
+            all hasUniqueNames qs `shouldEqual` true
+
+          it "signatures are unique" \qs -> do
+            all hasUniqueSignatures qs `shouldEqual` true
+
+          it "has expected result" \qs -> do
+            -- Because math functions are similar, the result can only contain 1
+            let toNames = A.sort <<< map (_.name <<< un Fun) <<< toOptions
+            let isExpected x = A.take 3 (toNames x) == [ "f1", "f2", "f3" ]
+            all isExpected qs `shouldEqual` true
+
 -- helper
 
 functions :: NonEmptySet Fun
@@ -92,6 +107,21 @@ functionsDupl =
         , mkFun "f1dupl" "a1 -> b"
         ]
 
+functionsMath :: NonEmptySet Fun
+functionsMath =
+  NES.cons (mkFun "f1" "a1 -> b")
+    $ S.fromFoldable
+        [ mkFun "f2" "a2 -> b"
+        , mkFun "f3" "a3 -> b"
+        , mkFun "min" "Number -> Number -> Number"
+        , mkFun "max" "Number -> Number -> Number"
+        , mkFun "min" "Int -> Int -> Int"
+        , mkFun "max" "Int -> Int -> Int"
+        , mkFun "min" "Ord a => a -> a -> a"
+        , mkFun "max" "Ord a => a -> a -> a"
+        , mkFun "mod" "Integral a => a -> a -> a"
+        ]
+
 mkFun :: String -> String -> Fun
 mkFun name signature = Fun { name, signature }
 
@@ -105,8 +135,8 @@ hasUniqueSignatures q = A.nub signatures == signatures
   where
   signatures = (_.signature <<< un Fun) <$> toOptions q
 
-mkSingleQuestions :: forall m. MonadEffect m => Int -> m (Array Question)
-mkSingleQuestions n = do
-  let mkSingleQuestion = liftEffect $ mkQuestions 1 functionsDupl
+mkSingleQuestions :: forall m. MonadEffect m => Int -> NonEmptySet Fun -> m (Array Question)
+mkSingleQuestions n fs = do
+  let mkSingleQuestion = liftEffect $ mkQuestions 1 fs
   questions <- sequence $ replicate n mkSingleQuestion
   pure $ fromRight [] (A.concatMap NEA.toArray <$> sequence questions)
