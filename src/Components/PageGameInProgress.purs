@@ -72,7 +72,7 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
 
   renderCard children =
     R.div
-      { className: "flex-1 w-full max-w-2xl mx-2 shadow-xl card sm:flex-initial h-1/2 bg-base-200"
+      { className: "flex-1 w-full max-w-2xl mx-2 shadow-xl card sm:flex-initial sm:min-h-[440px] bg-base-200"
       , key: show $ _.name $ un Fun $ currentQuestion.optionA
       , children:
           [ R.div
