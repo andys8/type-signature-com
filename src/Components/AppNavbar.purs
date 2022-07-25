@@ -7,19 +7,22 @@ import React.Basic.DOM as R
 
 appNavbar :: JSX
 appNavbar = element navbar
-  { className: "shadow-md bg-neutral text-neutral-content z-50"
+  { className: "shadow-md bg-neutral text-primary z-50"
   , children:
       [ element navbarStart
-          { className: "px-2 mx-2"
+          { className: "flex flex-row items-center justify-between mx-3"
           , children:
               [ R.a
-                  { className: "flex flex-row items-center text-lg font-bold gap-2"
-                  , href: "/"
+                  { href: "/"
                   , children:
-                      [ R.img { src: logoSmall, height: "32px", width: "32px" }
-                      , R.text "Type-Signature"
+                      [ R.span
+                          { className: "text-xl font-semibold whitespace-nowrap text-white"
+                          , children: [ R.text "type-signature.com" ]
+                          }
                       ]
                   }
+              , R.img
+                  { src: logoSmall, height: "32px", width: "32px" }
               ]
           }
       ]

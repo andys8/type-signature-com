@@ -23,7 +23,7 @@ type Props =
 pageStart :: Props -> JSX
 pageStart { onStartClick, onLanguageSet, language } =
   fragment
-    [ R.img { src: logoLarge, width: "400px", height: "400px", className: "animate-fadein pb-8" }
+    [ R.img { src: logoLarge, width: "360px", height: "360px", className: "animate-fadein pb-8" }
     , languageSelection { language, onLanguageSet }
     , button_
         { color: "primary"
