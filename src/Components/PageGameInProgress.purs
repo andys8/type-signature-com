@@ -1,15 +1,16 @@
-module Components.PageGameInProgress (pageGameInProgress) where
+module Components.PageGameInProgress (mkPageGameInProgress) where
 
 import Prelude
 
 import Components.AppGameSteps (appGameSteps)
-import Data.Maybe (Maybe(..), fromMaybe, isJust)
+import Data.Maybe (Maybe(..), fromMaybe, isJust, isNothing)
 import Data.Monoid (guard)
 import Data.Newtype (un)
 import Data.String (Pattern(..), split)
 import Data.String as S
 import Effect (Effect)
 import Foreign.Daisyui (badge, button_)
+import Foreign.ReactHotkeysHook (useHotkeys)
 import Functions (Fun(..))
 import Languages (Language, languageIcon)
 import Questions (Answer, Option(..), questionFunction)
@@ -18,6 +19,8 @@ import React.Basic.DOM (code, h1)
 import React.Basic.DOM as R
 import React.Basic.DOM.Events (stopPropagation)
 import React.Basic.Events (handler)
+import React.Basic.Hooks (Component, component)
+import React.Basic.Hooks as React
 import React.Icons (icon)
 import State (GameInProgressState)
 
@@ -30,6 +33,15 @@ type Props =
 data OptionResult = OptionError | OptionCorrect | OptionDefault
 
 derive instance Eq OptionResult
+
+mkPageGameInProgress :: Component Props
+mkPageGameInProgress =
+  component "PageGameInProgress" \props@{ onAnswerClick } -> React.do
+    useHotkeys "a" $ onAnswerClick A
+    useHotkeys "b" $ onAnswerClick B
+    useHotkeys "c" $ onAnswerClick C
+    useHotkeys "d" $ onAnswerClick D
+    pure $ pageGameInProgress props
 
 pageGameInProgress :: Props -> JSX
 pageGameInProgress { language, onAnswerClick, inProgressState } =
@@ -103,9 +115,10 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
           OptionError -> "error"
           OptionCorrect -> "success"
           OptionDefault -> "default"
-      , onClick: handler stopPropagation $ const $
-          if isJust currentAnswer then pure unit
-          else onAnswerClick option
+      , onClick: handler stopPropagation
+          $ const
+          $ when (isNothing currentAnswer)
+          $ onAnswerClick option
       , className: "justify-start w-64 m-2 gap-4 flex-nowrap"
           <> guard (isJust currentAnswer) " pointer-events-none"
           <> guard (optionResult option == OptionError) " animate-wiggle"

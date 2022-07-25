@@ -1,4 +1,4 @@
-module Components.PageStart (pageStart) where
+module Components.PageStart (mkPageStart) where
 
 import Prelude
 
@@ -7,10 +7,13 @@ import Data.String (joinWith)
 import Effect (Effect)
 import Foreign.Daisyui (button_, buttonGroup)
 import Foreign.Logo (logoLarge)
-import Languages (Language, languageIcon, languages)
+import Foreign.ReactHotkeysHook (useHotkeys)
+import Languages (Language(..), languageIcon, languages)
 import React.Basic (JSX, element, fragment)
 import React.Basic.DOM as R
 import React.Basic.Events (handler_)
+import React.Basic.Hooks (Component, component)
+import React.Basic.Hooks as React
 import React.Icons (icon, icon_)
 import React.Icons.Vsc (vscDebugStart)
 
@@ -19,6 +22,15 @@ type Props =
   , onLanguageSet :: Language -> Effect Unit
   , language :: Language
   }
+
+mkPageStart :: Component Props
+mkPageStart =
+  component "PageStart" \props@{ onStartClick, onLanguageSet } -> React.do
+    useHotkeys "space, return, s" onStartClick
+    useHotkeys "h" (onLanguageSet Haskell)
+    useHotkeys "p" (onLanguageSet PureScript)
+    useHotkeys "e" (onLanguageSet Elm)
+    pure $ pageStart props
 
 pageStart :: Props -> JSX
 pageStart { onStartClick, onLanguageSet, language } =

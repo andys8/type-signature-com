@@ -8,7 +8,7 @@ import Data.Array.NonEmpty (NonEmptyArray)
 import Data.Array.NonEmpty as NEA
 import Data.Either (Either(..))
 import Data.Generic.Rep (class Generic)
-import Data.Maybe (Maybe(..))
+import Data.Maybe (Maybe(..), isJust)
 import Data.Set.NonEmpty (NonEmptySet)
 import Data.Show.Generic (genericShow)
 import Effect.Aff (Aff, Milliseconds(..), delay)
@@ -85,6 +85,8 @@ reducer state (ActionNewGame questions) =
     , nextQuestions: tail
     }
 
+reducer state (ActionAnswer _) | isGameInTransition state = noEffects state
+
 reducer state@{ gameState } (ActionAnswer answer) =
   { state: state { gameState = newGameState }
   , effects:
@@ -137,7 +139,7 @@ reducer state ActionNextQuestion =
                 , currentAnswer: Nothing
                 , nextQuestions: tail
                 }
-      Nothing -> GameEnd s.answeredQuestions
+      Nothing -> GameInProgress s
 
 toFunctions :: State -> NonEmptySet Fun
 toFunctions { functions, language } = case language of
@@ -145,3 +147,7 @@ toFunctions { functions, language } = case language of
   PureScript -> functions.purescript
   Elm -> functions.elm
 
+isGameInTransition :: State -> Boolean
+isGameInTransition { gameState } = case gameState of
+  GameInProgress s -> isJust s.currentAnswer
+  _ -> false

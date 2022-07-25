@@ -4,9 +4,9 @@ import Prelude
 
 import Components.AppFooter (appFooter)
 import Components.AppNavbar (appNavbar)
-import Components.PageGameEnd (pageGameEnd)
-import Components.PageGameInProgress (pageGameInProgress)
-import Components.PageStart (pageStart)
+import Components.PageGameEnd (mkPageGameEnd)
+import Components.PageGameInProgress (mkPageGameInProgress)
+import Components.PageStart (mkPageStart)
 import Control.Parallel (parSequence)
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
@@ -21,7 +21,6 @@ import FunctionsRaw (urls)
 import React.Basic (element)
 import React.Basic.DOM as R
 import React.Basic.DOM.Client (createRoot, renderRoot)
-import React.Basic.Events (handler_)
 import React.Basic.Hooks (Component, component)
 import React.Basic.Hooks as React
 import React.Basic.Hooks.Aff (mkAffReducer, useAff, useAffReducer)
@@ -71,6 +70,9 @@ mkApp = do
 mkGame :: Component { functions :: Functions }
 mkGame = do
   r <- mkAffReducer reducer
+  pageStart <- mkPageStart
+  pageGameInProgress <- mkPageGameInProgress
+  pageGameEnd <- mkPageGameEnd
   component "App" \{ functions } -> React.do
     state /\ dispatch <- useAffReducer (initState functions) r
     let { language } = state
@@ -89,7 +91,7 @@ mkGame = do
           }
       GameEnd answeredQuestions ->
         pageGameEnd
-          { onRestart: handler_ $ dispatch ActionGameStart
+          { onRestart: dispatch ActionGameStart
           , answeredQuestions
           , language
           }

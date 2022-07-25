@@ -1,4 +1,4 @@
-module Components.PageGameEnd (pageGameEnd) where
+module Components.PageGameEnd (mkPageGameEnd) where
 
 import Prelude
 
@@ -6,14 +6,18 @@ import Data.Array ((:))
 import Data.Array as A
 import Data.Monoid (guard)
 import Data.String (joinWith)
+import Effect (Effect)
 import Foreign.Daisyui (button_, stat, statItem, stats)
+import Foreign.ReactHotkeysHook (useHotkeys)
 import Functions (Fun(..))
 import Languages (Language, languageIcon)
 import Questions (AnsweredQuestion(..), isAnswerCorrect, questionFunction, toStat)
 import React.Basic (JSX, element, fragment)
 import React.Basic.DOM as R
 import React.Basic.DOM.Events (stopPropagation)
-import React.Basic.Events (EventHandler, handler)
+import React.Basic.Events (handler, handler_)
+import React.Basic.Hooks (Component, component)
+import React.Basic.Hooks as React
 import React.Icons (icon, icon_)
 import React.Icons.Fa (faTwitter)
 import React.Icons.Gi (giRibbonMedal)
@@ -24,9 +28,15 @@ import Web.HTML.Window as Window
 
 type Props =
   { answeredQuestions :: Array AnsweredQuestion
-  , onRestart :: EventHandler
+  , onRestart :: Effect Unit
   , language :: Language
   }
+
+mkPageGameEnd :: Component Props
+mkPageGameEnd =
+  component "PageGameEnd" \props@{ onRestart } -> React.do
+    useHotkeys "space, return, t" onRestart
+    pure $ pageGameEnd props
 
 pageGameEnd :: Props -> JSX
 pageGameEnd { answeredQuestions, onRestart, language } =
@@ -52,7 +62,7 @@ pageGameEnd { answeredQuestions, onRestart, language } =
   restartButton =
     button_
       { color: "default"
-      , onClick: onRestart
+      , onClick: handler_ onRestart
       , className: "gap-2"
       , children: [ icon_ vscDebugRestart, R.text "Try again" ]
       }
