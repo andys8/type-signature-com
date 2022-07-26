@@ -64,7 +64,7 @@ pageGameEnd { gameEndState: { answeredQuestions, startTime }, onRestart, languag
   { countTotal, countCorrect, score } = toStat answeredQuestions
 
   statText | score > 0.8 = case duration of
-    Just d | d <= Seconds 40.0 -> "Wow, only " <> renderSeconds d <> "!"
+    Just d | d <= Seconds 60.0 -> "Wow, only " <> renderSeconds d <> "!"
     _ -> "Impressive"
   statText | score > 0.5 = "Well done"
   statText | score > 0.0 = "Good start"
