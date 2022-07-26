@@ -1,0 +1,786 @@
+(>$) :: Contravariant f => b -> f b -> f a
+(&) :: a -> (a -> b) -> b
+abbreviatedFields :: LensRules
+abbreviatedNamer :: FieldNamer
+adding :: Num a => a -> Iso' a a
+adjoin :: Traversal' s a -> Traversal' s a -> Traversal' s a
+after :: Strategy s -> LensLike f s t a b -> LensLike f s t a b
+alaf :: (Functor f, Functor g, Rewrapping s t) => (Unwrapped s -> s) -> (f t -> g s) -> f (Unwrapped t) -> g (Unwrapped s)
+ala :: (Functor f, Rewrapping s t) => (Unwrapped s -> s) -> ((Unwrapped t -> t) -> f s) -> f (Unwrapped s)
+(<#%~) :: ALens s t a b -> (a -> b) -> s -> (b, t)
+(#%~) :: ALens s t a b -> (a -> b) -> s -> t
+(<#~) :: ALens s t a b -> b -> s -> (b, t)
+(#~) :: ALens s t a b -> b -> s -> t
+allOf :: Getting All s a -> (a -> Bool) -> s -> Bool
+alongside :: LensLike (AlongsideLeft f b') s t a b -> LensLike (AlongsideRight f t) s' t' a' b' -> LensLike f (s, s') (t, t') (a, a') (b, b')
+andOf :: Getting All s Bool -> s -> Bool
+(%@~) :: AnIndexedSetter i s t a b -> (i -> a -> b) -> s -> t
+(.@~) :: AnIndexedSetter i s t a b -> (i -> b) -> s -> t
+anon :: a -> (a -> Bool) -> Iso' (Maybe a) a
+anyOf :: Getting Any s a -> (a -> Bool) -> s -> Bool
+(...) :: (Applicative f, Plated c) => LensLike f s t c c -> Over p f c c a b -> Over p f s t a b
+(#) :: AReview t b -> b -> t
+argument :: Profunctor p => Setter (p b r) (p a r) a b
+(<.>~) :: ASetter s a FilePath FilePath -> String -> s -> a
+(%~) :: ASetter s t a b -> (a -> b) -> s -> t
+(<.~) :: ASetter s t a b -> b -> s -> (b, t)
+(.~) :: ASetter s t a b -> b -> s -> t
+(<?~) :: ASetter s t a (Maybe b) -> b -> s -> (b, t)
+(?~) :: ASetter s t a (Maybe b) -> b -> s -> t
+(&&~) :: ASetter s t Bool Bool -> Bool -> s -> t
+(||~) :: ASetter s t Bool Bool -> Bool -> s -> t
+(</>~) :: ASetter s t FilePath FilePath -> FilePath -> s -> t
+aside :: APrism s t a b -> Prism (e, s) (e, t) (e, a) (e, b)
+asIndex :: (Indexable i p, Contravariant f, Functor f) => p i (f i) -> Indexed i s (f s)
+assignA :: Arrow p => ASetter s t a b -> p s b -> p s t
+assign :: MonadState s m => ASetter s s a b -> b -> m ()
+asStreamR :: (Vector v a, Vector v b) => Iso (v a) (v b) (Bundle v a) (Bundle v b)
+asStream :: (Vector v a, Vector v b) => Iso (v a) (v b) (Bundle v a) (Bundle v b)
+asumOf :: Alternative f => Getting (Endo (f a)) s (f a) -> s -> f a
+at :: At m => Index m -> Lens' m (Maybe (IxValue m))
+auf :: (Functor f, Functor g) => AnIso s t a b -> (f t -> g s) -> f b -> g a
+au :: Functor f => AnIso s t a b -> ((b -> t) -> f s) -> f a
+backwards :: (Profunctor p, Profunctor q) => Optical p q (Backwards f) s t a b -> Optical p q f s t a b
+bangSourceStrictness :: Lens' Bang SourceStrictness
+bangSourceUnpackedness :: Lens' Bang SourceUnpackedness
+base :: (HasCallStack, Integral a) => Int -> Prism' String a
+basename :: Lens' FilePath FilePath
+below :: Traversable f => APrism' s a -> Prism' (f s) (f a)
+beside :: (Representable q, Applicative (Rep q), Applicative f, Bitraversable r) => Optical p q f s t a b -> Optical p q f s' t' a b -> Optical p q f (r s s') (r t t') a b
+bimap :: Bifunctor p => (a -> b) -> (c -> d) -> p a c -> p b d
+bimapping :: (Bifunctor f, Bifunctor g) => AnIso s t a b -> AnIso s' t' a' b' -> Iso (f s s') (g t t') (f a a') (g b b')
+binary :: Integral a => Prism' String a
+biplate :: forall s a. (Data s, Typeable a) => Traversal' s a
+bitAt :: Bits b => Int -> IndexedLens' Int b Bool
+(.&.~) :: Bits a => ASetter s t a a -> a -> s -> t
+(.|.~) :: Bits a => ASetter s t a a -> a -> s -> t
+(<.&.~) :: Bits a => LensLike ((,) a) s t a a -> a -> s -> (a, t)
+(<.|.~) :: Bits a => LensLike ((,) a) s t a a -> a -> s -> (a, t)
+(<<.&.~) :: Bits a => Optical' (->) q ((,) a) s a -> a -> q s (a, s)
+(<<.|.~) :: Bits a => Optical' (->) q ((,) a) s a -> a -> q s (a, s)
+bits :: (Num b, Bits b) => IndexedTraversal' Int b Bool
+both1 :: Bitraversable1 r => Traversal1 (r a a) (r b b) a b
+both :: Bitraversable r => Traversal (r a a) (r b b) a b
+branches :: Lens' (Tree a) [Tree a]
+builder :: Iso' Text Builder
+builder :: IsText t => Iso' t Builder
+byteAt :: (Integral b, Bits b) => Int -> IndexedLens' Int b Word8
+bytes :: IndexedTraversal' Int64 ByteString Word8
+bytes :: IndexedTraversal' Int ByteString Word8
+bytes :: IsByteString t => IndexedTraversal' Int t Word8
+bytewise :: (Integral b, Bits b) => IndexedTraversal' Int b Word8
+camelCaseFields :: LensRules
+camelCaseNamer :: FieldNamer
+_cast :: (Typeable s, Typeable a) => Traversal' s a
+catches :: MonadError e m => m a -> [Handler e m a] -> m a
+catching :: MonadCatch m => Getting (First a) SomeException a -> m r -> (a -> m r) -> m r
+catching_ :: MonadCatch m => Getting (First a) SomeException a -> m r -> m r -> m r
+catching :: MonadError e m => Getting (First a) e a -> m r -> (a -> m r) -> m r
+catching_ :: MonadError e m => Getting (First a) e a -> m r -> m r -> m r
+censoring :: MonadWriter w m => Setter w w u v -> (u -> v) -> m a -> m a
+chars :: IndexedTraversal' Int64 ByteString Char
+chars :: IndexedTraversal' Int ByteString Char
+chars :: IsByteString t => IndexedTraversal' Int t Char
+children :: Plated a => a -> [a]
+choosing :: Functor f => LensLike f s t a b -> LensLike f s' t' a b -> LensLike f (Either s s') (Either t t') a b
+chosen :: IndexPreservingLens (Either a a) (Either b b) a b
+clauseBody :: Lens' Clause Body
+clauseDecs :: Lens' Clause [Dec]
+clausePattern :: Lens' Clause [Pat]
+cloned :: Vector v a => Iso' (v a) (New v a)
+cloneEquality :: AnEquality s t a b -> Equality s t a b
+cloneIndexedLens :: AnIndexedLens i s t a b -> IndexedLens i s t a b
+cloneIndexedSetter :: AnIndexedSetter i s t a b -> IndexedSetter i s t a b
+cloneIndexedTraversal1 :: AnIndexedTraversal1 i s t a b -> IndexedTraversal1 i s t a b
+cloneIndexedTraversal :: AnIndexedTraversal i s t a b -> IndexedTraversal i s t a b
+cloneIndexPreservingLens :: ALens s t a b -> IndexPreservingLens s t a b
+cloneIndexPreservingSetter :: ASetter s t a b -> IndexPreservingSetter s t a b
+cloneIndexPreservingTraversal1 :: ATraversal1 s t a b -> IndexPreservingTraversal1 s t a b
+cloneIndexPreservingTraversal :: ATraversal s t a b -> IndexPreservingTraversal s t a b
+cloneIso :: AnIso s t a b -> Iso s t a b
+cloneLens :: ALens s t a b -> Lens s t a b
+clonePrism :: APrism s t a b -> Prism s t a b
+cloneSetter :: ASetter s t a b -> Setter s t a b
+cloneTraversal1 :: ATraversal1 s t a b -> Traversal1 s t a b
+cloneTraversal :: ATraversal s t a b -> Traversal s t a b
+coerced :: forall s t a b. (Coercible s a, Coercible t b) => Iso s t a b
+composOpFold :: Plated a => b -> (b -> b -> b) -> (a -> b) -> a -> b
+concatMapOf :: Getting [r] s a -> (a -> [r]) -> s -> [r]
+concatOf :: Getting [r] s [r] -> s -> [r]
+conFields :: Traversal' Con BangType
+confusing :: Applicative f => LensLike (Curried (Yoneda f) (Yoneda f)) s t a b -> LensLike f s t a b
+conjoined :: Conjoined p => (p ~ (->) => q (a -> b) r) -> q (p a b) r -> q (p a b) r
+_conjugate :: RealFloat a => Iso' (Complex a) (Complex a)
+conNamedFields :: Traversal' Con VarBangType
+cons :: Cons s s a a => a -> s -> s
+(<|) :: Cons s s a a => a -> s -> s
+contains :: Contains m => Index m -> Lens' m Bool
+contextsOf :: ATraversal' a a -> a -> [Context a a a]
+contextsOnOf :: ATraversal s t a a -> ATraversal' a a -> s -> [Context a a t]
+contextsOn :: Plated a => ATraversal s t a a -> s -> [Context a a t]
+contexts :: Plated a => a -> [Context a a a]
+contramap :: Contravariant f => (a -> b) -> f b -> f a
+contramapped :: Contravariant f => Setter (f b) (f a) a b
+contramapping :: Contravariant f => AnIso s t a b -> Iso (f a) (f b) (f s) (f t)
+converted :: (Vector v a, Vector w a, Vector v b, Vector w b) => Iso (v a) (v b) (w a) (w b)
+cosmosOf :: (Applicative f, Contravariant f) => LensLike' f a a -> LensLike' f a a
+cosmosOn :: (Applicative f, Contravariant f, Plated a) => LensLike' f s a -> LensLike' f s a
+cosmosOnOf :: (Applicative f, Contravariant f) => LensLike' f s a -> LensLike' f a a -> LensLike' f s a
+cosmos :: Plated a => Fold a a
+createClass :: Lens' LensRules Bool
+curried :: Iso ((a, b) -> c) ((d, e) -> f) (a -> b -> c) (d -> e -> f)
+cycled :: Apply f => LensLike f s t a b -> LensLike f s t a b
+decimal :: Integral a => Prism' String a
+declareClassy :: DecsQ -> DecsQ
+declareClassyFor :: [(String, (String, String))] -> [(String, String)] -> DecsQ -> DecsQ
+declareFields :: DecsQ -> DecsQ
+declareLenses :: DecsQ -> DecsQ
+declareLensesFor :: [(String, String)] -> DecsQ -> DecsQ
+declareLensesWith :: LensRules -> DecsQ -> DecsQ
+declarePrisms :: DecsQ -> DecsQ
+declareWrapped :: DecsQ -> DecsQ
+deep :: (Conjoined p, Applicative f, Plated s) => Traversing p f s s a b -> Over p f s s a b
+deepOf :: (Conjoined p, Applicative f) => LensLike f s t s t -> Traversing p f s t a b -> Over p f s t a b
+defaultFieldRules :: LensRules
+derivClauseCxt :: Lens' DerivClause Cxt
+derivClauseStrategy :: Lens' DerivClause (Maybe DerivStrategy)
+description :: Lens' IOException String
+devoid :: Over p f Void Void a b
+dimapping :: (Profunctor p, Profunctor q) => AnIso s t a b -> AnIso s' t' a' b' -> Iso (p a s') (q b t') (p s a') (q t b')
+dimap :: Profunctor p => (a -> b) -> (c -> d) -> p b c -> p a d
+directory :: Lens' FilePath FilePath
+distrib :: (Conjoined p, Functor f) => p a b -> p (f a) (f b)
+dividing :: (Fractional a, Eq a) => a -> Iso' a a
+dropping :: (Conjoined p, Applicative f) => Int -> Over p (Indexing f) s t a a -> Over p f s t a a
+droppingWhile :: (Conjoined p, Profunctor q, Applicative f) => (a -> Bool) -> Optical p q (Compose (State Bool) f) s t a a -> Optical p q f s t a a
+each :: (Each s t a b, Traversable g, s ~ g a, t ~ g b) => Traversal s t a b
+each :: Each s t a b => Traversal s t a b
+elementOf :: Applicative f => LensLike (Indexing f) s t a a -> Int -> IndexedLensLike Int f s t a a
+elementsOf :: Applicative f => LensLike (Indexing f) s t a a -> (Int -> Bool) -> IndexedLensLike Int f s t a a
+elements :: Traversable t => (Int -> Bool) -> IndexedTraversal' Int (t a) a
+element :: Traversable t => Int -> IndexedTraversal' Int (t a) a
+elemIndexOf :: Eq a => IndexedGetting i (First i) s a -> a -> s -> Maybe i
+elemIndicesOf :: Eq a => IndexedGetting i (Endo [i]) s a -> a -> s -> [i]
+elemOf :: Eq a => Getting Any s a -> a -> s -> Bool
+enum :: Enum a => Iso' Int a
+equality' :: (a :~: b) -> Equality' a b
+equality :: (s :~: a) -> (b :~: t) -> Equality s t a b
+errno :: Lens' IOException (Maybe CInt)
+errorType :: Lens' IOException IOErrorType
+evalOf :: LensLike' Eval s a -> Strategy a -> Strategy s
+exception :: Exception a => Prism' SomeException a
+exponentiating :: (Floating a, Eq a) => a -> Iso' a a
+extension :: Lens' FilePath FilePath
+failing :: (Conjoined p, Applicative f) => Traversing p f s t a b -> Over p f s t a b -> Over p f s t a b
+failover :: Alternative m => LensLike ((,) Any) s t a b -> (a -> b) -> s -> m t
+fieldExpExpression :: Lens' FieldExp Exp
+fieldExpName :: Lens' FieldExp Name
+fieldPatName :: Lens' FieldPat Name
+fieldPatPattern :: Lens' FieldPat Pat
+filename :: Lens' FilePath FilePath
+fileName :: Lens' IOException (Maybe FilePath)
+filteredBy :: (Indexable i p, Applicative f) => Getting (First i) a i -> p a (f a) -> a -> f a
+filtered :: (Choice p, Applicative f) => (a -> Bool) -> Optic' p f a a
+findIndexOf :: IndexedGetting i (First i) s a -> (a -> Bool) -> s -> Maybe i
+findIndicesOf :: IndexedGetting i (Endo [i]) s a -> (a -> Bool) -> s -> [i]
+findMOf :: Monad m => Getting (Endo (m (Maybe a))) s a -> (a -> m Bool) -> s -> m (Maybe a)
+findOf :: Getting (Endo (Maybe a)) s a -> (a -> Bool) -> s -> Maybe a
+first1Of :: Getting (First a) s a -> s -> a
+firsting :: (Bifunctor f, Bifunctor g) => AnIso s t a b -> Iso (f s x) (g t y) (f a x) (g b y)
+firstOf :: Getting (Leftmost a) s a -> s -> Maybe a
+fixityDirection :: Lens' Fixity FixityDirection
+fixityPrecedence :: Lens' Fixity Int
+flipped :: Iso (a -> b -> c) (a' -> b' -> c') (b -> a -> c) (b' -> a' -> c')
+(**~) :: Floating a => ASetter s t a a -> a -> s -> t
+(<<**~) :: Floating a => LensLike' ((,) a) s a -> a -> s -> (a, s)
+(<**~) :: Floating a => LensLike ((,) a) s t a a -> a -> s -> (a, t)
+foldBy :: Foldable t => (a -> a -> a) -> a -> t a -> a
+foldByOf :: Fold s a -> (a -> a -> a) -> a -> s -> a
+folded64 :: Foldable f => IndexedFold Int64 (f a) a
+folded :: Foldable f => IndexedFold Int (f a) a
+folding :: Foldable f => (s -> f a) -> Fold s a
+foldl1Of :: HasCallStack => Getting (Dual (Endo (Maybe a))) s a -> (a -> a -> a) -> s -> a
+foldl1Of' :: HasCallStack => Getting (Endo (Endo (Maybe a))) s a -> (a -> a -> a) -> s -> a
+foldlMOf :: Monad m => Getting (Endo (r -> m r)) s a -> (r -> a -> m r) -> r -> s -> m r
+foldlOf :: Getting (Dual (Endo r)) s a -> (r -> a -> r) -> r -> s -> r
+foldlOf' :: Getting (Endo (Endo r)) s a -> (r -> a -> r) -> r -> s -> r
+foldMapBy :: Foldable t => (r -> r -> r) -> r -> (a -> r) -> t a -> r
+foldMapByOf :: Fold s a -> (r -> r -> r) -> r -> (a -> r) -> s -> r
+foldMapOf :: Getting r s a -> (a -> r) -> s -> r
+foldOf :: Getting a s a -> s -> a
+foldr1Of' :: HasCallStack => Getting (Dual (Endo (Endo (Maybe a)))) s a -> (a -> a -> a) -> s -> a
+foldr1Of :: HasCallStack => Getting (Endo (Maybe a)) s a -> (a -> a -> a) -> s -> a
+foldring :: (Contravariant f, Applicative f) => ((a -> f a -> f a) -> f a -> s -> f a) -> LensLike f s t a b
+foldrMOf :: Monad m => Getting (Dual (Endo (r -> m r))) s a -> (a -> r -> m r) -> r -> s -> m r
+foldrOf' :: Getting (Dual (Endo (Endo r))) s a -> (a -> r -> r) -> r -> s -> r
+foldrOf :: Getting (Endo r) s a -> (a -> r -> r) -> r -> s -> r
+for1Of_ :: Functor f => Getting (TraversedF r f) s a -> s -> (a -> f r) -> f ()
+forced :: Iso (Vector a) (Vector b) (Vector a) (Vector b)
+forced :: Vector v a => Iso' (v a) (v a)
+forMOf :: LensLike (WrappedMonad m) s t a b -> s -> (a -> m b) -> m t
+forMOf_ :: Monad m => Getting (Sequenced r m) s a -> s -> (a -> m r) -> m ()
+forOf_ :: Functor f => Getting (Traversed r f) s a -> s -> (a -> f r) -> f ()
+forOf :: LensLike f s t a b -> s -> (a -> f b) -> f t
+(//~) :: Fractional a => ASetter s t a a -> a -> s -> t
+(^^~) :: (Fractional a, Integral e) => ASetter s t a a -> e -> s -> t
+(<<^^~) :: (Fractional a, Integral e) => LensLike' ((,) a) s a -> e -> s -> (a, s)
+(<^^~) :: (Fractional a, Integral e) => LensLike ((,) a) s t a a -> e -> s -> (a, t)
+(<<//~) :: Fractional a => LensLike' ((,) a) s a -> a -> s -> (a, s)
+(<//~) :: Fractional a => LensLike ((,) a) s t a a -> a -> s -> (a, t)
+from :: AnIso s t a b -> Iso b a t s
+fromEq :: AnEquality s t a b -> Equality b a t s
+fromIso :: Profunctor p => Optic p Identity s t a b -> OpticP p s t a b
+fromLeibniz :: (Identical a b a b -> Identical a b s t) -> Equality s t a b
+fromLeibniz' :: ((s :~: s) -> s :~: a) -> Equality' s a
+fromLens :: Strong p => LensLike (Context a b) s t a b -> OpticP p s t a b
+fromPrism :: Choice p => Optic p Identity s t a b -> OpticP p s t a b
+fromSetter :: Mapping p => ASetter s t a b -> OpticP p s t a b
+fromTraversal :: Traversing p => ATraversal s t a b -> OpticP p s t a b
+(#%%~) :: Functor f => ALens s t a b -> (a -> f b) -> s -> f t
+(<&>) :: Functor f => f a -> (a -> b) -> f b
+(??) :: Functor f => f (a -> b) -> a -> f b
+funDepInputs :: Lens' FunDep [Name]
+funDepOutputs :: Lens' FunDep [Name]
+fusing :: Functor f => LensLike (Yoneda f) s t a b -> LensLike f s t a b
+_gcast :: (Typeable s, Typeable a) => Traversal' (c s) (c a)
+generateLazyPatterns :: Lens' LensRules Bool
+generateSignatures :: Lens' LensRules Bool
+generateUpdateableOptics :: Lens' LensRules Bool
+generic1 :: (Generic1 f, Generic1 g) => Iso (f a) (g b) (Rep1 f a) (Rep1 g b)
+generic :: (Generic a, Generic b) => Iso a b (Rep a g) (Rep b h)
+getting :: (Profunctor p, Profunctor q, Functor f, Contravariant f) => Optical p q f s t a b -> Optical' p q f s a
+gplate1 :: (Generic1 f, GPlated1 f (Rep1 f)) => Traversal' (f a) (f a)
+gplate :: (Generic a, GPlated a (Rep a)) => Traversal' a a
+gtraverse :: (Applicative f, Data a) => (forall d. Data d => d -> f d) -> a -> f a
+handle :: Lens' IOException (Maybe Handle)
+handler :: (Handleable e m h, Typeable a) => Getting (First a) e a -> (a -> m r) -> h r
+handler_ :: (Handleable e m h, Typeable a) => Getting (First a) e a -> m r -> h r
+handling :: MonadCatch m => Getting (First a) SomeException a -> (a -> m r) -> m r -> m r
+handling_ :: MonadCatch m => Getting (First a) SomeException a -> m r -> m r -> m r
+handling :: MonadError e m => Getting (First a) e a -> (a -> m r) -> m r -> m r
+handling_ :: MonadError e m => Getting (First a) e a -> m r -> m r -> m r
+(^?!) :: HasCallStack => s -> Getting (Endo a) s a -> a
+(^@?!) :: HasCallStack => s -> IndexedGetting i (Endo (i, a)) s a -> (i, a)
+has :: Getting Any s a -> s -> Bool
+hashMap :: Iso' (HashSet a) (HashMap a ())
+hasn't :: Getting All s a -> s -> Bool
+head1 :: Traversable1 t => Lens' (t a) a
+_head :: Cons s s a a => Traversal' s a
+hex :: Integral a => Prism' String a
+holes1Of :: Conjoined p => Over p (Bazaar1 p a a) s t a a -> s -> NonEmpty (Pretext p a a t)
+holesOf :: Conjoined p => Over p (Bazaar p a a) s t a a -> s -> [Pretext p a a t]
+holesOn :: Conjoined p => Over p (Bazaar p a a) s t a a -> s -> [Pretext p a a t]
+holesOnOf :: Conjoined p => LensLike (Bazaar p r r) s t a b -> Over p (Bazaar p r r) a b r r -> s -> [Pretext p r r t]
+holes :: Plated a => a -> [Pretext (->) a a a]
+iall :: FoldableWithIndex i f => (i -> a -> Bool) -> f a -> Bool
+iallOf :: IndexedGetting i All s a -> (i -> a -> Bool) -> s -> Bool
+iany :: FoldableWithIndex i f => (i -> a -> Bool) -> f a -> Bool
+ianyOf :: IndexedGetting i Any s a -> (i -> a -> Bool) -> s -> Bool
+iat :: At m => Index m -> IndexedLens' (Index m) m (Maybe (IxValue m))
+icensoring :: MonadWriter w m => IndexedSetter i w w u v -> (i -> u -> v) -> m a -> m a
+icompose :: Indexable p c => (i -> j -> p) -> (Indexed i s t -> r) -> (Indexed j a b -> s -> t) -> c a b -> r
+iconcatMap :: FoldableWithIndex i f => (i -> a -> [b]) -> f a -> [b]
+iconcatMapOf :: IndexedGetting i [r] s a -> (i -> a -> [r]) -> s -> [r]
+icontains :: Contains m => Index m -> IndexedLens' (Index m) m Bool
+idroppingWhile :: (Indexable i p, Profunctor q, Applicative f) => (i -> a -> Bool) -> Optical (Indexed i) q (Compose (State Bool) f) s t a a -> Optical p q f s t a a
+ifailover :: Alternative m => Over (Indexed i) ((,) Any) s t a b -> (i -> a -> b) -> s -> m t
+ifiltered :: (Indexable i p, Applicative f) => (i -> a -> Bool) -> Optical' p (Indexed i) f a a
+ifind :: FoldableWithIndex i f => (i -> a -> Bool) -> f a -> Maybe (i, a)
+ifindMOf :: Monad m => IndexedGetting i (Endo (m (Maybe a))) s a -> (i -> a -> m Bool) -> s -> m (Maybe a)
+ifindOf :: IndexedGetting i (Endo (Maybe a)) s a -> (i -> a -> Bool) -> s -> Maybe a
+ifolded :: FoldableWithIndex i f => IndexedFold i (f a) a
+ifolding :: (Foldable f, Indexable i p, Contravariant g, Applicative g) => (s -> f (i, a)) -> Over p g s t a b
+ifoldl :: FoldableWithIndex i f => (i -> b -> a -> b) -> b -> f a -> b
+ifoldl' :: FoldableWithIndex i f => (i -> b -> a -> b) -> b -> f a -> b
+ifoldlM :: (FoldableWithIndex i f, Monad m) => (i -> b -> a -> m b) -> b -> f a -> m b
+ifoldlMOf :: Monad m => IndexedGetting i (Endo (r -> m r)) s a -> (i -> r -> a -> m r) -> r -> s -> m r
+ifoldlOf :: IndexedGetting i (Dual (Endo r)) s a -> (i -> r -> a -> r) -> r -> s -> r
+ifoldlOf' :: IndexedGetting i (Endo (r -> r)) s a -> (i -> r -> a -> r) -> r -> s -> r
+ifoldMapBy :: FoldableWithIndex i t => (r -> r -> r) -> r -> (i -> a -> r) -> t a -> r
+ifoldMapByOf :: IndexedFold i t a -> (r -> r -> r) -> r -> (i -> a -> r) -> t -> r
+ifoldMap :: (FoldableWithIndex i f, Monoid m) => (i -> a -> m) -> f a -> m
+ifoldMap' :: (FoldableWithIndex i f, Monoid m) => (i -> a -> m) -> f a -> m
+ifoldMapOf :: IndexedGetting i m s a -> (i -> a -> m) -> s -> m
+ifoldr :: FoldableWithIndex i f => (i -> a -> b -> b) -> b -> f a -> b
+ifoldr' :: FoldableWithIndex i f => (i -> a -> b -> b) -> b -> f a -> b
+ifoldring :: (Indexable i p, Contravariant f, Applicative f) => ((i -> a -> f a -> f a) -> f a -> s -> f a) -> Over p f s t a b
+ifoldrM :: (FoldableWithIndex i f, Monad m) => (i -> a -> b -> m b) -> b -> f a -> m b
+ifoldrMOf :: Monad m => IndexedGetting i (Dual (Endo (r -> m r))) s a -> (i -> a -> r -> m r) -> r -> s -> m r
+ifoldrOf' :: IndexedGetting i (Dual (Endo (r -> r))) s a -> (i -> a -> r -> r) -> r -> s -> r
+ifoldrOf :: IndexedGetting i (Endo r) s a -> (i -> a -> r -> r) -> r -> s -> r
+ifor_ :: (FoldableWithIndex i t, Applicative f) => t a -> (i -> a -> f b) -> f ()
+iforM_ :: (FoldableWithIndex i t, Monad m) => t a -> (i -> a -> m b) -> m ()
+iforMOf :: (Indexed i a (WrappedMonad m b) -> s -> WrappedMonad m t) -> s -> (i -> a -> m b) -> m t
+iforMOf_ :: Monad m => IndexedGetting i (Sequenced r m) s a -> s -> (i -> a -> m r) -> m ()
+iforM :: (TraversableWithIndex i t, Monad m) => t a -> (i -> a -> m b) -> m (t b)
+iforOf_ :: Functor f => IndexedGetting i (Traversed r f) s a -> s -> (i -> a -> f r) -> f ()
+iforOf :: (Indexed i a (f b) -> s -> f t) -> s -> (i -> a -> f b) -> f t
+ifor :: (TraversableWithIndex i t, Applicative f) => t a -> (i -> a -> f b) -> f (t b)
+ignored :: Applicative f => pafb -> s -> f s
+iix :: Ixed m => Index m -> IndexedTraversal' (Index m) m (IxValue m)
+ilens :: (s -> (i, a)) -> (s -> b -> t) -> IndexedLens i s t a b
+ilevels :: Applicative f => Traversing (Indexed i) f s t a b -> IndexedLensLike Int f s t (Level i a) (Level j b)
+ilike :: (Indexable i p, Contravariant f, Functor f) => i -> a -> Over' p f s a
+ilistening :: MonadWriter w m => IndexedGetting i (i, u) w u -> m a -> m (a, (i, u))
+ilistenings :: MonadWriter w m => IndexedGetting i v w u -> (i -> u -> v) -> m a -> m (a, v)
+ilocally :: MonadReader s m => AnIndexedSetter i s s a b -> (i -> a -> b) -> m r -> m r
+iloci :: IndexedTraversal i (Bazaar (Indexed i) a c s) (Bazaar (Indexed i) b c s) a b
+imagma :: Over (Indexed i) (Molten i a b) s t a b -> Iso s t' (Magma i t b a) (Magma j t' c c)
+_imagPart :: Lens' (Complex a) a
+imapAccumLOf :: Over (Indexed i) (State acc) s t a b -> (i -> acc -> a -> (acc, b)) -> acc -> s -> (acc, t)
+imapAccumL :: TraversableWithIndex i t => (i -> s -> a -> (s, b)) -> s -> t a -> (s, t b)
+imapAccumROf :: Over (Indexed i) (Backwards (State acc)) s t a b -> (i -> acc -> a -> (acc, b)) -> acc -> s -> (acc, t)
+imapAccumR :: TraversableWithIndex i t => (i -> s -> a -> (s, b)) -> s -> t a -> (s, t b)
+imap :: FunctorWithIndex i f => (i -> a -> b) -> f a -> f b
+imapM_ :: (FoldableWithIndex i t, Monad m) => (i -> a -> m b) -> t a -> m ()
+imapMOf_ :: Monad m => IndexedGetting i (Sequenced r m) s a -> (i -> a -> m r) -> s -> m ()
+imapMOf :: Over (Indexed i) (WrappedMonad m) s t a b -> (i -> a -> m b) -> s -> m t
+imapM :: (TraversableWithIndex i t, Monad m) => (i -> a -> m b) -> t a -> m (t b)
+imapOf :: AnIndexedSetter i s t a b -> (i -> a -> b) -> s -> t
+imapped :: FunctorWithIndex i f => IndexedSetter i (f a) (f b) a b
+imodifying :: MonadState s m => AnIndexedSetter i s s a b -> (i -> a -> b) -> m ()
+(<.>) :: Indexable (i, j) p => (Indexed i s t -> r) -> (Indexed j a b -> s -> t) -> p a b -> r
+(<.) :: Indexable i p => (Indexed i s t -> r) -> ((a -> b) -> s -> t) -> p a b -> r
+indexed :: Indexable i p => p a b -> i -> a -> b
+index :: (Indexable i p, Eq i, Applicative f) => i -> Optical' p (Indexed i) f a a
+indexing64 :: Indexable Int64 p => ((a -> Indexing64 f b) -> s -> Indexing64 f t) -> p a (f b) -> s -> f t
+indexing :: Indexable Int p => ((a -> Indexing f b) -> s -> Indexing f t) -> p a (f b) -> s -> f t
+indices :: (Indexable i p, Applicative f) => (i -> Bool) -> Optical' p (Indexed i) f a a
+_init :: Snoc s s a a => Traversal' s s
+injectivityAnnInputs :: Lens' InjectivityAnn [Name]
+injectivityAnnOutput :: Lens' InjectivityAnn Name
+inone :: FoldableWithIndex i f => (i -> a -> Bool) -> f a -> Bool
+inoneOf :: IndexedGetting i Any s a -> (i -> a -> Bool) -> s -> Bool
+inside :: Corepresentable p => ALens s t a b -> Lens (p e s) (p e t) (p e a) (p e b)
+integral :: (Integral a, Integral b) => Prism Integer Integer a b
+involuted :: (a -> a) -> Iso' a a
+iover :: AnIndexedSetter i s t a b -> (i -> a -> b) -> s -> t
+ipartsOf' :: forall i p f s t a. (Indexable [i] p, Functor f) => Over (Indexed i) (Bazaar' (Indexed i) a) s t a a -> Over p f s t [a] [a]
+ipartsOf :: forall i p f s t a. (Indexable [i] p, Functor f) => Traversing (Indexed i) f s t a a -> Over p f s t [a] [a]
+ipassing :: MonadWriter w m => IndexedSetter i w w u v -> m (a, i -> u -> v) -> m a
+iplens :: (s -> a) -> (s -> b -> t) -> IndexPreservingLens s t a b
+ipre :: IndexedGetting i (First (i, a)) s a -> IndexPreservingGetter s (Maybe (i, a))
+ipreuse :: MonadState s m => IndexedGetting i (First (i, a)) s a -> m (Maybe (i, a))
+ipreuses :: MonadState s m => IndexedGetting i (First r) s a -> (i -> a -> r) -> m (Maybe r)
+ipreview :: MonadReader s m => IndexedGetting i (First (i, a)) s a -> m (Maybe (i, a))
+ipreviews :: MonadReader s m => IndexedGetting i (First r) s a -> (i -> a -> r) -> m (Maybe r)
+is :: APrism s t a b -> s -> Bool
+iset :: AnIndexedSetter i s t a b -> (i -> b) -> s -> t
+isets :: ((i -> a -> b) -> s -> t) -> IndexedSetter i s t a b
+isn't :: APrism s t a b -> s -> Bool
+iso :: (s -> a) -> (b -> t) -> Iso s t a b
+itakingWhile :: (Indexable i p, Profunctor q, Contravariant f, Applicative f) => (i -> a -> Bool) -> Optical' (Indexed i) q (Const (Endo (f s))) s a -> Optical' p q f s a
+iterated :: Apply f => (a -> a) -> LensLike' f a a
+ito :: (Indexable i p, Contravariant f) => (s -> (i, a)) -> Over' p f s a
+itoList :: FoldableWithIndex i f => f a -> [(i, a)]
+itoListOf :: IndexedGetting i (Endo [(i, a)]) s a -> s -> [(i, a)]
+itraverseByOf :: IndexedTraversal i s t a b -> (forall x. x -> f x) -> (forall x y. f (x -> y) -> f x -> f y) -> (i -> a -> f b) -> s -> f t
+itraverseBy :: TraversableWithIndex i t => (forall x. x -> f x) -> (forall x y. f (x -> y) -> f x -> f y) -> (i -> a -> f b) -> t a -> f (t b)
+itraversed :: TraversableWithIndex i t => IndexedTraversal i (t a) (t b) a b
+itraverse_ :: (FoldableWithIndex i t, Applicative f) => (i -> a -> f b) -> t a -> f ()
+itraverseOf_ :: Functor f => IndexedGetting i (Traversed r f) s a -> (i -> a -> f r) -> s -> f ()
+itraverseOf :: (Indexed i a (f b) -> s -> f t) -> (i -> a -> f b) -> s -> f t
+itraverse :: (TraversableWithIndex i t, Applicative f) => (i -> a -> f b) -> t a -> f (t b)
+iunsafePartsOf :: forall i p f s t a b. (Indexable [i] p, Functor f) => Traversing (Indexed i) f s t a b -> Over p f s t [a] [b]
+iunsafePartsOf' :: forall i s t a b. Over (Indexed i) (Bazaar (Indexed i) a b) s t a b -> IndexedLens [i] s t [a] [b]
+iuse :: MonadState s m => IndexedGetting i (i, a) s a -> m (i, a)
+iuses :: MonadState s m => IndexedGetting i r s a -> (i -> a -> r) -> m r
+iview :: MonadReader s m => IndexedGetting i (i, a) s a -> m (i, a)
+iviews :: MonadReader s m => IndexedGetting i r s a -> (i -> a -> r) -> m r
+ixAt :: At m => Index m -> Traversal' m (IxValue m)
+ix :: (Ixed m, At m) => Index m -> Traversal' m (IxValue m)
+ix :: Ixed m => Index m -> Traversal' m (IxValue m)
+ixmapped :: (IArray a e, Ix i, Ix j) => (i, i) -> IndexPreservingSetter (a j e) (a i e) i j
+last1Of :: Getting (Last a) s a -> s -> a
+last1 :: Traversable1 t => Lens' (t a) a
+lastOf :: Getting (Rightmost a) s a -> s -> Maybe a
+_last :: Snoc s s a a => Traversal' s a
+lazy :: Strict lazy strict => Iso' strict lazy
+left' :: Choice p => p a b -> p (Either a c) (Either b c)
+lengthOf :: Getting (Endo (Endo Int)) s a -> s -> Int
+lensClass :: Lens' LensRules ClassyNamer
+lensField :: Lens' LensRules FieldNamer
+(<<%~) :: LensLike ((,) a) s t a b -> (a -> b) -> s -> (a, t)
+(<<.~) :: LensLike ((,) a) s t a b -> b -> s -> (a, t)
+(<<?~) :: LensLike ((,) a) s t a (Maybe b) -> b -> s -> (a, t)
+(<<&&~) :: LensLike' ((,) Bool) s Bool -> Bool -> s -> (Bool, s)
+(<<||~) :: LensLike' ((,) Bool) s Bool -> Bool -> s -> (Bool, s)
+(<&&~) :: LensLike ((,) Bool) s t Bool Bool -> Bool -> s -> (Bool, t)
+(<||~) :: LensLike ((,) Bool) s t Bool Bool -> Bool -> s -> (Bool, t)
+(<%~) :: LensLike ((,) b) s t a b -> (a -> b) -> s -> (b, t)
+(<</>~) :: LensLike ((,) FilePath) s a FilePath FilePath -> FilePath -> s -> (FilePath, a)
+(<<.>~) :: LensLike ((,) FilePath) s a FilePath FilePath -> String -> s -> (FilePath, a)
+(%%~) :: LensLike f s t a b -> (a -> f b) -> s -> f t
+lensProduct :: ALens' s a -> ALens' s b -> Lens' s (a, b)
+lensRulesFor :: [(String, String)] -> LensRules
+lensRules :: LensRules
+lens :: (s -> a) -> (s -> b -> t) -> Lens s t a b
+levels :: Applicative f => Traversing (->) f s t a b -> IndexedLensLike Int f s t (Level () a) (Level () b)
+lifted :: Monad m => Setter (m a) (m b) a b
+like :: (Profunctor p, Contravariant f, Functor f) => a -> Optic' p f s a
+lined :: Applicative f => IndexedLensLike' Int f String String
+listening :: MonadWriter w m => Getting u w u -> m a -> m (a, u)
+listenings :: MonadWriter w m => Getting v w u -> (u -> v) -> m a -> m (a, v)
+lmapping :: (Profunctor p, Profunctor q) => AnIso s t a b -> Iso (p a x) (q b y) (p s x) (q t y)
+lmap :: Profunctor p => (a -> b) -> p b c -> p a c
+locally :: MonadReader s m => ASetter s s a b -> (a -> b) -> m r -> m r
+location :: Lens' IOException String
+locEnd :: Lens' Loc CharPos
+locFileName :: Lens' Loc String
+loci :: Traversal (Bazaar (->) a c s) (Bazaar (->) b c s) a b
+locModule :: Lens' Loc String
+locPackage :: Lens' Loc String
+locStart :: Lens' Loc CharPos
+locus :: IndexedComonadStore p => Lens (p a c s) (p b c s) a b
+lookingupNamer :: [(String, String)] -> FieldNamer
+lookupOf :: Eq k => Getting (Endo (Maybe v)) s (k, v) -> k -> s -> Maybe v
+magma :: LensLike (Mafic a b) s t a b -> Iso s u (Magma Int t b a) (Magma j u c c)
+magnify :: Magnify m n b a => ((Functor (Magnified m c), Contravariant (Magnified m c)) => LensLike' (Magnified m c) a b) -> m c -> n c
+_magnitude :: RealFloat a => Lens' (Complex a) a
+makeClassyFor :: String -> String -> [(String, String)] -> Name -> DecsQ
+makeClassy :: Name -> DecsQ
+makeClassy_ :: Name -> DecsQ
+makeClassyPrisms :: Name -> DecsQ
+makeFields :: Name -> DecsQ
+makeFieldsNoPrefix :: Name -> DecsQ
+makeLensesFor :: [(String, String)] -> Name -> DecsQ
+makeLenses :: Name -> DecsQ
+makeLensesWith :: LensRules -> Name -> DecsQ
+makePrisms :: Name -> DecsQ
+makeWrapped :: Name -> DecsQ
+mapAccumLOf :: LensLike (State acc) s t a b -> (acc -> a -> (acc, b)) -> acc -> s -> (acc, t)
+mapAccumROf :: LensLike (Backwards (State acc)) s t a b -> (acc -> a -> (acc, b)) -> acc -> s -> (acc, t)
+mapMOf :: LensLike (WrappedMonad m) s t a b -> (a -> m b) -> s -> m t
+mapMOf_ :: Monad m => Getting (Sequenced r m) s a -> (a -> m r) -> s -> m ()
+mapOf :: ASetter s t a b -> (a -> b) -> s -> t
+mappedException :: (Exception e, Exception e') => Setter s s e e'
+mappedException' :: Exception e' => Setter s s SomeException e'
+mapped :: Functor f => Setter (f a) (f b) a b
+mapping :: (Functor f, Functor g) => AnIso s t a b -> Iso (f s) (g t) (f a) (g b)
+mappingNamer :: (String -> [String]) -> FieldNamer
+matchBody :: Lens' Match Body
+matchDeclarations :: Lens' Match [Dec]
+matching :: APrism s t a b -> s -> Either t a
+matching' :: LensLike (Either a) s t a b -> s -> Either t a
+matchPattern :: Lens' Match Pat
+maximum1Of :: Ord a => Getting (Max a) s a -> s -> a
+maximumByOf :: Getting (Endo (Endo (Maybe a))) s a -> (a -> a -> Ordering) -> s -> Maybe a
+maximumOf :: Ord a => Getting (Endo (Endo (Maybe a))) s a -> s -> Maybe a
+members :: Fold IntSet Int
+minimum1Of :: Ord a => Getting (Min a) s a -> s -> a
+minimumByOf :: Getting (Endo (Endo (Maybe a))) s a -> (a -> a -> Ordering) -> s -> Maybe a
+minimumOf :: Ord a => Getting (Endo (Endo (Maybe a))) s a -> s -> Maybe a
+modifying :: MonadState s m => ASetter s s a b -> (a -> b) -> m ()
+(#%=) :: MonadState s m => ALens s s a b -> (a -> b) -> m ()
+(<#%=) :: MonadState s m => ALens s s a b -> (a -> b) -> m b
+(#%%=) :: MonadState s m => ALens s s a b -> (a -> (r, b)) -> m r
+(#=) :: MonadState s m => ALens s s a b -> b -> m ()
+(<#=) :: MonadState s m => ALens s s a b -> b -> m b
+(<<~) :: MonadState s m => ALens s s a b -> m b -> m b
+(%@=) :: MonadState s m => AnIndexedSetter i s s a b -> (i -> a -> b) -> m ()
+(.@=) :: MonadState s m => AnIndexedSetter i s s a b -> (i -> b) -> m ()
+(&&=) :: MonadState s m => ASetter' s Bool -> Bool -> m ()
+(||=) :: MonadState s m => ASetter' s Bool -> Bool -> m ()
+(</>=) :: MonadState s m => ASetter' s FilePath -> FilePath -> m ()
+(<.>=) :: MonadState s m => ASetter' s FilePath -> String -> m ()
+(%=) :: MonadState s m => ASetter s s a b -> (a -> b) -> m ()
+(.=) :: MonadState s m => ASetter s s a b -> b -> m ()
+(<.=) :: MonadState s m => ASetter s s a b -> b -> m b
+(<~) :: MonadState s m => ASetter s s a b -> m b -> m ()
+(?=) :: MonadState s m => ASetter s s a (Maybe b) -> b -> m ()
+(<?=) :: MonadState s m => ASetter s s a (Maybe b) -> b -> m b
+(.&.=) :: (MonadState s m, Bits a) => ASetter' s a -> a -> m ()
+(.|.=) :: (MonadState s m, Bits a) => ASetter' s a -> a -> m ()
+(<.&.=) :: (MonadState s m, Bits a) => LensLike' ((,) a) s a -> a -> m a
+(<.|.=) :: (MonadState s m, Bits a) => LensLike' ((,) a) s a -> a -> m a
+(<<.&.=) :: (MonadState s m, Bits a) => LensLike' ((,) a) s a -> a -> m a
+(<<.|.=) :: (MonadState s m, Bits a) => LensLike' ((,) a) s a -> a -> m a
+(**=) :: (MonadState s m, Floating a) => ASetter' s a -> a -> m ()
+(<**=) :: (MonadState s m, Floating a) => LensLike' ((,) a) s a -> a -> m a
+(<<**=) :: (MonadState s m, Floating a) => LensLike' ((,) a) s a -> a -> m a
+(//=) :: (MonadState s m, Fractional a) => ASetter' s a -> a -> m ()
+(^^=) :: (MonadState s m, Fractional a, Integral e) => ASetter' s a -> e -> m ()
+(<<^^=) :: (MonadState s m, Fractional a, Integral e) => LensLike' ((,) a) s a -> e -> m a
+(<^^=) :: (MonadState s m, Fractional a, Integral e) => LensLike' ((,) a) s a -> e -> m a
+(<//=) :: (MonadState s m, Fractional a) => LensLike' ((,) a) s a -> a -> m a
+(<<//=) :: (MonadState s m, Fractional a) => LensLike' ((,) a) s a -> a -> m a
+(<<.=) :: MonadState s m => LensLike ((,) a) s s a b -> b -> m a
+(<<?=) :: MonadState s m => LensLike ((,) a) s s a (Maybe b) -> b -> m a
+(<&&=) :: MonadState s m => LensLike' ((,) Bool) s Bool -> Bool -> m Bool
+(<<&&=) :: MonadState s m => LensLike' ((,) Bool) s Bool -> Bool -> m Bool
+(<<||=) :: MonadState s m => LensLike' ((,) Bool) s Bool -> Bool -> m Bool
+(<||=) :: MonadState s m => LensLike' ((,) Bool) s Bool -> Bool -> m Bool
+(<%=) :: MonadState s m => LensLike ((,) b) s s a b -> (a -> b) -> m b
+(<</>=) :: MonadState s m => LensLike' ((,) FilePath) s FilePath -> FilePath -> m FilePath
+(<<</>=) :: MonadState s m => LensLike' ((,) FilePath) s FilePath -> FilePath -> m FilePath
+(<<.>=) :: MonadState s m => LensLike' ((,) FilePath) s FilePath -> String -> m FilePath
+(<<<.>=) :: MonadState s m => LensLike' ((,) FilePath) s FilePath -> String -> m FilePath
+(*=) :: (MonadState s m, Num a) => ASetter' s a -> a -> m ()
+(+=) :: (MonadState s m, Num a) => ASetter' s a -> a -> m ()
+(-=) :: (MonadState s m, Num a) => ASetter' s a -> a -> m ()
+(^=) :: (MonadState s m, Num a, Integral e) => ASetter' s a -> e -> m ()
+(<<^=) :: (MonadState s m, Num a, Integral e) => LensLike' ((,) a) s a -> e -> m a
+(<^=) :: (MonadState s m, Num a, Integral e) => LensLike' ((,) a) s a -> e -> m a
+(<*=) :: (MonadState s m, Num a) => LensLike' ((,) a) s a -> a -> m a
+(<+=) :: (MonadState s m, Num a) => LensLike' ((,) a) s a -> a -> m a
+(<-=) :: (MonadState s m, Num a) => LensLike' ((,) a) s a -> a -> m a
+(<<*=) :: (MonadState s m, Num a) => LensLike' ((,) a) s a -> a -> m a
+(<<+=) :: (MonadState s m, Num a) => LensLike' ((,) a) s a -> a -> m a
+(<<-=) :: (MonadState s m, Num a) => LensLike' ((,) a) s a -> a -> m a
+(<<%@=) :: MonadState s m => Over (Indexed i) ((,) a) s s a b -> (i -> a -> b) -> m a
+(<%@=) :: MonadState s m => Over (Indexed i) ((,) b) s s a b -> (i -> a -> b) -> m b
+(%%@=) :: MonadState s m => Over (Indexed i) ((,) r) s s a b -> (i -> a -> (r, b)) -> m r
+(%%=) :: MonadState s m => Over p ((,) r) s s a b -> p a (r, b) -> m r
+(<>=) :: (MonadState s m, Semigroup a) => ASetter' s a -> a -> m ()
+(<<<>=) :: (MonadState s m, Semigroup r) => LensLike' ((,) r) s r -> r -> m r
+(<<>=) :: (MonadState s m, Semigroup r) => LensLike' ((,) r) s r -> r -> m r
+msumOf :: MonadPlus m => Getting (Endo (m a)) s (m a) -> s -> m a
+multiplying :: (Fractional a, Eq a) => a -> Iso' a a
+name :: HasName t => Lens' t Name
+nearly :: a -> (a -> Bool) -> Prism' a ()
+negated :: Num a => Iso' a a
+non' :: APrism' a () -> Iso' (Maybe a) a
+none :: Foldable f => (a -> Bool) -> f a -> Bool
+noneOf :: Getting Any s a -> (a -> Bool) -> s -> Bool
+non :: Eq a => a -> Iso' (Maybe a) a
+notElemOf :: Eq a => Getting All s a -> a -> s -> Bool
+notNullOf :: Getting Any s a -> s -> Bool
+nullOf :: Getting All s a -> s -> Bool
+(*~) :: Num a => ASetter s t a a -> a -> s -> t
+(+~) :: Num a => ASetter s t a a -> a -> s -> t
+(-~) :: Num a => ASetter s t a a -> a -> s -> t
+(^~) :: (Num a, Integral e) => ASetter s t a a -> e -> s -> t
+(<<^~) :: (Num a, Integral e) => LensLike' ((,) a) s a -> e -> s -> (a, s)
+(<^~) :: (Num a, Integral e) => LensLike ((,) a) s t a a -> e -> s -> (a, t)
+(<<*~) :: Num a => LensLike' ((,) a) s a -> a -> s -> (a, s)
+(<<+~) :: Num a => LensLike' ((,) a) s a -> a -> s -> (a, s)
+(<<-~) :: Num a => LensLike' ((,) a) s a -> a -> s -> (a, s)
+(<*~) :: Num a => LensLike ((,) a) s t a a -> a -> s -> (a, t)
+(<+~) :: Num a => LensLike ((,) a) s t a a -> a -> s -> (a, t)
+(<-~) :: Num a => LensLike ((,) a) s t a a -> a -> s -> (a, t)
+octal :: Integral a => Prism' String a
+onceUpon' :: forall s a. (Data s, Typeable a) => (s -> a) -> IndexedLens' Int s a
+onceUpon :: forall s a. (Data s, Typeable a) => (s -> a) -> IndexedTraversal' Int s a
+only :: Eq a => a -> Prism' a ()
+(<<</>~) :: Optical' (->) q ((,) FilePath) s FilePath -> FilePath -> q s (FilePath, s)
+(<<<.>~) :: Optical' (->) q ((,) FilePath) s FilePath -> String -> q s (FilePath, s)
+op :: Wrapped s => (Unwrapped s -> s) -> s -> Unwrapped s
+ordinals :: [Int] -> IndexedTraversal' Int (Vector a) a
+ordinals :: Vector v a => [Int] -> IndexedTraversal' Int (v a) a
+orOf :: Getting Any s Bool -> s -> Bool
+outside :: Representable p => APrism s t a b -> Lens (p t r) (p s r) (p b r) (p a r)
+overA :: Arrow ar => LensLike (Context a b) s t a b -> ar a b -> ar s t
+over :: ASetter s t a b -> (a -> b) -> s -> t
+overEquality :: AnEquality s t a b -> p a b -> p s t
+(<<%@~) :: Over (Indexed i) ((,) a) s t a b -> (i -> a -> b) -> s -> (a, t)
+(<%@~) :: Over (Indexed i) ((,) b) s t a b -> (i -> a -> b) -> s -> (b, t)
+(%%@~) :: Over (Indexed i) f s t a b -> (i -> a -> f b) -> s -> f t
+packedBytes :: IsByteString t => Iso' [Word8] t
+packedBytes :: Iso' [Word8] ByteString
+packedChars :: IsByteString t => Iso' String t
+packedChars :: Iso' String ByteString
+packed :: Iso' String Text
+packed :: IsText t => Iso' String t
+paraOf :: Getting (Endo [a]) a a -> (a -> [r] -> r) -> a -> r
+para :: Plated a => (a -> [r] -> r) -> a -> r
+parOf :: LensLike' Eval s a -> Strategy a -> Strategy s
+partsOf' :: ATraversal s t a a -> Lens s t [a] [a]
+partsOf :: Functor f => Traversing (->) f s t a a -> LensLike f s t [a] [a]
+parts :: Plated a => Lens' a [a]
+passing :: MonadWriter w m => Setter w w u v -> m (a, u -> v) -> m a
+_phase :: RealFloat a => Lens' (Complex a) a
+plate :: (Plated a, Data a) => Traversal' a a
+plate :: Plated a => Traversal' a a
+_polar :: RealFloat a => Iso' (Complex a) (a, a)
+prefixed :: Prefixed t => t -> Prism' t t
+pre :: Getting (First a) s a -> IndexPreservingGetter s (Maybe a)
+preuse :: MonadState s m => Getting (First a) s a -> m (Maybe a)
+preuses :: MonadState s m => Getting (First r) s a -> (a -> r) -> m (Maybe r)
+preview :: MonadReader s m => Getting (First a) s a -> m (Maybe a)
+previews :: MonadReader s m => Getting (First r) s a -> (a -> r) -> m (Maybe r)
+prism' :: (b -> s) -> (s -> Maybe a) -> Prism s s a b
+prism :: (b -> t) -> (s -> Either t a) -> Prism s t a b
+prismSum :: APrism s t a b -> APrism s t c d -> Prism s t (Either a c) (Either b d)
+productOf :: Num a => Getting (Endo (Endo a)) s a -> s -> a
+_realPart :: Lens' (Complex a) a
+re :: AReview t b -> Getter b t
+reindexed :: Indexable j p => (i -> j) -> (Indexed i a b -> r) -> p a b -> r
+repeated :: Apply f => LensLike' f a a
+replicated :: Int -> Fold a a
+retagged :: (Profunctor p, Bifunctor p) => p a b -> p s b
+reuse :: MonadState b m => AReview t b -> m t
+reuses :: MonadState b m => AReview t b -> (t -> r) -> m r
+reversed :: Reversing a => Iso' a a
+reversing :: Reversing t => t -> t
+reviewing :: (Bifunctor p, Functor f) => Optic Tagged Identity s t a b -> Optic' p f t b
+review :: MonadReader b m => AReview t b -> m t
+reviews :: MonadReader b m => AReview t b -> (t -> r) -> m r
+rewriteM :: (Monad m, Plated a) => (a -> m (Maybe a)) -> a -> m a
+rewriteMOf :: Monad m => LensLike (WrappedMonad m) a b a b -> (b -> m (Maybe a)) -> a -> m b
+rewriteMOn :: (Monad m, Plated a) => LensLike (WrappedMonad m) s t a a -> (a -> m (Maybe a)) -> s -> m t
+rewriteMOnOf :: Monad m => LensLike (WrappedMonad m) s t a b -> LensLike (WrappedMonad m) a b a b -> (b -> m (Maybe a)) -> s -> m t
+rewriteOf :: ASetter a b a b -> (b -> Maybe a) -> a -> b
+rewriteOnOf :: ASetter s t a b -> ASetter a b a b -> (b -> Maybe a) -> s -> t
+rewriteOn :: Plated a => ASetter s t a a -> (a -> Maybe a) -> s -> t
+rewrite :: Plated a => (a -> Maybe a) -> a -> a
+right' :: Choice p => p a b -> p (Either c a) (Either c b)
+rmapping :: (Profunctor p, Profunctor q) => AnIso s t a b -> Iso (p x s) (q y t) (p x a) (q y b)
+rmap :: Profunctor p => (b -> c) -> p a b -> p a c
+root :: Lens' (Tree a) a
+runEq :: AnEquality s t a b -> Identical s t a b
+(^#) :: s -> ALens s t a b -> a
+sans :: At m => Index m -> m -> m
+scanl1Of :: LensLike (State (Maybe a)) s t a a -> (a -> a -> a) -> s -> t
+scanr1Of :: LensLike (Backwards (State (Maybe a))) s t a a -> (a -> a -> a) -> s -> t
+scribe :: (MonadWriter t m, Monoid s) => ASetter s t a b -> b -> m ()
+seconding :: (Bifunctor f, Bifunctor g) => AnIso s t a b -> Iso (f x s) (g y t) (f x a) (g y b)
+selfIndex :: Indexable a p => p a fb -> a -> fb
+(<>~) :: Semigroup a => ASetter s t a a -> a -> s -> t
+(<<>~) :: Semigroup m => LensLike ((,) m) s t m m -> m -> s -> (m, t)
+(<<<>~) :: Semigroup r => LensLike' ((,) r) s r -> r -> s -> (r, s)
+seqOf :: Getting (Endo [a]) s a -> Strategy a -> Strategy s
+seqOf :: Getting (Seq a) s a -> s -> Seq a
+sequence1Of_ :: Functor f => Getting (TraversedF a f) s (f a) -> s -> f ()
+sequenceAOf_ :: Functor f => Getting (Traversed a f) s (f a) -> s -> f ()
+sequenceAOf :: LensLike f s t (f b) b -> s -> f t
+sequenceByOf :: Traversal s t (f b) b -> (forall x. x -> f x) -> (forall x y. f (x -> y) -> f x -> f y) -> s -> f t
+sequenceBy :: Traversable t => (forall x. () => x -> f x) -> (forall x y. () => f (x -> y) -> f x -> f y) -> t (f a) -> f (t a)
+sequenceOf :: LensLike (WrappedMonad m) s t (m b) b -> s -> m t
+sequenceOf_ :: Monad m => Getting (Sequenced a m) s (m a) -> s -> m ()
+set' :: ASetter' s a -> a -> s -> s
+set :: ASetter s t a b -> b -> s -> t
+setmapped :: (Eq j, Hashable j) => IndexPreservingSetter (HashSet i) (HashSet j) i j
+setmapped :: IndexPreservingSetter' IntSet Int
+setmapped :: Ord j => IndexPreservingSetter (Set i) (Set j) i j
+setOf :: Getting IntSet s Int -> s -> IntSet
+setOf :: Getting (Set a) s a -> s -> Set a
+setOf :: Hashable a => Getting (HashSet a) s a -> s -> HashSet a
+sets :: (Profunctor p, Profunctor q, Settable f) => (p a b -> q s t) -> Optical p q f s t a b
+setting :: ((a -> b) -> s -> t) -> IndexPreservingSetter s t a b
+(^.) :: s -> Getting a s a -> a
+(^..) :: s -> Getting (Endo [a]) s a -> [a]
+(^?) :: s -> Getting (First a) s a -> Maybe a
+simple :: Equality' a a
+simpleLenses :: Lens' LensRules Bool
+(^@..) :: s -> IndexedGetting i (Endo [(i, a)]) s a -> [(i, a)]
+(^@?) :: s -> IndexedGetting i (Endo (Maybe (i, a))) s a -> Maybe (i, a)
+(^@.) :: s -> IndexedGetting i (i, a) s a -> (i, a)
+singular :: (HasCallStack, Conjoined p, Functor f) => Traversing p f s t a a -> Over p f s t a a
+slicedFrom :: Int -> IndexedTraversal' Int (Seq a) a
+sliced :: Int -> Int -> IndexedTraversal' Int (Seq a) a
+sliced :: Int -> Int -> Lens' (Vector a) (Vector a)
+slicedTo :: Int -> IndexedTraversal' Int (Seq a) a
+sliced :: Vector v a => Int -> Int -> Lens' (v a) (v a)
+snoc :: Snoc s s a a => s -> a -> s
+(|>) :: Snoc s s a a => s -> a -> s
+(&~) :: s -> State s a -> s
+storing :: ALens s t a b -> b -> s -> t
+strict :: Strict lazy strict => Iso' lazy strict
+stripSuffix :: Eq a => [a] -> [a] -> Maybe [a]
+(.>) :: (st -> r) -> (kab -> st) -> kab -> r
+(<<%=) :: (Strong p, MonadState s m) => Over p ((,) a) s s a b -> p a b -> m a
+substType :: SubstType t => Map Name Type -> t -> t
+substTypeVars :: HasTypeVars t => Map Name Name -> t -> t
+subtracting :: Num a => a -> Iso' a a
+suffixed :: Suffixed t => t -> Prism' t t
+sumOf :: Num a => Getting (Endo (Endo a)) s a -> s -> a
+swapped :: Swap p => Iso (p a b) (p c d) (p b a) (p d c)
+_tail :: Cons s s a a => Traversal' s s
+taking :: (Conjoined p, Applicative f) => Int -> Traversing p f s t a a -> Over p f s t a a
+takingWhile :: (Conjoined p, Applicative f) => (a -> Bool) -> Over p (TakingWhile p f a a) s t a a -> Over p f s t a a
+template :: forall s a. (Data s, Typeable a) => Traversal' s a
+text :: IndexedTraversal' Int Text Char
+text :: IsText t => IndexedTraversal' Int t Char
+throughout :: Strategy s -> LensLike f s t a b -> LensLike f s t a b
+throwing :: AReview SomeException b -> b -> r
+throwing_ :: AReview SomeException () -> m x
+throwingM :: MonadThrow m => AReview SomeException b -> b -> m r
+throwing_ :: MonadError e m => AReview e () -> m x
+throwing :: MonadError e m => AReview e t -> t -> m x
+throwingTo :: MonadIO m => ThreadId -> AReview SomeException b -> b -> m ()
+tinplate :: (Data s, Typeable a) => Traversal' s a
+toIso :: (Profunctor p, Functor f) => OpticP (WrappedPafb f p) s t a b -> Optic p f s t a b
+toLens :: Functor f => OpticP (Star f) s t a b -> LensLike f s t a b
+toListOf :: Getting (Endo [a]) s a -> s -> [a]
+toMapOf :: IndexedGetting i (Map i a) s a -> s -> Map i a
+toNonEmptyOf :: Getting (NonEmptyDList a) s a -> s -> NonEmpty a
+toPrism :: (Choice p, Applicative f) => OpticP (WrappedPafb f p) s t a b -> Optic p f s t a b
+to :: (Profunctor p, Contravariant f) => (s -> a) -> Optic' p f s a
+toSetter :: Settable f => OpticP (Star f) s t a b -> LensLike f s t a b
+toTraversal :: Applicative f => OpticP (Star f) s t a b -> LensLike f s t a b
+toVectorOf :: Getting (Endo [a]) s a -> s -> Vector a
+toVectorOf :: Vector v a => Getting (Endo [a]) s a -> s -> v a
+transformM :: (Monad m, Plated a) => (a -> m a) -> a -> m a
+transformMOf :: Monad m => LensLike (WrappedMonad m) a b a b -> (b -> m b) -> a -> m b
+transformMOn :: (Monad m, Plated a) => LensLike (WrappedMonad m) s t a a -> (a -> m a) -> s -> m t
+transformMOnOf :: Monad m => LensLike (WrappedMonad m) s t a b -> LensLike (WrappedMonad m) a b a b -> (b -> m b) -> s -> m t
+transformOf :: ASetter a b a b -> (b -> b) -> a -> b
+transformOnOf :: ASetter s t a b -> ASetter a b a b -> (b -> b) -> s -> t
+transformOn :: Plated a => ASetter s t a a -> (a -> a) -> s -> t
+transform :: Plated a => (a -> a) -> a -> a
+transposeOf :: LensLike ZipList s t [a] a -> s -> [t]
+traversal :: ((a -> f b) -> s -> f t) -> LensLike f s t a b
+traverse1Of_ :: Functor f => Getting (TraversedF r f) s a -> (a -> f r) -> s -> f ()
+traverse1 :: (Traversable1 t, Apply f) => (a -> f b) -> t a -> f (t b)
+traverseByOf :: Traversal s t a b -> (forall x. x -> f x) -> (forall x y. f (x -> y) -> f x -> f y) -> (a -> f b) -> s -> f t
+traverseBy :: Traversable t => (forall x. () => x -> f x) -> (forall x y. () => f (x -> y) -> f x -> f y) -> (a -> f b) -> t a -> f (t b)
+traversed1 :: Traversable1 f => IndexedTraversal1 Int (f a) (f b) a b
+traversed64 :: Traversable f => IndexedTraversal Int64 (f a) (f b) a b
+traversed :: Traversable f => IndexedTraversal Int (f a) (f b) a b
+traverseMax :: TraverseMax k m => IndexedTraversal' k (m v) v
+traverseMin :: TraverseMin k m => IndexedTraversal' k (m v) v
+traverseOf_ :: Functor f => Getting (Traversed r f) s a -> (a -> f r) -> s -> f ()
+traverseOf :: LensLike f s t a b -> (a -> f b) -> s -> f t
+traverse :: (Traversable t, Applicative f) => (a -> f b) -> t a -> f (t b)
+trying :: MonadCatch m => Getting (First a) SomeException a -> m r -> m (Either a r)
+trying_ :: MonadCatch m => Getting (First a) SomeException a -> m r -> m (Maybe r)
+trying :: MonadError e m => Getting (First a) e a -> m r -> m (Either a r)
+tySynEqnLHS :: Lens' TySynEqn Type
+tySynEqnPatterns :: Lens' TySynEqn [Type]
+tySynEqnResult :: Lens' TySynEqn Type
+uncons :: Cons s s a a => s -> Maybe (a, s)
+uncurried :: Iso (a -> b -> c) (d -> e -> f) ((a, b) -> c) ((d, e) -> f)
+under :: AnIso s t a b -> (t -> s) -> b -> a
+underEquality :: AnEquality s t a b -> p t s -> p b a
+underscoreFields :: LensRules
+underscoreNamer :: FieldNamer
+underscoreNoPrefixNamer :: FieldNamer
+unfolded :: (b -> Maybe (a, b)) -> Fold b a
+uniplate :: Data a => Traversal' a a
+united :: Lens' a ()
+universeOf :: Getting [a] a a -> a -> [a]
+universeOnOf :: Getting [a] s a -> Getting [a] a a -> s -> [a]
+universeOn :: Plated a => Getting [a] s a -> s -> [a]
+universe :: Plated a => a -> [a]
+unpackedBytes :: IsByteString t => Iso' t [Word8]
+unpackedBytes :: Iso' ByteString [Word8]
+unpackedChars :: IsByteString t => Iso' t String
+unpackedChars :: Iso' ByteString String
+unpacked :: Iso' Text String
+unpacked :: IsText t => Iso' t String
+un :: (Profunctor p, Bifunctor p, Functor f) => Getting a s a -> Optic' p f a s
+unsafePartsOf' :: ATraversal s t a b -> Lens s t [a] [b]
+unsafePartsOf :: Functor f => Traversing (->) f s t a b -> LensLike f s t [a] [b]
+unsafeSingular :: (HasCallStack, Conjoined p, Functor f) => Traversing p f s t a b -> Over p f s t a b
+unsnoc :: Snoc s s a a => s -> Maybe (s, a)
+unto :: (Profunctor p, Bifunctor p, Functor f) => (b -> t) -> Optic p f s t a b
+upon :: forall p f s a. (Indexable [Int] p, Applicative f, Data s, Data a) => (s -> a) -> p a (f a) -> s -> f s
+upon' :: forall s a. (Data s, Data a) => (s -> a) -> IndexedLens' [Int] s a
+use :: MonadState s m => Getting a s a -> m a
+uses :: MonadState s m => LensLike' (Const r) s a -> (a -> r) -> m r
+utf8 :: Prism' ByteString Text
+vector :: Iso [a] [b] (Vector a) (Vector b)
+vectorIx :: Vector v a => Int -> Traversal' (v a) a
+vectorTraverse :: (Vector v a, Vector w b) => IndexedTraversal Int (v a) (w b) a b
+vector :: (Vector v a, Vector v b) => Iso [a] [b] (v a) (v b)
+viewL :: Iso (Seq a) (Seq b) (ViewL a) (ViewL b)
+view :: MonadReader s m => Getting a s a -> m a
+viewR :: Iso (Seq a) (Seq b) (ViewR a) (ViewR b)
+views :: MonadReader s m => LensLike' (Const r) s a -> (a -> r) -> m r
+withIndex :: (Indexable i p, Functor f) => p (i, s) (f (j, t)) -> Indexed i s (f t)
+without :: APrism s t a b -> APrism u v c d -> Prism (Either s u) (Either t v) (Either a c) (Either b d)
+withPrism :: APrism s t a b -> ((b -> t) -> (s -> Either t a) -> r) -> r
+worded :: Applicative f => IndexedLensLike' Int f String String
+xplatf :: Optic (Costar f) g s t a b -> (f a -> g b) -> f s -> g t
+xplat :: Optic (Costar ((->) s)) g s t a b -> ((s -> a) -> g b) -> g t
+zoom :: Zoom m n s t => LensLike' (Zoomed m c) t s -> m c -> n c
