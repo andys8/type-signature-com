@@ -9974,3 +9974,1692 @@ uncurry :: (a -> b -> c) -> (a, b) -> c
 
 -- | Swap the components of a pair.
 swap :: (a, b) -> (b, a)
+
+module Control.Arrow
+
+-- | The basic arrow class.
+--   
+--   Instances should satisfy the following laws:
+--   
+--   <ul>
+--   <li><pre><a>arr</a> id = <a>id</a></pre></li>
+--   <li><pre><a>arr</a> (f &gt;&gt;&gt; g) = <a>arr</a> f &gt;&gt;&gt;
+--   <a>arr</a> g</pre></li>
+--   <li><pre><a>first</a> (<a>arr</a> f) = <a>arr</a> (<a>first</a>
+--   f)</pre></li>
+--   <li><pre><a>first</a> (f &gt;&gt;&gt; g) = <a>first</a> f &gt;&gt;&gt;
+--   <a>first</a> g</pre></li>
+--   <li><pre><a>first</a> f &gt;&gt;&gt; <a>arr</a> <a>fst</a> =
+--   <a>arr</a> <a>fst</a> &gt;&gt;&gt; f</pre></li>
+--   <li><pre><a>first</a> f &gt;&gt;&gt; <a>arr</a> (<a>id</a> *** g) =
+--   <a>arr</a> (<a>id</a> *** g) &gt;&gt;&gt; <a>first</a> f</pre></li>
+--   <li><pre><a>first</a> (<a>first</a> f) &gt;&gt;&gt; <a>arr</a> assoc =
+--   <a>arr</a> assoc &gt;&gt;&gt; <a>first</a> f</pre></li>
+--   </ul>
+--   
+--   where
+--   
+--   <pre>
+--   assoc ((a,b),c) = (a,(b,c))
+--   </pre>
+--   
+--   The other combinators have sensible default definitions, which may be
+--   overridden for efficiency.
+class Category a => Arrow a
+
+-- | Lift a function to an arrow.
+arr :: Arrow a => (b -> c) -> a b c
+
+-- | Send the first component of the input through the argument arrow, and
+--   copy the rest unchanged to the output.
+first :: Arrow a => a b c -> a (b, d) (c, d)
+
+-- | A mirror image of <a>first</a>.
+--   
+--   The default definition may be overridden with a more efficient version
+--   if desired.
+second :: Arrow a => a b c -> a (d, b) (d, c)
+
+-- | Split the input between the two argument arrows and combine their
+--   output. Note that this is in general not a functor.
+--   
+--   The default definition may be overridden with a more efficient version
+--   if desired.
+(***) :: Arrow a => a b c -> a b' c' -> a (b, b') (c, c')
+
+-- | Fanout: send the input to both argument arrows and combine their
+--   output.
+--   
+--   The default definition may be overridden with a more efficient version
+--   if desired.
+(&&&) :: Arrow a => a b c -> a b c' -> a b (c, c')
+infixr 3 &&&
+infixr 3 ***
+
+-- | Kleisli arrows of a monad.
+newtype Kleisli m a b
+Kleisli :: (a -> m b) -> Kleisli m a b
+[runKleisli] :: Kleisli m a b -> a -> m b
+
+-- | The identity arrow, which plays the role of <a>return</a> in arrow
+--   notation.
+returnA :: Arrow a => a b b
+
+-- | Precomposition with a pure function.
+(^>>) :: Arrow a => (b -> c) -> a c d -> a b d
+infixr 1 ^>>
+
+-- | Postcomposition with a pure function.
+(>>^) :: Arrow a => a b c -> (c -> d) -> a b d
+infixr 1 >>^
+
+-- | Left-to-right composition
+(>>>) :: Category cat => cat a b -> cat b c -> cat a c
+infixr 1 >>>
+
+-- | Right-to-left composition
+(<<<) :: Category cat => cat b c -> cat a b -> cat a c
+infixr 1 <<<
+
+-- | Precomposition with a pure function (right-to-left variant).
+(<<^) :: Arrow a => a c d -> (b -> c) -> a b d
+infixr 1 <<^
+
+-- | Postcomposition with a pure function (right-to-left variant).
+(^<<) :: Arrow a => (c -> d) -> a b c -> a b d
+infixr 1 ^<<
+class Arrow a => ArrowZero a
+zeroArrow :: ArrowZero a => a b c
+
+-- | A monoid on arrows.
+class ArrowZero a => ArrowPlus a
+
+-- | An associative operation with identity <a>zeroArrow</a>.
+(<+>) :: ArrowPlus a => a b c -> a b c -> a b c
+infixr 5 <+>
+
+-- | Choice, for arrows that support it. This class underlies the
+--   <tt>if</tt> and <tt>case</tt> constructs in arrow notation.
+--   
+--   Instances should satisfy the following laws:
+--   
+--   <ul>
+--   <li><pre><a>left</a> (<a>arr</a> f) = <a>arr</a> (<a>left</a>
+--   f)</pre></li>
+--   <li><pre><a>left</a> (f &gt;&gt;&gt; g) = <a>left</a> f &gt;&gt;&gt;
+--   <a>left</a> g</pre></li>
+--   <li><pre>f &gt;&gt;&gt; <a>arr</a> <a>Left</a> = <a>arr</a>
+--   <a>Left</a> &gt;&gt;&gt; <a>left</a> f</pre></li>
+--   <li><pre><a>left</a> f &gt;&gt;&gt; <a>arr</a> (<a>id</a> +++ g) =
+--   <a>arr</a> (<a>id</a> +++ g) &gt;&gt;&gt; <a>left</a> f</pre></li>
+--   <li><pre><a>left</a> (<a>left</a> f) &gt;&gt;&gt; <a>arr</a> assocsum
+--   = <a>arr</a> assocsum &gt;&gt;&gt; <a>left</a> f</pre></li>
+--   </ul>
+--   
+--   where
+--   
+--   <pre>
+--   assocsum (Left (Left x)) = Left x
+--   assocsum (Left (Right y)) = Right (Left y)
+--   assocsum (Right z) = Right (Right z)
+--   </pre>
+--   
+--   The other combinators have sensible default definitions, which may be
+--   overridden for efficiency.
+class Arrow a => ArrowChoice a
+
+-- | Feed marked inputs through the argument arrow, passing the rest
+--   through unchanged to the output.
+left :: ArrowChoice a => a b c -> a (Either b d) (Either c d)
+
+-- | A mirror image of <a>left</a>.
+--   
+--   The default definition may be overridden with a more efficient version
+--   if desired.
+right :: ArrowChoice a => a b c -> a (Either d b) (Either d c)
+
+-- | Split the input between the two argument arrows, retagging and merging
+--   their outputs. Note that this is in general not a functor.
+--   
+--   The default definition may be overridden with a more efficient version
+--   if desired.
+(+++) :: ArrowChoice a => a b c -> a b' c' -> a (Either b b') (Either c c')
+
+-- | Fanin: Split the input between the two argument arrows and merge their
+--   outputs.
+--   
+--   The default definition may be overridden with a more efficient version
+--   if desired.
+(|||) :: ArrowChoice a => a b d -> a c d -> a (Either b c) d
+infixr 2 +++
+infixr 2 |||
+
+-- | Some arrows allow application of arrow inputs to other inputs.
+--   Instances should satisfy the following laws:
+--   
+--   <ul>
+--   <li><pre><a>first</a> (<a>arr</a> (\x -&gt; <a>arr</a> (\y -&gt;
+--   (x,y)))) &gt;&gt;&gt; <a>app</a> = <a>id</a></pre></li>
+--   <li><pre><a>first</a> (<a>arr</a> (g &gt;&gt;&gt;)) &gt;&gt;&gt;
+--   <a>app</a> = <a>second</a> g &gt;&gt;&gt; <a>app</a></pre></li>
+--   <li><pre><a>first</a> (<a>arr</a> (&gt;&gt;&gt; h)) &gt;&gt;&gt;
+--   <a>app</a> = <a>app</a> &gt;&gt;&gt; h</pre></li>
+--   </ul>
+--   
+--   Such arrows are equivalent to monads (see <a>ArrowMonad</a>).
+class Arrow a => ArrowApply a
+app :: ArrowApply a => a (a b c, b) c
+
+-- | The <a>ArrowApply</a> class is equivalent to <a>Monad</a>: any monad
+--   gives rise to a <a>Kleisli</a> arrow, and any instance of
+--   <a>ArrowApply</a> defines a monad.
+newtype ArrowMonad a b
+ArrowMonad :: a () b -> ArrowMonad a b
+
+-- | Any instance of <a>ArrowApply</a> can be made into an instance of
+--   <a>ArrowChoice</a> by defining <a>left</a> = <a>leftApp</a>.
+leftApp :: ArrowApply a => a b c -> a (Either b d) (Either c d)
+
+-- | The <a>loop</a> operator expresses computations in which an output
+--   value is fed back as input, although the computation occurs only once.
+--   It underlies the <tt>rec</tt> value recursion construct in arrow
+--   notation. <a>loop</a> should satisfy the following laws:
+--   
+--   <ul>
+--   <li><i><i>extension</i></i> <tt><a>loop</a> (<a>arr</a> f) =
+--   <a>arr</a> (\ b -&gt; <a>fst</a> (<a>fix</a> (\ (c,d) -&gt; f
+--   (b,d))))</tt></li>
+--   <li><i><i>left tightening</i></i> <tt><a>loop</a> (<a>first</a> h
+--   &gt;&gt;&gt; f) = h &gt;&gt;&gt; <a>loop</a> f</tt></li>
+--   <li><i><i>right tightening</i></i> <tt><a>loop</a> (f &gt;&gt;&gt;
+--   <a>first</a> h) = <a>loop</a> f &gt;&gt;&gt; h</tt></li>
+--   <li><i><i>sliding</i></i> <tt><a>loop</a> (f &gt;&gt;&gt; <a>arr</a>
+--   (<a>id</a> *** k)) = <a>loop</a> (<a>arr</a> (<a>id</a> *** k)
+--   &gt;&gt;&gt; f)</tt></li>
+--   <li><i><i>vanishing</i></i> <tt><a>loop</a> (<a>loop</a> f) =
+--   <a>loop</a> (<a>arr</a> unassoc &gt;&gt;&gt; f &gt;&gt;&gt; <a>arr</a>
+--   assoc)</tt></li>
+--   <li><i><i>superposing</i></i> <tt><a>second</a> (<a>loop</a> f) =
+--   <a>loop</a> (<a>arr</a> assoc &gt;&gt;&gt; <a>second</a> f
+--   &gt;&gt;&gt; <a>arr</a> unassoc)</tt></li>
+--   </ul>
+--   
+--   where
+--   
+--   <pre>
+--   assoc ((a,b),c) = (a,(b,c))
+--   unassoc (a,(b,c)) = ((a,b),c)
+--   </pre>
+class Arrow a => ArrowLoop a
+loop :: ArrowLoop a => a (b, d) (c, d) -> a b c
+instance GHC.Generics.Generic (Control.Arrow.Kleisli m a b)
+instance GHC.Generics.Generic1 (Control.Arrow.Kleisli m a)
+instance GHC.Base.Functor m => GHC.Base.Functor (Control.Arrow.Kleisli m a)
+instance Control.Arrow.ArrowLoop (->)
+instance Control.Monad.Fix.MonadFix m => Control.Arrow.ArrowLoop (Control.Arrow.Kleisli m)
+instance Control.Arrow.Arrow a => GHC.Base.Functor (Control.Arrow.ArrowMonad a)
+instance Control.Arrow.Arrow a => GHC.Base.Applicative (Control.Arrow.ArrowMonad a)
+instance Control.Arrow.ArrowApply a => GHC.Base.Monad (Control.Arrow.ArrowMonad a)
+instance Control.Arrow.ArrowPlus a => GHC.Base.Alternative (Control.Arrow.ArrowMonad a)
+instance (Control.Arrow.ArrowApply a, Control.Arrow.ArrowPlus a) => GHC.Base.MonadPlus (Control.Arrow.ArrowMonad a)
+instance Control.Arrow.ArrowApply (->)
+instance GHC.Base.Monad m => Control.Arrow.ArrowApply (Control.Arrow.Kleisli m)
+instance Control.Arrow.ArrowChoice (->)
+instance GHC.Base.Monad m => Control.Arrow.ArrowChoice (Control.Arrow.Kleisli m)
+instance GHC.Base.MonadPlus m => Control.Arrow.ArrowPlus (Control.Arrow.Kleisli m)
+instance GHC.Base.MonadPlus m => Control.Arrow.ArrowZero (Control.Arrow.Kleisli m)
+instance GHC.Base.Applicative m => GHC.Base.Applicative (Control.Arrow.Kleisli m a)
+instance GHC.Base.Alternative m => GHC.Base.Alternative (Control.Arrow.Kleisli m a)
+instance GHC.Base.Monad m => GHC.Base.Monad (Control.Arrow.Kleisli m a)
+instance GHC.Base.MonadPlus m => GHC.Base.MonadPlus (Control.Arrow.Kleisli m a)
+instance GHC.Base.Monad m => Control.Category.Category (Control.Arrow.Kleisli m)
+instance GHC.Base.Monad m => Control.Arrow.Arrow (Control.Arrow.Kleisli m)
+instance Control.Arrow.Arrow (->)
+
+module Data.Bifoldable
+
+-- | <a>Bifoldable</a> identifies foldable structures with two different
+--   varieties of elements (as opposed to <a>Foldable</a>, which has one
+--   variety of element). Common examples are <a>Either</a> and
+--   <tt>(,)</tt>:
+--   
+--   <pre>
+--   instance Bifoldable Either where
+--     bifoldMap f _ (Left  a) = f a
+--     bifoldMap _ g (Right b) = g b
+--   
+--   instance Bifoldable (,) where
+--     bifoldr f g z (a, b) = f a (g b z)
+--   </pre>
+--   
+--   Some examples below also use the following BiList to showcase empty
+--   Bifoldable behaviors when relevant (<a>Either</a> and <tt>(,)</tt>
+--   containing always exactly resp. 1 and 2 elements):
+--   
+--   <pre>
+--   data BiList a b = BiList [a] [b]
+--   
+--   instance Bifoldable BiList where
+--     bifoldr f g z (BiList as bs) = foldr f (foldr g z bs) as
+--   </pre>
+--   
+--   A minimal <a>Bifoldable</a> definition consists of either
+--   <a>bifoldMap</a> or <a>bifoldr</a>. When defining more than this
+--   minimal set, one should ensure that the following identities hold:
+--   
+--   <pre>
+--   <a>bifold</a> ≡ <a>bifoldMap</a> <a>id</a> <a>id</a>
+--   <a>bifoldMap</a> f g ≡ <a>bifoldr</a> (<a>mappend</a> . f) (<a>mappend</a> . g) <a>mempty</a>
+--   <a>bifoldr</a> f g z t ≡ <a>appEndo</a> (<a>bifoldMap</a> (Endo . f) (Endo . g) t) z
+--   </pre>
+--   
+--   If the type is also a <a>Bifunctor</a> instance, it should satisfy:
+--   
+--   <pre>
+--   <a>bifoldMap</a> f g ≡ <a>bifold</a> . <a>bimap</a> f g
+--   </pre>
+--   
+--   which implies that
+--   
+--   <pre>
+--   <a>bifoldMap</a> f g . <a>bimap</a> h i ≡ <a>bifoldMap</a> (f . h) (g . i)
+--   </pre>
+class Bifoldable p
+
+-- | Combines the elements of a structure using a monoid.
+--   
+--   <pre>
+--   <a>bifold</a> ≡ <a>bifoldMap</a> <a>id</a> <a>id</a>
+--   </pre>
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifold (Right [1, 2, 3])
+--   [1,2,3]
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifold (Left [5, 6])
+--   [5,6]
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifold ([1, 2, 3], [4, 5])
+--   [1,2,3,4,5]
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifold (Product 6, Product 7)
+--   Product {getProduct = 42}
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifold (Sum 6, Sum 7)
+--   Sum {getSum = 13}
+--   </pre>
+bifold :: (Bifoldable p, Monoid m) => p m m -> m
+
+-- | Combines the elements of a structure, given ways of mapping them to a
+--   common monoid.
+--   
+--   <pre>
+--   <a>bifoldMap</a> f g ≡ <a>bifoldr</a> (<a>mappend</a> . f) (<a>mappend</a> . g) <a>mempty</a>
+--   </pre>
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifoldMap (take 3) (fmap digitToInt) ([1..], "89")
+--   [1,2,3,8,9]
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifoldMap (take 3) (fmap digitToInt) (Left [1..])
+--   [1,2,3]
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifoldMap (take 3) (fmap digitToInt) (Right "89")
+--   [8,9]
+--   </pre>
+bifoldMap :: (Bifoldable p, Monoid m) => (a -> m) -> (b -> m) -> p a b -> m
+
+-- | Combines the elements of a structure in a right associative manner.
+--   Given a hypothetical function <tt>toEitherList :: p a b -&gt; [Either
+--   a b]</tt> yielding a list of all elements of a structure in order, the
+--   following would hold:
+--   
+--   <pre>
+--   <a>bifoldr</a> f g z ≡ <a>foldr</a> (<a>either</a> f g) z . toEitherList
+--   </pre>
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt; bifoldr (+) (*) 3 (5, 7)
+--   26 -- 5 + (7 * 3)
+--   
+--   &gt; bifoldr (+) (*) 3 (7, 5)
+--   22 -- 7 + (5 * 3)
+--   
+--   &gt; bifoldr (+) (*) 3 (Right 5)
+--   15 -- 5 * 3
+--   
+--   &gt; bifoldr (+) (*) 3 (Left 5)
+--   8 -- 5 + 3
+--   </pre>
+bifoldr :: Bifoldable p => (a -> c -> c) -> (b -> c -> c) -> c -> p a b -> c
+
+-- | Combines the elements of a structure in a left associative manner.
+--   Given a hypothetical function <tt>toEitherList :: p a b -&gt; [Either
+--   a b]</tt> yielding a list of all elements of a structure in order, the
+--   following would hold:
+--   
+--   <pre>
+--   <a>bifoldl</a> f g z
+--        ≡ <a>foldl</a> (acc -&gt; <a>either</a> (f acc) (g acc)) z . toEitherList
+--   </pre>
+--   
+--   Note that if you want an efficient left-fold, you probably want to use
+--   <a>bifoldl'</a> instead of <a>bifoldl</a>. The reason is that the
+--   latter does not force the "inner" results, resulting in a thunk chain
+--   which then must be evaluated from the outside-in.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt; bifoldl (+) (*) 3 (5, 7)
+--   56 -- (5 + 3) * 7
+--   
+--   &gt; bifoldl (+) (*) 3 (7, 5)
+--   50 -- (7 + 3) * 5
+--   
+--   &gt; bifoldl (+) (*) 3 (Right 5)
+--   15 -- 5 * 3
+--   
+--   &gt; bifoldl (+) (*) 3 (Left 5)
+--   8 -- 5 + 3
+--   </pre>
+bifoldl :: Bifoldable p => (c -> a -> c) -> (c -> b -> c) -> c -> p a b -> c
+
+-- | As <a>bifoldr</a>, but strict in the result of the reduction functions
+--   at each step.
+bifoldr' :: Bifoldable t => (a -> c -> c) -> (b -> c -> c) -> c -> t a b -> c
+
+-- | A variant of <a>bifoldr</a> that has no base case, and thus may only
+--   be applied to non-empty structures.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifoldr1 (+) (5, 7)
+--   12
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifoldr1 (+) (Right 7)
+--   7
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifoldr1 (+) (Left 5)
+--   5
+--   </pre>
+--   
+--   <pre>
+--   &gt; bifoldr1 (+) (BiList [1, 2] [3, 4])
+--   10 -- 1 + (2 + (3 + 4))
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifoldr1 (+) (BiList [1, 2] [])
+--   3
+--   </pre>
+--   
+--   On empty structures, this function throws an exception:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifoldr1 (+) (BiList [] [])
+--   *** Exception: bifoldr1: empty structure
+--   ...
+--   </pre>
+bifoldr1 :: Bifoldable t => (a -> a -> a) -> t a a -> a
+
+-- | Right associative monadic bifold over a structure.
+bifoldrM :: (Bifoldable t, Monad m) => (a -> c -> m c) -> (b -> c -> m c) -> c -> t a b -> m c
+
+-- | As <a>bifoldl</a>, but strict in the result of the reduction functions
+--   at each step.
+--   
+--   This ensures that each step of the bifold is forced to weak head
+--   normal form before being applied, avoiding the collection of thunks
+--   that would otherwise occur. This is often what you want to strictly
+--   reduce a finite structure to a single, monolithic result (e.g.,
+--   <a>bilength</a>).
+bifoldl' :: Bifoldable t => (a -> b -> a) -> (a -> c -> a) -> a -> t b c -> a
+
+-- | A variant of <a>bifoldl</a> that has no base case, and thus may only
+--   be applied to non-empty structures.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifoldl1 (+) (5, 7)
+--   12
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifoldl1 (+) (Right 7)
+--   7
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifoldl1 (+) (Left 5)
+--   5
+--   </pre>
+--   
+--   <pre>
+--   &gt; bifoldl1 (+) (BiList [1, 2] [3, 4])
+--   10 -- ((1 + 2) + 3) + 4
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifoldl1 (+) (BiList [1, 2] [])
+--   3
+--   </pre>
+--   
+--   On empty structures, this function throws an exception:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifoldl1 (+) (BiList [] [])
+--   *** Exception: bifoldl1: empty structure
+--   ...
+--   </pre>
+bifoldl1 :: Bifoldable t => (a -> a -> a) -> t a a -> a
+
+-- | Left associative monadic bifold over a structure.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifoldlM (\a b -&gt; print b &gt;&gt; pure a) (\a c -&gt; print (show c) &gt;&gt; pure a) 42 ("Hello", True)
+--   "Hello"
+--   "True"
+--   42
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifoldlM (\a b -&gt; print b &gt;&gt; pure a) (\a c -&gt; print (show c) &gt;&gt; pure a) 42 (Right True)
+--   "True"
+--   42
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifoldlM (\a b -&gt; print b &gt;&gt; pure a) (\a c -&gt; print (show c) &gt;&gt; pure a) 42 (Left "Hello")
+--   "Hello"
+--   42
+--   </pre>
+bifoldlM :: (Bifoldable t, Monad m) => (a -> b -> m a) -> (a -> c -> m a) -> a -> t b c -> m a
+
+-- | Map each element of a structure using one of two actions, evaluate
+--   these actions from left to right, and ignore the results. For a
+--   version that doesn't ignore the results, see <a>bitraverse</a>.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bitraverse_ print (print . show) ("Hello", True)
+--   "Hello"
+--   "True"
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bitraverse_ print (print . show) (Right True)
+--   "True"
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bitraverse_ print (print . show) (Left "Hello")
+--   "Hello"
+--   </pre>
+bitraverse_ :: (Bifoldable t, Applicative f) => (a -> f c) -> (b -> f d) -> t a b -> f ()
+
+-- | As <a>bitraverse_</a>, but with the structure as the primary argument.
+--   For a version that doesn't ignore the results, see <a>bifor</a>.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifor_ ("Hello", True) print (print . show)
+--   "Hello"
+--   "True"
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifor_ (Right True) print (print . show)
+--   "True"
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifor_ (Left "Hello") print (print . show)
+--   "Hello"
+--   </pre>
+bifor_ :: (Bifoldable t, Applicative f) => t a b -> (a -> f c) -> (b -> f d) -> f ()
+
+-- | Alias for <a>bitraverse_</a>.
+bimapM_ :: (Bifoldable t, Applicative f) => (a -> f c) -> (b -> f d) -> t a b -> f ()
+
+-- | Alias for <a>bifor_</a>.
+biforM_ :: (Bifoldable t, Applicative f) => t a b -> (a -> f c) -> (b -> f d) -> f ()
+
+-- | Alias for <a>biasum</a>.
+bimsum :: (Bifoldable t, Alternative f) => t (f a) (f a) -> f a
+
+-- | Alias for <a>bisequence_</a>.
+bisequenceA_ :: (Bifoldable t, Applicative f) => t (f a) (f b) -> f ()
+
+-- | Evaluate each action in the structure from left to right, and ignore
+--   the results. For a version that doesn't ignore the results, see
+--   <a>bisequence</a>.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bisequence_ (print "Hello", print "World")
+--   "Hello"
+--   "World"
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bisequence_ (Left (print "Hello"))
+--   "Hello"
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bisequence_ (Right (print "World"))
+--   "World"
+--   </pre>
+bisequence_ :: (Bifoldable t, Applicative f) => t (f a) (f b) -> f ()
+
+-- | The sum of a collection of actions, generalizing <a>biconcat</a>.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; biasum (Nothing, Nothing)
+--   Nothing
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biasum (Nothing, Just 42)
+--   Just 42
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biasum (Just 18, Nothing)
+--   Just 18
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biasum (Just 18, Just 42)
+--   Just 18
+--   </pre>
+biasum :: (Bifoldable t, Alternative f) => t (f a) (f a) -> f a
+
+-- | Collects the list of elements of a structure, from left to right.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; biList (18, 42)
+--   [18,42]
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biList (Left 18)
+--   [18]
+--   </pre>
+biList :: Bifoldable t => t a a -> [a]
+
+-- | Test whether the structure is empty.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; binull (18, 42)
+--   False
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; binull (Right 42)
+--   False
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; binull (BiList [] [])
+--   True
+--   </pre>
+binull :: Bifoldable t => t a b -> Bool
+
+-- | Returns the size/length of a finite structure as an <a>Int</a>.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bilength (True, 42)
+--   2
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bilength (Right 42)
+--   1
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bilength (BiList [1,2,3] [4,5])
+--   5
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bilength (BiList [] [])
+--   0
+--   </pre>
+--   
+--   On infinite structures, this function hangs:
+--   
+--   <pre>
+--   &gt; bilength (BiList [1..] [])
+--   * Hangs forever *
+--   </pre>
+bilength :: Bifoldable t => t a b -> Int
+
+-- | Does the element occur in the structure?
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bielem 42 (17, 42)
+--   True
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bielem 42 (17, 43)
+--   False
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bielem 42 (Left 42)
+--   True
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bielem 42 (Right 13)
+--   False
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bielem 42 (BiList [1..5] [1..100])
+--   True
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bielem 42 (BiList [1..5] [1..41])
+--   False
+--   </pre>
+bielem :: (Bifoldable t, Eq a) => a -> t a a -> Bool
+
+-- | The largest element of a non-empty structure.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bimaximum (42, 17)
+--   42
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bimaximum (Right 42)
+--   42
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bimaximum (BiList [13, 29, 4] [18, 1, 7])
+--   29
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bimaximum (BiList [13, 29, 4] [])
+--   29
+--   </pre>
+--   
+--   On empty structures, this function throws an exception:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bimaximum (BiList [] [])
+--   *** Exception: bimaximum: empty structure
+--   ...
+--   </pre>
+bimaximum :: forall t a. (Bifoldable t, Ord a) => t a a -> a
+
+-- | The least element of a non-empty structure.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; biminimum (42, 17)
+--   17
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biminimum (Right 42)
+--   42
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biminimum (BiList [13, 29, 4] [18, 1, 7])
+--   1
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biminimum (BiList [13, 29, 4] [])
+--   4
+--   </pre>
+--   
+--   On empty structures, this function throws an exception:
+--   
+--   <pre>
+--   &gt;&gt;&gt; biminimum (BiList [] [])
+--   *** Exception: biminimum: empty structure
+--   ...
+--   </pre>
+biminimum :: forall t a. (Bifoldable t, Ord a) => t a a -> a
+
+-- | The <a>bisum</a> function computes the sum of the numbers of a
+--   structure.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bisum (42, 17)
+--   59
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bisum (Right 42)
+--   42
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bisum (BiList [13, 29, 4] [18, 1, 7])
+--   72
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bisum (BiList [13, 29, 4] [])
+--   46
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bisum (BiList [] [])
+--   0
+--   </pre>
+bisum :: (Bifoldable t, Num a) => t a a -> a
+
+-- | The <a>biproduct</a> function computes the product of the numbers of a
+--   structure.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; biproduct (42, 17)
+--   714
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biproduct (Right 42)
+--   42
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biproduct (BiList [13, 29, 4] [18, 1, 7])
+--   190008
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biproduct (BiList [13, 29, 4] [])
+--   1508
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biproduct (BiList [] [])
+--   1
+--   </pre>
+biproduct :: (Bifoldable t, Num a) => t a a -> a
+
+-- | Reduces a structure of lists to the concatenation of those lists.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; biconcat ([1, 2, 3], [4, 5])
+--   [1,2,3,4,5]
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biconcat (Left [1, 2, 3])
+--   [1,2,3]
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biconcat (BiList [[1, 2, 3, 4, 5], [6, 7, 8]] [[9]])
+--   [1,2,3,4,5,6,7,8,9]
+--   </pre>
+biconcat :: Bifoldable t => t [a] [a] -> [a]
+
+-- | Given a means of mapping the elements of a structure to lists,
+--   computes the concatenation of all such lists in order.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; biconcatMap (take 3) (fmap digitToInt) ([1..], "89")
+--   [1,2,3,8,9]
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biconcatMap (take 3) (fmap digitToInt) (Left [1..])
+--   [1,2,3]
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biconcatMap (take 3) (fmap digitToInt) (Right "89")
+--   [8,9]
+--   </pre>
+biconcatMap :: Bifoldable t => (a -> [c]) -> (b -> [c]) -> t a b -> [c]
+
+-- | <a>biand</a> returns the conjunction of a container of Bools. For the
+--   result to be <a>True</a>, the container must be finite; <a>False</a>,
+--   however, results from a <a>False</a> value finitely far from the left
+--   end.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; biand (True, False)
+--   False
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biand (True, True)
+--   True
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biand (Left True)
+--   True
+--   </pre>
+--   
+--   Empty structures yield <a>True</a>:
+--   
+--   <pre>
+--   &gt;&gt;&gt; biand (BiList [] [])
+--   True
+--   </pre>
+--   
+--   A <a>False</a> value finitely far from the left end yields
+--   <a>False</a> (short circuit):
+--   
+--   <pre>
+--   &gt;&gt;&gt; biand (BiList [True, True, False, True] (repeat True))
+--   False
+--   </pre>
+--   
+--   A <a>False</a> value infinitely far from the left end hangs:
+--   
+--   <pre>
+--   &gt; biand (BiList (repeat True) [False])
+--   * Hangs forever *
+--   </pre>
+--   
+--   An infinitely <a>True</a> value hangs:
+--   
+--   <pre>
+--   &gt; biand (BiList (repeat True) [])
+--   * Hangs forever *
+--   </pre>
+biand :: Bifoldable t => t Bool Bool -> Bool
+
+-- | <a>bior</a> returns the disjunction of a container of Bools. For the
+--   result to be <a>False</a>, the container must be finite; <a>True</a>,
+--   however, results from a <a>True</a> value finitely far from the left
+--   end.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bior (True, False)
+--   True
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bior (False, False)
+--   False
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bior (Left True)
+--   True
+--   </pre>
+--   
+--   Empty structures yield <a>False</a>:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bior (BiList [] [])
+--   False
+--   </pre>
+--   
+--   A <a>True</a> value finitely far from the left end yields <a>True</a>
+--   (short circuit):
+--   
+--   <pre>
+--   &gt;&gt;&gt; bior (BiList [False, False, True, False] (repeat False))
+--   True
+--   </pre>
+--   
+--   A <a>True</a> value infinitely far from the left end hangs:
+--   
+--   <pre>
+--   &gt; bior (BiList (repeat False) [True])
+--   * Hangs forever *
+--   </pre>
+--   
+--   An infinitely <a>False</a> value hangs:
+--   
+--   <pre>
+--   &gt; bior (BiList (repeat False) [])
+--   * Hangs forever *
+--   </pre>
+bior :: Bifoldable t => t Bool Bool -> Bool
+
+-- | Determines whether any element of the structure satisfies its
+--   appropriate predicate argument. Empty structures yield <a>False</a>.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; biany even isDigit (27, 't')
+--   False
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biany even isDigit (27, '8')
+--   True
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biany even isDigit (26, 't')
+--   True
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biany even isDigit (Left 27)
+--   False
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biany even isDigit (Left 26)
+--   True
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biany even isDigit (BiList [27, 53] ['t', '8'])
+--   True
+--   </pre>
+--   
+--   Empty structures yield <a>False</a>:
+--   
+--   <pre>
+--   &gt;&gt;&gt; biany even isDigit (BiList [] [])
+--   False
+--   </pre>
+biany :: Bifoldable t => (a -> Bool) -> (b -> Bool) -> t a b -> Bool
+
+-- | Determines whether all elements of the structure satisfy their
+--   appropriate predicate argument. Empty structures yield <a>True</a>.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; biall even isDigit (27, 't')
+--   False
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biall even isDigit (26, '8')
+--   True
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biall even isDigit (Left 27)
+--   False
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biall even isDigit (Left 26)
+--   True
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biall even isDigit (BiList [26, 52] ['3', '8'])
+--   True
+--   </pre>
+--   
+--   Empty structures yield <a>True</a>:
+--   
+--   <pre>
+--   &gt;&gt;&gt; biall even isDigit (BiList [] [])
+--   True
+--   </pre>
+biall :: Bifoldable t => (a -> Bool) -> (b -> Bool) -> t a b -> Bool
+
+-- | The largest element of a non-empty structure with respect to the given
+--   comparison function.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bimaximumBy compare (42, 17)
+--   42
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bimaximumBy compare (Left 17)
+--   17
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bimaximumBy compare (BiList [42, 17, 23] [-5, 18])
+--   42
+--   </pre>
+--   
+--   On empty structures, this function throws an exception:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bimaximumBy compare (BiList [] [])
+--   *** Exception: bifoldr1: empty structure
+--   ...
+--   </pre>
+bimaximumBy :: Bifoldable t => (a -> a -> Ordering) -> t a a -> a
+
+-- | The least element of a non-empty structure with respect to the given
+--   comparison function.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; biminimumBy compare (42, 17)
+--   17
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biminimumBy compare (Left 17)
+--   17
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; biminimumBy compare (BiList [42, 17, 23] [-5, 18])
+--   -5
+--   </pre>
+--   
+--   On empty structures, this function throws an exception:
+--   
+--   <pre>
+--   &gt;&gt;&gt; biminimumBy compare (BiList [] [])
+--   *** Exception: bifoldr1: empty structure
+--   ...
+--   </pre>
+biminimumBy :: Bifoldable t => (a -> a -> Ordering) -> t a a -> a
+
+-- | <a>binotElem</a> is the negation of <a>bielem</a>.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; binotElem 42 (17, 42)
+--   False
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; binotElem 42 (17, 43)
+--   True
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; binotElem 42 (Left 42)
+--   False
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; binotElem 42 (Right 13)
+--   True
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; binotElem 42 (BiList [1..5] [1..100])
+--   False
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; binotElem 42 (BiList [1..5] [1..41])
+--   True
+--   </pre>
+binotElem :: (Bifoldable t, Eq a) => a -> t a a -> Bool
+
+-- | The <a>bifind</a> function takes a predicate and a structure and
+--   returns the leftmost element of the structure matching the predicate,
+--   or <a>Nothing</a> if there is no such element.
+--   
+--   <h4><b>Examples</b></h4>
+--   
+--   Basic usage:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifind even (27, 53)
+--   Nothing
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifind even (27, 52)
+--   Just 52
+--   </pre>
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifind even (26, 52)
+--   Just 26
+--   </pre>
+--   
+--   Empty structures always yield <a>Nothing</a>:
+--   
+--   <pre>
+--   &gt;&gt;&gt; bifind even (BiList [] [])
+--   Nothing
+--   </pre>
+bifind :: Bifoldable t => (a -> Bool) -> t a a -> Maybe a
+instance Data.Bifoldable.Bifoldable (,)
+instance Data.Bifoldable.Bifoldable Data.Functor.Const.Const
+instance Data.Bifoldable.Bifoldable (GHC.Generics.K1 i)
+instance Data.Bifoldable.Bifoldable ((,,) x)
+instance Data.Bifoldable.Bifoldable ((,,,) x y)
+instance Data.Bifoldable.Bifoldable ((,,,,) x y z)
+instance Data.Bifoldable.Bifoldable ((,,,,,) x y z w)
+instance Data.Bifoldable.Bifoldable ((,,,,,,) x y z w v)
+instance Data.Bifoldable.Bifoldable Data.Either.Either
+
+module Data.IORef
+
+-- | A mutable variable in the <a>IO</a> monad
+data IORef a
+
+-- | Build a new <a>IORef</a>
+newIORef :: a -> IO (IORef a)
+
+-- | Read the value of an <a>IORef</a>
+readIORef :: IORef a -> IO a
+
+-- | Write a new value into an <a>IORef</a>
+writeIORef :: IORef a -> a -> IO ()
+
+-- | Mutate the contents of an <a>IORef</a>.
+--   
+--   Be warned that <a>modifyIORef</a> does not apply the function
+--   strictly. This means if the program calls <a>modifyIORef</a> many
+--   times, but seldom uses the value, thunks will pile up in memory
+--   resulting in a space leak. This is a common mistake made when using an
+--   IORef as a counter. For example, the following will likely produce a
+--   stack overflow:
+--   
+--   <pre>
+--   ref &lt;- newIORef 0
+--   replicateM_ 1000000 $ modifyIORef ref (+1)
+--   readIORef ref &gt;&gt;= print
+--   </pre>
+--   
+--   To avoid this problem, use <a>modifyIORef'</a> instead.
+modifyIORef :: IORef a -> (a -> a) -> IO ()
+
+-- | Strict version of <a>modifyIORef</a>
+modifyIORef' :: IORef a -> (a -> a) -> IO ()
+
+-- | Atomically modifies the contents of an <a>IORef</a>.
+--   
+--   This function is useful for using <a>IORef</a> in a safe way in a
+--   multithreaded program. If you only have one <a>IORef</a>, then using
+--   <a>atomicModifyIORef</a> to access and modify it will prevent race
+--   conditions.
+--   
+--   Extending the atomicity to multiple <a>IORef</a>s is problematic, so
+--   it is recommended that if you need to do anything more complicated
+--   then using <a>MVar</a> instead is a good idea.
+--   
+--   <a>atomicModifyIORef</a> does not apply the function strictly. This is
+--   important to know even if all you are doing is replacing the value.
+--   For example, this will leak memory:
+--   
+--   <pre>
+--   ref &lt;- newIORef '1'
+--   forever $ atomicModifyIORef ref (\_ -&gt; ('2', ()))
+--   </pre>
+--   
+--   Use <a>atomicModifyIORef'</a> or <a>atomicWriteIORef</a> to avoid this
+--   problem.
+atomicModifyIORef :: IORef a -> (a -> (a, b)) -> IO b
+
+-- | Strict version of <a>atomicModifyIORef</a>. This forces both the value
+--   stored in the <a>IORef</a> and the value returned. The new value is
+--   installed in the <a>IORef</a> before the returned value is forced. So
+--   
+--   <pre>
+--   atomicModifyIORef' ref (x -&gt; (x+1, undefined))
+--   </pre>
+--   
+--   will increment the <a>IORef</a> and then throw an exception in the
+--   calling thread.
+atomicModifyIORef' :: IORef a -> (a -> (a, b)) -> IO b
+
+-- | Variant of <a>writeIORef</a> with the "barrier to reordering" property
+--   that <a>atomicModifyIORef</a> has.
+atomicWriteIORef :: IORef a -> a -> IO ()
+
+-- | Make a <a>Weak</a> pointer to an <a>IORef</a>, using the second
+--   argument as a finalizer to run when <a>IORef</a> is garbage-collected
+mkWeakIORef :: IORef a -> IO () -> IO (Weak (IORef a))
+
+
+-- | An <tt><a>MVar</a> t</tt> is mutable location that is either empty or
+--   contains a value of type <tt>t</tt>. It has two fundamental
+--   operations: <a>putMVar</a> which fills an <a>MVar</a> if it is empty
+--   and blocks otherwise, and <a>takeMVar</a> which empties an <a>MVar</a>
+--   if it is full and blocks otherwise. They can be used in multiple
+--   different ways:
+--   
+--   <ol>
+--   <li>As synchronized mutable variables,</li>
+--   <li>As channels, with <a>takeMVar</a> and <a>putMVar</a> as receive
+--   and send, and</li>
+--   <li>As a binary semaphore <tt><a>MVar</a> ()</tt>, with
+--   <a>takeMVar</a> and <a>putMVar</a> as wait and signal.</li>
+--   </ol>
+--   
+--   They were introduced in the paper <a>"Concurrent Haskell"</a> by Simon
+--   Peyton Jones, Andrew Gordon and Sigbjorn Finne, though some details of
+--   their implementation have since then changed (in particular, a put on
+--   a full <a>MVar</a> used to error, but now merely blocks.)
+--   
+--   <h3>Applicability</h3>
+--   
+--   <a>MVar</a>s offer more flexibility than <a>IORef</a>s, but less
+--   flexibility than <a>STM</a>. They are appropriate for building
+--   synchronization primitives and performing simple interthread
+--   communication; however they are very simple and susceptible to race
+--   conditions, deadlocks or uncaught exceptions. Do not use them if you
+--   need perform larger atomic operations such as reading from multiple
+--   variables: use <a>STM</a> instead.
+--   
+--   In particular, the "bigger" functions in this module (<a>swapMVar</a>,
+--   <a>withMVar</a>, <a>modifyMVar_</a> and <a>modifyMVar</a>) are simply
+--   the composition of a <a>takeMVar</a> followed by a <a>putMVar</a> with
+--   exception safety. These only have atomicity guarantees if all other
+--   threads perform a <a>takeMVar</a> before a <a>putMVar</a> as well;
+--   otherwise, they may block.
+--   
+--   <h3>Fairness</h3>
+--   
+--   No thread can be blocked indefinitely on an <a>MVar</a> unless another
+--   thread holds that <a>MVar</a> indefinitely. One usual implementation
+--   of this fairness guarantee is that threads blocked on an <a>MVar</a>
+--   are served in a first-in-first-out fashion, but this is not guaranteed
+--   in the semantics.
+--   
+--   <h3>Gotchas</h3>
+--   
+--   Like many other Haskell data structures, <a>MVar</a>s are lazy. This
+--   means that if you place an expensive unevaluated thunk inside an
+--   <a>MVar</a>, it will be evaluated by the thread that consumes it, not
+--   the thread that produced it. Be sure to <a>evaluate</a> values to be
+--   placed in an <a>MVar</a> to the appropriate normal form, or utilize a
+--   strict MVar provided by the strict-concurrency package.
+--   
+--   <h3>Ordering</h3>
+--   
+--   <a>MVar</a> operations are always observed to take place in the order
+--   they are written in the program, regardless of the memory model of the
+--   underlying machine. This is in contrast to <a>IORef</a> operations
+--   which may appear out-of-order to another thread in some cases.
+--   
+--   <h3>Example</h3>
+--   
+--   Consider the following concurrent data structure, a skip channel. This
+--   is a channel for an intermittent source of high bandwidth information
+--   (for example, mouse movement events.) Writing to the channel never
+--   blocks, and reading from the channel only returns the most recent
+--   value, or blocks if there are no new values. Multiple readers are
+--   supported with a <tt>dupSkipChan</tt> operation.
+--   
+--   A skip channel is a pair of <a>MVar</a>s. The first <a>MVar</a>
+--   contains the current value, and a list of semaphores that need to be
+--   notified when it changes. The second <a>MVar</a> is a semaphore for
+--   this particular reader: it is full if there is a value in the channel
+--   that this reader has not read yet, and empty otherwise.
+--   
+--   <pre>
+--   data SkipChan a = SkipChan (MVar (a, [MVar ()])) (MVar ())
+--   
+--   newSkipChan :: IO (SkipChan a)
+--   newSkipChan = do
+--       sem &lt;- newEmptyMVar
+--       main &lt;- newMVar (undefined, [sem])
+--       return (SkipChan main sem)
+--   
+--   putSkipChan :: SkipChan a -&gt; a -&gt; IO ()
+--   putSkipChan (SkipChan main _) v = do
+--       (_, sems) &lt;- takeMVar main
+--       putMVar main (v, [])
+--       mapM_ (sem -&gt; putMVar sem ()) sems
+--   
+--   getSkipChan :: SkipChan a -&gt; IO a
+--   getSkipChan (SkipChan main sem) = do
+--       takeMVar sem
+--       (v, sems) &lt;- takeMVar main
+--       putMVar main (v, sem:sems)
+--       return v
+--   
+--   dupSkipChan :: SkipChan a -&gt; IO (SkipChan a)
+--   dupSkipChan (SkipChan main _) = do
+--       sem &lt;- newEmptyMVar
+--       (v, sems) &lt;- takeMVar main
+--       putMVar main (v, sem:sems)
+--       return (SkipChan main sem)
+--   </pre>
+--   
+--   This example was adapted from the original Concurrent Haskell paper.
+--   For more examples of <a>MVar</a>s being used to build higher-level
+--   synchronization primitives, see <a>Chan</a> and <a>QSem</a>.
+
+module Data.Word
+
+-- | A <a>Word</a> is an unsigned integral type, with the same size as
+--   <a>Int</a>.
+data Word
+
+-- | 8-bit unsigned integer type
+data {-# CTYPE "HsWord8" #-} Word8
+
+-- | 16-bit unsigned integer type
+data {-# CTYPE "HsWord16" #-} Word16
+
+-- | 32-bit unsigned integer type
+data {-# CTYPE "HsWord32" #-} Word32
+
+-- | 64-bit unsigned integer type
+data {-# CTYPE "HsWord64" #-} Word64
+
+-- | Reverse order of bytes in <a>Word16</a>.
+byteSwap16 :: Word16 -> Word16
+
+-- | Reverse order of bytes in <a>Word32</a>.
+byteSwap32 :: Word32 -> Word32
+
+-- | Reverse order of bytes in <a>Word64</a>.
+byteSwap64 :: Word64 -> Word64
+
+-- | Reverse the order of the bits in a <a>Word8</a>.
+bitReverse8 :: Word8 -> Word8
+
+-- | Reverse the order of the bits in a <a>Word16</a>.
+bitReverse16 :: Word16 -> Word16
+
+-- | Reverse the order of the bits in a <a>Word32</a>.
+bitReverse32 :: Word32 -> Word32
+
+-- | Reverse the order of the bits in a <a>Word64</a>.
+bitReverse64 :: Word64 -> Word64
+
+module Data.Void
+
+-- | Uninhabited data type
+data Void
+
+-- | Since <a>Void</a> values logically don't exist, this witnesses the
+--   logical reasoning tool of "ex falso quodlibet".
+--   
+--   <pre>
+--   &gt;&gt;&gt; let x :: Either Void Int; x = Right 5
+--   
+--   &gt;&gt;&gt; :{
+--   case x of
+--       Right r -&gt; r
+--       Left l  -&gt; absurd l
+--   :}
+--   5
+--   </pre>
+absurd :: Void -> a
+
+-- | If <a>Void</a> is uninhabited then any <a>Functor</a> that holds only
+--   values of type <a>Void</a> is holding no values. It is implemented in
+--   terms of <tt>fmap absurd</tt>.
+vacuous :: Functor f => f Void -> f a
+instance GHC.Show.Show Data.Void.Void
+instance GHC.Read.Read Data.Void.Void
+instance GHC.Classes.Ord Data.Void.Void
+instance GHC.Generics.Generic Data.Void.Void
+instance Data.Data.Data Data.Void.Void
+instance GHC.Classes.Eq Data.Void.Void
+instance GHC.Ix.Ix Data.Void.Void
+instance GHC.Exception.Type.Exception Data.Void.Void
+instance GHC.Base.Semigroup Data.Void.Void
+
+
+-- | This module defines a "Fixed" type for fixed-precision arithmetic. The
+--   parameter to <a>Fixed</a> is any type that's an instance of
+--   <a>HasResolution</a>. <a>HasResolution</a> has a single method that
+--   gives the resolution of the <a>Fixed</a> type.
+--   
+--   This module also contains generalisations of <a>div</a>, <a>mod</a>,
+--   and <a>divMod</a> to work with any <a>Real</a> instance.
+
+module Control.Concurrent.MVar
+
+-- | An <a>MVar</a> (pronounced "em-var") is a synchronising variable, used
+--   for communication between concurrent threads. It can be thought of as
+--   a box, which may be empty or full.
+data MVar a
+
+-- | Create an <a>MVar</a> which is initially empty.
+newEmptyMVar :: IO (MVar a)
+
+-- | Create an <a>MVar</a> which contains the supplied value.
+newMVar :: a -> IO (MVar a)
+
+-- | Return the contents of the <a>MVar</a>. If the <a>MVar</a> is
+--   currently empty, <a>takeMVar</a> will wait until it is full. After a
+--   <a>takeMVar</a>, the <a>MVar</a> is left empty.
+--   
+--   There are two further important properties of <a>takeMVar</a>:
+--   
+--   <ul>
+--   <li><a>takeMVar</a> is single-wakeup. That is, if there are multiple
+--   threads blocked in <a>takeMVar</a>, and the <a>MVar</a> becomes full,
+--   only one thread will be woken up. The runtime guarantees that the
+--   woken thread completes its <a>takeMVar</a> operation.</li>
+--   <li>When multiple threads are blocked on an <a>MVar</a>, they are
+--   woken up in FIFO order. This is useful for providing fairness
+--   properties of abstractions built using <a>MVar</a>s.</li>
+--   </ul>
+takeMVar :: MVar a -> IO a
+
+-- | Put a value into an <a>MVar</a>. If the <a>MVar</a> is currently full,
+--   <a>putMVar</a> will wait until it becomes empty.
+--   
+--   There are two further important properties of <a>putMVar</a>:
+--   
+--   <ul>
+--   <li><a>putMVar</a> is single-wakeup. That is, if there are multiple
+--   threads blocked in <a>putMVar</a>, and the <a>MVar</a> becomes empty,
+--   only one thread will be woken up. The runtime guarantees that the
+--   woken thread completes its <a>putMVar</a> operation.</li>
+--   <li>When multiple threads are blocked on an <a>MVar</a>, they are
+--   woken up in FIFO order. This is useful for providing fairness
+--   properties of abstractions built using <a>MVar</a>s.</li>
+--   </ul>
+putMVar :: MVar a -> a -> IO ()
+
+-- | Atomically read the contents of an <a>MVar</a>. If the <a>MVar</a> is
+--   currently empty, <a>readMVar</a> will wait until it is full.
+--   <a>readMVar</a> is guaranteed to receive the next <a>putMVar</a>.
+--   
+--   <a>readMVar</a> is multiple-wakeup, so when multiple readers are
+--   blocked on an <a>MVar</a>, all of them are woken up at the same time.
+--   
+--   <i>Compatibility note:</i> Prior to base 4.7, <a>readMVar</a> was a
+--   combination of <a>takeMVar</a> and <a>putMVar</a>. This mean that in
+--   the presence of other threads attempting to <a>putMVar</a>,
+--   <a>readMVar</a> could block. Furthermore, <a>readMVar</a> would not
+--   receive the next <a>putMVar</a> if there was already a pending thread
+--   blocked on <a>takeMVar</a>. The old behavior can be recovered by
+--   implementing 'readMVar as follows:
+--   
+--   <pre>
+--   readMVar :: MVar a -&gt; IO a
+--   readMVar m =
+--     mask_ $ do
+--       a &lt;- takeMVar m
+--       putMVar m a
+--       return a
+--   </pre>
+readMVar :: MVar a -> IO a
+
+-- | Take a value from an <a>MVar</a>, put a new value into the <a>MVar</a>
+--   and return the value taken. This function is atomic only if there are
+--   no other producers for this <a>MVar</a>.
+swapMVar :: MVar a -> a -> IO a
+
+-- | A non-blocking version of <a>takeMVar</a>. The <a>tryTakeMVar</a>
+--   function returns immediately, with <a>Nothing</a> if the <a>MVar</a>
+--   was empty, or <tt><a>Just</a> a</tt> if the <a>MVar</a> was full with
+--   contents <tt>a</tt>. After <a>tryTakeMVar</a>, the <a>MVar</a> is left
+--   empty.
+tryTakeMVar :: MVar a -> IO (Maybe a)
+
+-- | A non-blocking version of <a>putMVar</a>. The <a>tryPutMVar</a>
+--   function attempts to put the value <tt>a</tt> into the <a>MVar</a>,
+--   returning <a>True</a> if it was successful, or <a>False</a> otherwise.
+tryPutMVar :: MVar a -> a -> IO Bool
+
+-- | Check whether a given <a>MVar</a> is empty.
+--   
+--   Notice that the boolean value returned is just a snapshot of the state
+--   of the MVar. By the time you get to react on its result, the MVar may
+--   have been filled (or emptied) - so be extremely careful when using
+--   this operation. Use <a>tryTakeMVar</a> instead if possible.
+isEmptyMVar :: MVar a -> IO Bool
+
+-- | <a>withMVar</a> is an exception-safe wrapper for operating on the
+--   contents of an <a>MVar</a>. This operation is exception-safe: it will
+--   replace the original contents of the <a>MVar</a> if an exception is
+--   raised (see <a>Control.Exception</a>). However, it is only atomic if
+--   there are no other producers for this <a>MVar</a>.
+withMVar :: MVar a -> (a -> IO b) -> IO b
+
+-- | Like <a>withMVar</a>, but the <tt>IO</tt> action in the second
+--   argument is executed with asynchronous exceptions masked.
+withMVarMasked :: MVar a -> (a -> IO b) -> IO b
+
+-- | An exception-safe wrapper for modifying the contents of an
+--   <a>MVar</a>. Like <a>withMVar</a>, <a>modifyMVar</a> will replace the
+--   original contents of the <a>MVar</a> if an exception is raised during
+--   the operation. This function is only atomic if there are no other
+--   producers for this <a>MVar</a>.
+modifyMVar_ :: MVar a -> (a -> IO a) -> IO ()
+
+-- | A slight variation on <a>modifyMVar_</a> that allows a value to be
+--   returned (<tt>b</tt>) in addition to the modified value of the
+--   <a>MVar</a>.
+modifyMVar :: MVar a -> (a -> IO (a, b)) -> IO b
+
+-- | Like <a>modifyMVar_</a>, but the <tt>IO</tt> action in the second
+--   argument is executed with asynchronous exceptions masked.
+modifyMVarMasked_ :: MVar a -> (a -> IO a) -> IO ()
+
+-- | Like <a>modifyMVar</a>, but the <tt>IO</tt> action in the second
+--   argument is executed with asynchronous exceptions masked.
+modifyMVarMasked :: MVar a -> (a -> IO (a, b)) -> IO b
+
+-- | A non-blocking version of <a>readMVar</a>. The <a>tryReadMVar</a>
+--   function returns immediately, with <a>Nothing</a> if the <a>MVar</a>
+--   was empty, or <tt><a>Just</a> a</tt> if the <a>MVar</a> was full with
+--   contents <tt>a</tt>.
+tryReadMVar :: MVar a -> IO (Maybe a)
+
+-- | Make a <a>Weak</a> pointer to an <a>MVar</a>, using the second
+--   argument as a finalizer to run when <a>MVar</a> is garbage-collected
+mkWeakMVar :: MVar a -> IO () -> IO (Weak (MVar a))
+
+-- | <i>Deprecated: use <a>mkWeakMVar</a> instead</i>
+addMVarFinalizer :: MVar a -> IO () -> IO ()
