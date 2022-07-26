@@ -507,7 +507,6 @@ makePrisms :: Name -> DecsQ
 makeWrapped :: Name -> DecsQ
 mapAccumLOf :: LensLike (State acc) s t a b -> (acc -> a -> (acc, b)) -> acc -> s -> (acc, t)
 mapAccumROf :: LensLike (Backwards (State acc)) s t a b -> (acc -> a -> (acc, b)) -> acc -> s -> (acc, t)
-mapEq :: forall k1 k2 (s :: k1) (t :: k2) (a :: k1) (b :: k2) (f :: k1 -> Type). AnEquality s t a b -> f s -> f a
 mapMOf :: LensLike (WrappedMonad m) s t a b -> (a -> m b) -> s -> m t
 mapMOf_ :: Monad m => Getting (Sequenced r m) s a -> (a -> m r) -> s -> m ()
 mapOf :: ASetter s t a b -> (a -> b) -> s -> t
@@ -720,7 +719,6 @@ setting :: ((a -> b) -> s -> t) -> IndexPreservingSetter s t a b
 (^?) :: s -> Getting (First a) s a -> Maybe a
 simple :: Equality' a a
 simpleLenses :: Lens' LensRules Bool
-simply :: forall p f s a rep (r :: TYPE rep). (Optic' p f s a -> r) -> Optic' p f s a -> r
 (^@..) :: s -> IndexedGetting i (Endo [(i, a)]) s a -> [(i, a)]
 (^@?) :: s -> IndexedGetting i (Endo (Maybe (i, a))) s a -> Maybe (i, a)
 (^@.) :: s -> IndexedGetting i (i, a) s a -> (i, a)
@@ -738,7 +736,6 @@ strict :: Strict lazy strict => Iso' lazy strict
 stripSuffix :: Eq a => [a] -> [a] -> Maybe [a]
 (.>) :: (st -> r) -> (kab -> st) -> kab -> r
 (<<%=) :: (Strong p, MonadState s m) => Over p ((,) a) s s a b -> p a b -> m a
-substEq :: forall s t a b rep (r :: TYPE rep). AnEquality s t a b -> ((s ~ a, t ~ b) => r) -> r
 substType :: SubstType t => Map Name Type -> t -> t
 substTypeVars :: HasTypeVars t => Map Name Name -> t -> t
 subtracting :: Num a => a -> Iso' a a
@@ -837,10 +834,7 @@ viewL :: Iso (Seq a) (Seq b) (ViewL a) (ViewL b)
 view :: MonadReader s m => Getting a s a -> m a
 viewR :: Iso (Seq a) (Seq b) (ViewR a) (ViewR b)
 views :: MonadReader s m => LensLike' (Const r) s a -> (a -> r) -> m r
-withEquality :: forall s t a b rep (r :: TYPE rep). AnEquality s t a b -> ((s :~: a) -> (b :~: t) -> r) -> r
 withIndex :: (Indexable i p, Functor f) => p (i, s) (f (j, t)) -> Indexed i s (f t)
-withIso :: forall s t a b rep (r :: TYPE rep). AnIso s t a b -> ((s -> a) -> (b -> t) -> r) -> r
-withLens :: forall s t a b rep (r :: TYPE rep). ALens s t a b -> ((s -> a) -> (s -> b -> t) -> r) -> r
 without :: APrism s t a b -> APrism u v c d -> Prism (Either s u) (Either t v) (Either a c) (Either b d)
 withPrism :: APrism s t a b -> ((b -> t) -> (s -> Either t a) -> r) -> r
 worded :: Applicative f => IndexedLensLike' Int f String String

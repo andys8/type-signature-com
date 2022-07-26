@@ -20,4 +20,5 @@
 - Delete lines with `g/^pattern/d`
 - Delete lines with `g/^pattern/d`
 - Delete lines with `g/^    type /d`
+- Delete lines with `:g/::.*::/d`
 - Make unique and sort `sort -u -o lens.txt lens.txt`
