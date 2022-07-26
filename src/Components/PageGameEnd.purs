@@ -91,7 +91,8 @@ pageGameEnd { gameEndState, onRestart, onHaskellLensMode, language, currentTime 
       , onClick: handler stopPropagation $ const $ do
           let
             url = "https://twitter.com/intent/tweet"
-              <> ("?hashtags=" <> show language)
+              <> "?via=_andys8"
+              <> ("&hashtags=" <> show language)
               <> ("&text=" <> tweet)
           void $ Window.open url "_blank" "" =<< window
       , children: [ icon_ faTwitter, R.text "Share on Twitter" ]
