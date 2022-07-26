@@ -89,10 +89,10 @@ mkGame = do
           , inProgressState
           , language
           }
-      GameEnd answeredQuestions ->
+      GameEnd gameEndState ->
         pageGameEnd
           { onRestart: dispatch ActionGameStart
-          , answeredQuestions
+          , gameEndState
           , language
           }
 

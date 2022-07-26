@@ -4,9 +4,15 @@ import Prelude
 
 import Data.Array ((:))
 import Data.Array as A
+import Data.DateTime.Instant (Instant, unInstant)
+import Data.Int (round)
+import Data.Maybe (Maybe(..))
 import Data.Monoid (guard)
 import Data.String (joinWith)
+import Data.Time.Duration (Seconds(..), negateDuration, toDuration)
 import Effect (Effect)
+import Effect.Class (liftEffect)
+import Effect.Now (now)
 import Foreign.Daisyui (button_, stat, statItem, stats)
 import Foreign.ReactHotkeysHook (useHotkeys)
 import Functions (Fun(..))
@@ -18,28 +24,36 @@ import React.Basic.DOM.Events (stopPropagation)
 import React.Basic.Events (handler, handler_)
 import React.Basic.Hooks (Component, component)
 import React.Basic.Hooks as React
+import React.Basic.Hooks.Aff (useAff)
 import React.Icons (icon, icon_)
 import React.Icons.Fa (faTwitter)
 import React.Icons.Gi (giRibbonMedal)
 import React.Icons.Im (imCheckmark, imCross)
 import React.Icons.Vsc (vscDebugRestart)
+import Record as Record
+import State (GameEndState)
 import Web.HTML (window)
 import Web.HTML.Window as Window
 
-type Props =
-  { answeredQuestions :: Array AnsweredQuestion
-  , onRestart :: Effect Unit
+type Props = Record Props_
+
+type Props_ =
+  ( gameEndState :: GameEndState
   , language :: Language
-  }
+  , onRestart :: Effect Unit
+  )
+
+type WithCurrentTime a = { currentTime :: Maybe Instant | a }
 
 mkPageGameEnd :: Component Props
 mkPageGameEnd =
   component "PageGameEnd" \props@{ onRestart } -> React.do
     useHotkeys "space, return, t" onRestart
-    pure $ pageGameEnd props
+    currentTime <- useAff unit $ liftEffect now
+    pure $ pageGameEnd $ Record.merge props { currentTime }
 
-pageGameEnd :: Props -> JSX
-pageGameEnd { answeredQuestions, onRestart, language } =
+pageGameEnd :: WithCurrentTime Props_ -> JSX
+pageGameEnd { gameEndState: { answeredQuestions, startTime }, onRestart, language, currentTime } =
   fragment
     [ resultStat
     , renderTable answeredQuestions
@@ -49,10 +63,16 @@ pageGameEnd { answeredQuestions, onRestart, language } =
   where
   { countTotal, countCorrect, score } = toStat answeredQuestions
 
-  statText | score > 0.8 = "Impressive"
+  statText | score > 0.8 = case duration of
+    Just d | d <= Seconds 40.0 -> "Wow, only " <> renderSeconds d <> "!"
+    _ -> "Impressive"
   statText | score > 0.5 = "Well done"
   statText | score > 0.0 = "Good start"
   statText = "Don't give up!"
+
+  renderSeconds (Seconds s) = show (round s) <> " seconds"
+
+  duration = toDurationDiff startTime currentTime
 
   buttons = R.div
     { className: "flex flex-row gap-4"
@@ -161,3 +181,7 @@ renderTableRow aq@(AnsweredQuestion question _) =
   answerIcon =
     if isAnswerCorrect aq then icon imCheckmark { className: "text-success" }
     else icon imCross { className: "text-error" }
+
+toDurationDiff :: Instant -> Maybe Instant -> Maybe Seconds
+toDurationDiff start (Just end) = Just $ toDuration $ unInstant end <> negateDuration (unInstant start)
+toDurationDiff _ Nothing = Nothing
