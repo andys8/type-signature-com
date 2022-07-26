@@ -12,13 +12,14 @@
 - Delete in brackets: `g/^\[/d`
 - Make unique and sort `sort -u -o functions.txt functions.txt`
 
-## Lens
+### Lens
 
 - <https://hackage.haskell.org/package/lens-5.1.1/docs/lens.txt>
 - Delete internal modules
 - Delete constructors: `g/^_*[A-Z]/d`
 - Delete lines with `g/^pattern/d`
-- Delete lines with `g/^pattern/d`
-- Delete lines with `g/^    type /d`
+- Delete lines with `g/^ type /d`
 - Delete lines with `:g/::.*::/d`
+- Remove some of the long field functions e.g. `_10`
+- Do regular instructions
 - Make unique and sort `sort -u -o lens.txt lens.txt`
