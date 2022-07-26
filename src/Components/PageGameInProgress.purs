@@ -122,7 +122,8 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
           $ const
           $ when (isNothing currentAnswer)
           $ onAnswerClick option
-      , className: "justify-start w-64 m-2 gap-4 flex-nowrap"
+      , key: show option <> functionName fun
+      , className: "btn-option justify-start w-64 m-2 gap-4 flex-nowrap"
           <> guard (isJust currentAnswer) " pointer-events-none"
           <> guard (optionResult option == OptionError) " animate-wiggle"
       , children:

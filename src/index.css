@@ -17,3 +17,16 @@
   background-size: auto 90%;
   background-position: bottom right -100px;
 }
+
+/* Fix for sticky button hover on iOS */
+/* https://github.com/saadeghi/daisyui/issues/827 */
+@media (max-width: 640px) {
+  .btn-option:hover {
+    --tw-border-opacity: 1;
+    border-color: hsl(var(--n) / var(--tw-border-opacity));
+    --tw-bg-opacity: 1;
+    background-color: hsl(var(--n) / var(--tw-bg-opacity));
+    --tw-text-opacity: 1;
+    color: hsl(var(--nc) / var(--tw-text-opacity));
+  }
+}
