@@ -3,6 +3,7 @@ module Components.PageGameInProgress (mkPageGameInProgress) where
 import Prelude
 
 import Components.AppGameSteps (appGameSteps)
+import Data.Function (on)
 import Data.Maybe (Maybe(..), fromMaybe, isJust, isNothing)
 import Data.Monoid (guard)
 import Data.Newtype (un)
@@ -62,18 +63,20 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
         , children: [ R.text "Which function has this type?" ]
         }
     , renderQuestion currentQuestion
-    , R.div_
-        [ renderAnswerButton A currentQuestion.optionA
-        , renderAnswerButton B currentQuestion.optionB
-        , renderAnswerButton C currentQuestion.optionC
-        , renderAnswerButton D currentQuestion.optionD
-        ]
+    , R.div
+        { key: ((<>) `on` functionName) currentQuestion.optionA currentQuestion.optionB
+        , children:
+            [ renderAnswerButton A currentQuestion.optionA
+            , renderAnswerButton B currentQuestion.optionB
+            , renderAnswerButton C currentQuestion.optionC
+            , renderAnswerButton D currentQuestion.optionD
+            ]
+        }
     ]
 
   renderCard children =
     R.div
       { className: "flex-1 w-full max-w-2xl mx-2 shadow-xl card sm:flex-initial sm:min-h-[440px] bg-base-200"
-      , key: show $ _.name $ un Fun $ currentQuestion.optionA
       , children:
           [ R.div
               { className: "z-10 items-center justify-between text-center card-body gap-4", children }
