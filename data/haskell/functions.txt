@@ -44,43 +44,7 @@ atomicModifyIORef :: IORef a -> (a -> (a, b)) -> IO b
 atomicModifyIORef' :: IORef a -> (a -> (a, b)) -> IO b
 atomicWriteIORef :: IORef a -> a -> IO ()
 (.) :: (b -> c) -> (a -> b) -> a -> c
-biall :: Bifoldable t => (a -> Bool) -> (b -> Bool) -> t a b -> Bool
-biand :: Bifoldable t => t Bool Bool -> Bool
-biany :: Bifoldable t => (a -> Bool) -> (b -> Bool) -> t a b -> Bool
-biasum :: (Bifoldable t, Alternative f) => t (f a) (f a) -> f a
-biconcat :: Bifoldable t => t [a] [a] -> [a]
-biconcatMap :: Bifoldable t => (a -> [c]) -> (b -> [c]) -> t a b -> [c]
-bielem :: (Bifoldable t, Eq a) => a -> t a a -> Bool
-bifind :: Bifoldable t => (a -> Bool) -> t a a -> Maybe a
-bifold :: (Bifoldable p, Monoid m) => p m m -> m
-bifoldl1 :: Bifoldable t => (a -> a -> a) -> t a a -> a
-bifoldl :: Bifoldable p => (c -> a -> c) -> (c -> b -> c) -> c -> p a b -> c
-bifoldl' :: Bifoldable t => (a -> b -> a) -> (a -> c -> a) -> a -> t b c -> a
-bifoldlM :: (Bifoldable t, Monad m) => (a -> b -> m a) -> (a -> c -> m a) -> a -> t b c -> m a
-bifoldMap :: (Bifoldable p, Monoid m) => (a -> m) -> (b -> m) -> p a b -> m
-bifoldr1 :: Bifoldable t => (a -> a -> a) -> t a a -> a
-bifoldr :: Bifoldable p => (a -> c -> c) -> (b -> c -> c) -> c -> p a b -> c
-bifoldr' :: Bifoldable t => (a -> c -> c) -> (b -> c -> c) -> c -> t a b -> c
-bifoldrM :: (Bifoldable t, Monad m) => (a -> c -> m c) -> (b -> c -> m c) -> c -> t a b -> m c
-bifor_ :: (Bifoldable t, Applicative f) => t a b -> (a -> f c) -> (b -> f d) -> f ()
-biforM_ :: (Bifoldable t, Applicative f) => t a b -> (a -> f c) -> (b -> f d) -> f ()
-bilength :: Bifoldable t => t a b -> Int
-biList :: Bifoldable t => t a a -> [a]
 bimap :: Bifunctor p => (a -> b) -> (c -> d) -> p a c -> p b d
-bimapM_ :: (Bifoldable t, Applicative f) => (a -> f c) -> (b -> f d) -> t a b -> f ()
-bimaximum :: (Bifoldable t, Ord a) => t a a -> a
-bimaximumBy :: Bifoldable t => (a -> a -> Ordering) -> t a a -> a
-biminimum :: (Bifoldable t, Ord a) => t a a -> a
-biminimumBy :: Bifoldable t => (a -> a -> Ordering) -> t a a -> a
-bimsum :: (Bifoldable t, Alternative f) => t (f a) (f a) -> f a
-binotElem :: (Bifoldable t, Eq a) => a -> t a a -> Bool
-binull :: Bifoldable t => t a b -> Bool
-bior :: Bifoldable t => t Bool Bool -> Bool
-biproduct :: (Bifoldable t, Num a) => t a a -> a
-bisequenceA_ :: (Bifoldable t, Applicative f) => t (f a) (f b) -> f ()
-bisequence_ :: (Bifoldable t, Applicative f) => t (f a) (f b) -> f ()
-bisum :: (Bifoldable t, Num a) => t a a -> a
-bitraverse_ :: (Bifoldable t, Applicative f) => (a -> f c) -> (b -> f d) -> t a b -> f ()
 bitReverse16 :: Word16 -> Word16
 bitReverse32 :: Word32 -> Word32
 bitReverse64 :: Word64 -> Word64
