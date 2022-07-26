@@ -11,3 +11,8 @@
 - Delete constructors: `g/^[A-Z]/d`
 - Delete in brackets: `g/^\[/d`
 - Make unique and sort `sort -u -o functions.txt functions.txt`
+
+## Lens
+
+- <https://hackage.haskell.org/package/lens-5.1.1/docs/lens.txt>
+- Delete internal modules
