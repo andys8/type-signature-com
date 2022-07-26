@@ -40,6 +40,7 @@ foreign import badge
        { color :: String
        , size :: String
        , responsive :: Boolean
+       , className :: String
        , children :: Array JSX
        }
 

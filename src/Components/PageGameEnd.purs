@@ -13,7 +13,7 @@ import Data.Time.Duration (Seconds(..), negateDuration, toDuration)
 import Effect (Effect)
 import Effect.Class (liftEffect)
 import Effect.Now (now)
-import Foreign.Daisyui (button_, stat, statItem, stats)
+import Foreign.Daisyui (badge, button_, stat, statItem, stats)
 import Foreign.ReactHotkeysHook (useHotkeys)
 import Functions (Fun(..))
 import Languages (Language, languageIcon)
@@ -27,7 +27,7 @@ import React.Basic.Hooks as React
 import React.Basic.Hooks.Aff (useAff)
 import React.Icons (icon, icon_)
 import React.Icons.Fa (faTwitter)
-import React.Icons.Gi (giRibbonMedal)
+import React.Icons.Gi (giRibbonMedal, giSpeedometer)
 import React.Icons.Im (imCheckmark, imCross)
 import React.Icons.Vsc (vscDebugRestart)
 import Record as Record
@@ -63,15 +63,7 @@ pageGameEnd { gameEndState: { answeredQuestions, startTime }, onRestart, languag
   where
   { countTotal, countCorrect, score } = toStat answeredQuestions
 
-  statText | score > 0.8 = case duration of
-    Just d | d <= Seconds 60.0 -> "Wow, only " <> renderSeconds d <> "!"
-    _ -> "Impressive"
-  statText | score > 0.5 = "Well done"
-  statText | score > 0.0 = "Good start"
-  statText = "Don't give up!"
-
   renderSeconds (Seconds s) = show (round s) <> " seconds"
-
   duration = toDurationDiff startTime currentTime
 
   buttons = R.div
@@ -107,18 +99,39 @@ pageGameEnd { gameEndState: { answeredQuestions, startTime }, onRestart, languag
     , "Give it a shot!"
     ]
 
+  statText | score > 0.8 = case duration of
+    Just d | d <= Seconds 30.0 -> "Crazy, only " <> renderSeconds d <> "!"
+    Just d | d <= Seconds 60.0 -> "Wow, only " <> renderSeconds d <> "!"
+    _ -> "Impressive"
+  statText | score > 0.5 = "Well done"
+  statText | score > 0.0 = "Good start"
+  statText = "Don't give up!"
+
+  statTitle = case duration of
+    Just d | d <= Seconds 30.0 && score == 1.0 -> speedRunBadge
+    _ -> R.text "Result"
+
+  speedRunBadge = element badge
+    { size: "md"
+    , responsive: false
+    , color: "neutral"
+    , className: "gap-1"
+    , children: [ icon_ giSpeedometer, R.text "Speedrun" ]
+    }
+
   resultStat = element stats
     { className: joinWith " "
         [ "shadow px-4 select-none animate-fadein"
-        , if score > 0.8 then "bg-success text-success-content"
-          else "bg-primary text-primary-content"
+        , if score == 1.0 then "bg-success text-success-content"
+          else if score > 0.5 then "bg-primary text-primary-content"
+          else "bg-secondary text-secondary-content"
         ]
     , children:
         [ element stat
             { children:
                 [ element statItem
                     { variant: "title"
-                    , children: [ R.text "Result" ]
+                    , children: [ statTitle ]
                     }
                 , element statItem
                     { variant: "value"

@@ -130,6 +130,7 @@ pageGameInProgress { language, onAnswerClick, inProgressState } =
           [ element badge
               { size: "lg"
               , responsive: false
+              , className: ""
               , color: case optionResult option of
                   OptionDefault -> "secondary"
                   _ -> "neutral"
