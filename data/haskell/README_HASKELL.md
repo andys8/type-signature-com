@@ -16,3 +16,8 @@
 
 - <https://hackage.haskell.org/package/lens-5.1.1/docs/lens.txt>
 - Delete internal modules
+- Delete constructors: `g/^_*[A-Z]/d`
+- Delete lines with `g/^pattern/d`
+- Delete lines with `g/^pattern/d`
+- Delete lines with `g/^    type /d`
+- Make unique and sort `sort -u -o lens.txt lens.txt`
