@@ -2,13 +2,12 @@ module Components.PageStart (mkPageStart) where
 
 import Prelude
 
-import Data.Array.NonEmpty as NEA
 import Data.String (joinWith)
 import Effect (Effect)
 import Foreign.Daisyui (button_)
 import Foreign.Logo (logoLarge)
 import Foreign.ReactHotkeysHook (useHotkeys)
-import Languages (Language(..), languageIcon, languages)
+import Languages (Language(..), languageIcon)
 import React.Basic (JSX, fragment)
 import React.Basic.DOM as R
 import React.Basic.Events (handler_)
@@ -50,7 +49,7 @@ languageSelection :: { language :: Language, onLanguageSet :: Language -> Effect
 languageSelection { language, onLanguageSet } =
   R.div
     { className: "flex flex-row flex-nowrap btn-group"
-    , children: NEA.toArray $ languageButton <$> languages
+    , children: languageButton <$> [ Haskell, PureScript, Elm ]
     }
   where
   classes l = joinWith " " [ "flex-col gap-2 min-w-fit w-24 h-20", opactiy l ]

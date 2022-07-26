@@ -16,7 +16,7 @@ import Effect.Now (now)
 import Foreign.Daisyui (badge, button_, stat, statItem, stats)
 import Foreign.ReactHotkeysHook (useHotkeys)
 import Functions (Fun(..))
-import Languages (Language, languageIcon)
+import Languages (Language(..), languageIcon)
 import Questions (AnsweredQuestion(..), isAnswerCorrect, questionFunction, toStat)
 import React.Basic (JSX, element, fragment)
 import React.Basic.DOM as R
@@ -41,6 +41,7 @@ type Props_ =
   ( gameEndState :: GameEndState
   , language :: Language
   , onRestart :: Effect Unit
+  , onHaskellLensMode :: Effect Unit
   )
 
 type WithCurrentTime a = { currentTime :: Maybe Instant | a }
@@ -53,7 +54,7 @@ mkPageGameEnd =
     pure $ pageGameEnd $ Record.merge props { currentTime }
 
 pageGameEnd :: WithCurrentTime Props_ -> JSX
-pageGameEnd { gameEndState: { answeredQuestions, startTime }, onRestart, language, currentTime } =
+pageGameEnd { gameEndState, onRestart, onHaskellLensMode, language, currentTime } =
   fragment
     [ resultStat
     , renderTable answeredQuestions
@@ -61,28 +62,32 @@ pageGameEnd { gameEndState: { answeredQuestions, startTime }, onRestart, languag
     , icon (languageIcon language) { size: "32px", className: "mt-6 text-base-300" }
     ]
   where
+  { answeredQuestions, startTime } = gameEndState
   { countTotal, countCorrect, score } = toStat answeredQuestions
 
   renderSeconds (Seconds s) = show (round s) <> " seconds"
   duration = toDurationDiff startTime currentTime
 
   buttons = R.div
-    { className: "flex flex-row gap-4"
-    , children: restartButton : guard (score > 0.5) [ twitterButton ]
+    { className: "flex flex-col sm:flex-row gap-4"
+    , children:
+        restartButton
+          : guard (isPerfectResult && language == Haskell) [ haskellLensModeButton ]
+          <> guard (score > 0.5) [ twitterButton ]
     }
 
   restartButton =
     button_
       { color: "default"
       , onClick: handler_ onRestart
-      , className: "gap-2"
+      , className: "justify-start gap-2"
       , children: [ icon_ vscDebugRestart, R.text "Try again" ]
       }
 
   twitterButton =
     button_
       { color: "info"
-      , className: "gap-2"
+      , className: "justify-start gap-2"
       , onClick: handler stopPropagation $ const $ do
           let
             url = "https://twitter.com/intent/tweet"
@@ -99,6 +104,14 @@ pageGameEnd { gameEndState: { answeredQuestions, startTime }, onRestart, languag
     , "Give it a shot!"
     ]
 
+  haskellLensModeButton =
+    button_
+      { color: "accent"
+      , onClick: handler_ onHaskellLensMode
+      , className: "justify-start gap-2"
+      , children: [ icon_ $ languageIcon HaskellLens, R.text "Kmett Mode" ]
+      }
+
   statText | score > 0.8 = case duration of
     Just d | d <= Seconds 30.0 -> "Crazy, only " <> renderSeconds d <> "!"
     Just d | d <= Seconds 60.0 -> "Wow, only " <> renderSeconds d <> "!"
@@ -107,9 +120,12 @@ pageGameEnd { gameEndState: { answeredQuestions, startTime }, onRestart, languag
   statText | score > 0.0 = "Good start"
   statText = "Don't give up!"
 
-  statTitle = case duration of
-    Just d | d <= Seconds 30.0 && score == 1.0 -> speedRunBadge
-    _ -> R.text "Result"
+  isPerfectResult = case duration of
+    Just d -> d <= Seconds 30.0 && score == 1.0
+    _ -> false
+
+  statTitle | isPerfectResult = speedRunBadge
+  statTitle = R.text "Result"
 
   speedRunBadge = element badge
     { size: "md"

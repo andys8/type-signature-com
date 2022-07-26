@@ -8,13 +8,15 @@ import Data.Enum (class BoundedEnum, class Enum, enumFromTo)
 import Data.Enum.Generic (genericCardinality, genericFromEnum, genericPred, genericSucc, genericToEnum)
 import Data.Generic.Rep (class Generic)
 import Data.Show.Generic (genericShow)
+import React.Icons.Gi (giMagnifyingGlass)
 import React.Icons.Si (siElm, siHaskell, siPurescript)
 import React.Icons.Types (ReactIcon)
 
-data Language = Haskell | PureScript | Elm
+data Language = Haskell | PureScript | Elm | HaskellLens
 
-type AllLanguages a =
+type AllFunctions a =
   { haskell :: a
+  , haskellLens :: a
   , purescript :: a
   , elm :: a
   }
@@ -44,5 +46,6 @@ languages = enumFromTo bottom top
 
 languageIcon :: Language -> ReactIcon
 languageIcon Haskell = siHaskell
+languageIcon HaskellLens = giMagnifyingGlass
 languageIcon PureScript = siPurescript
 languageIcon Elm = siElm

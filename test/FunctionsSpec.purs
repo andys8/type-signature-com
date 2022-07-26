@@ -20,6 +20,7 @@ import Test.Spec.Assertions (shouldEqual, shouldNotEqual, shouldNotSatisfy, shou
 
 foreign import elmCore :: String
 foreign import haskellFunctions :: String
+foreign import haskellLens :: String
 foreign import purescriptFunctions :: String
 
 spec :: Spec Unit
@@ -57,6 +58,18 @@ spec =
             let hasForall = S.contains (Pattern "forall")
             let signatures = (_.signature <<< un Fun) <$> functions
             for_ signatures (_ `shouldNotSatisfy` hasForall)
+
+          it "name should be valid" \functions -> do
+            let names = (_.name <<< un Fun) <$> functions
+            case regex "^[a-zA-Z0-9'_]+|\\(.*\\)$" noFlags of
+              Left e -> liftEffect $ throw e
+              Right reg -> for_ names (_ `shouldSatisfy` test reg)
+
+      before (pure $ parseToList haskellLens) do
+        describe "Haskell Lens" do
+
+          it "can be parsed" \functions -> do
+            functions `shouldNotSatisfy` A.null
 
           it "name should be valid" \functions -> do
             let names = (_.name <<< un Fun) <$> functions

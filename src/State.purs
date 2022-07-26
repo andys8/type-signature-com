@@ -18,7 +18,7 @@ import Effect.Class.Console (error)
 import Effect.Now (now)
 import Foreign.Confetti (confetti, schoolPride)
 import Functions (Fun)
-import Languages (AllLanguages, Language(..))
+import Languages (AllFunctions, Language(..))
 import Questions (Answer, AnsweredQuestion(..), Question, mkQuestions, toStat)
 import React.Basic.Hooks.Aff (noEffects)
 
@@ -28,7 +28,7 @@ type State =
   , gameState :: GameState
   }
 
-type Functions = AllLanguages (NonEmptySet Fun)
+type Functions = AllFunctions (NonEmptySet Fun)
 
 data GameState
   = GameBeforeStart
@@ -56,6 +56,7 @@ type GameEndState =
 data Action
   = ActionGameStart
   | ActionLanguageSet Language
+  | ActionInitHaskellLensMode
   | ActionNewGame (NonEmptyArray Question) Instant
   | ActionAnswer Answer
   | ActionNextQuestion
@@ -80,6 +81,11 @@ reducer state ActionGameStart =
       Right qs -> pure [ ActionNewGame qs currentTime ]
 
 reducer state (ActionLanguageSet language) = noEffects $ state { language = language }
+
+reducer state ActionInitHaskellLensMode =
+  { state: state { language = HaskellLens }
+  , effects: [ pure [ ActionGameStart ] ]
+  }
 
 reducer state (ActionNewGame questions startTime) =
   noEffects $ state { gameState = GameInProgress gameInProgressState }
@@ -155,6 +161,7 @@ reducer state ActionNextQuestion =
 toFunctions :: State -> NonEmptySet Fun
 toFunctions { functions, language } = case language of
   Haskell -> functions.haskell
+  HaskellLens -> functions.haskellLens
   PureScript -> functions.purescript
   Elm -> functions.elm
 

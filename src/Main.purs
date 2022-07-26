@@ -92,6 +92,7 @@ mkGame = do
       GameEnd gameEndState ->
         pageGameEnd
           { onRestart: dispatch ActionGameStart
+          , onHaskellLensMode: dispatch ActionInitHaskellLensMode
           , gameEndState
           , language
           }
@@ -100,10 +101,12 @@ loadAllFunctions :: Aff (Either String Functions)
 loadAllFunctions = do
   functions <- parSequence $ loadFunctions <$>
     [ urls.haskell
+    , urls.haskellLens
     , urls.purescript
     , urls.elm
     ]
   pure $ toAllFunctions =<< traverse ((=<<) parseFunctions) functions
   where
-  toAllFunctions [ haskell, purescript, elm ] = Right { haskell, purescript, elm }
+  toAllFunctions [ haskell, haskellLens, purescript, elm ] =
+    Right { haskell, haskellLens, purescript, elm }
   toAllFunctions _ = Left "Can't create AllFunctions"
