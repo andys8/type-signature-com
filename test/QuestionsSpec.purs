@@ -13,10 +13,12 @@ import Data.Set.NonEmpty (NonEmptySet)
 import Data.Set.NonEmpty as NES
 import Data.Traversable (sequence)
 import Effect.Class (class MonadEffect, liftEffect)
-import Functions (Fun(..))
-import Questions (Question, mkQuestions, toOptions)
+import Functions (Fun(..), parseFunctions)
+import Questions (Question, abcd, mkQuestions, toOptions)
 import Test.Spec (Spec, before, describe, it)
 import Test.Spec.Assertions (shouldEqual, shouldSatisfy)
+
+foreign import haskellFunctionsText :: String
 
 spec :: Spec Unit
 spec =
@@ -62,6 +64,26 @@ spec =
 
           it "creates 2 questions" \questions -> do
             (NEA.length <$> questions) `shouldEqual` Right 2
+
+      before (mkQuestions 100 functionsHaskell) do
+        describe "100 Haskell questions" do
+          it "correct option is different" \questions -> do
+            let options = (map _.correctOption) <$> questions
+            ((NEA.sort <<< NEA.nub) <$> options) `shouldEqual` Right abcd
+
+      before (mkQuestions 2 functionsHaskell) do
+        describe "2 Haskell questions" do
+          it "options of question different" \questions -> do
+            let options = (toOptions <<< NEA.head) <$> questions
+            options `shouldEqual` (A.nub <$> options)
+
+          it "options in questions are different" \questions -> do
+            let
+              intersection = do
+                q1 <- NEA.head <$> questions
+                q2 <- NEA.last <$> questions
+                pure $ (intersect `on` toOptions) q1 q2
+            intersection `shouldEqual` pure []
 
       before (mkSingleQuestions 1000 functionsMath) do
         describe "Number vs. Ord vs. Int" do
@@ -121,6 +143,12 @@ functionsMath =
         , mkFun "max" "Ord a => a -> a -> a"
         , mkFun "mod" "Integral a => a -> a -> a"
         ]
+
+functionsHaskell :: NonEmptySet Fun
+functionsHaskell =
+  fromRight
+    (NES.singleton (mkFun "f" "a -> b"))
+    $ parseFunctions haskellFunctionsText
 
 mkFun :: String -> String -> Fun
 mkFun name signature = Fun { name, signature }
